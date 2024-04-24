@@ -36,6 +36,59 @@ const Home = () => {
             <hr></hr>
           </div>
         </div>
+        <div className="Team">
+          <div className="Teamhead">
+            <h6>Connecting</h6>
+            <h1>Our Team</h1>
+            <h6>Meet the talented individuals behind Networkk</h6>
+          </div>
+          <div className="Teamname">
+            <h2>Aaron Thomas Blessen</h2>
+            <h3>CMO</h3>
+            <h4>Experienced strategist with a passion for innovation and growth.</h4>
+            <button>LinkedIn</button>
+            <button>Twitter</button>
+            <button>Portfolio</button>
+
+            <h2>Akshay Gopan</h2>
+            <h3>CTO</h3>
+            <h4>Tech enthusiast with expertise in developing cutting-edge solutions.</h4>
+            <button>LinkedIn</button>
+            <button>Twitter</button>
+            <button>Portfolio</button>
+
+            <h2>Alan Philip</h2>
+            <h3>COO</h3>
+            <h4>Operations expert focused on delivering exceptional user experiences.</h4>
+            <button>LinkedIn</button>
+            <button>Twitter</button>
+            <button>Portfolio</button>
+
+            <h2>Chandrasekhar C.A</h2>
+            <h3>Marketing Director</h3>
+            <h4>Strategic marketer driving brand awareness and customer acquisition.</h4>
+            <button>LinkedIn</button>
+            <button>Twitter</button>
+            <button>Portfolio</button>
+          </div>
+        </div>
+        <div className="contact">
+          <div className="contactus">
+            <h1>Contact Us</h1>
+            <h6>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.</h6>
+          </div>
+          <div class="contactdet">
+            <h3>Email</h3>
+            <h6>hello@relume.io</h6>
+            <h3>Phone</h3>
+            <h6>+1 (555) 000-0000</h6>
+            <h3>Office</h3>
+            <h6>123 Sample St, Sydney NSW 2000 AU</h6>
+          </div>
+          <div className="contactmap">
+            map here
+          </div>
+        </div>
       </div>
     );
   };
