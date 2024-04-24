@@ -1,0 +1,109 @@
+/* Global Styles */
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+button,
+input {
+  margin: 0;
+  padding: 0;
+  font-family: "Arial", sans-serif;
+}
+
+button {
+  cursor: pointer;
+}
+
+input[type="email"] {
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+/* Layout Styles */
+.Home {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Section Headers */
+.Home > div > .Teamhead,
+.Offerhead,
+.freqhead,
+.contactus,
+.newshead {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Offers Section */
+.Offers h1,
+.Offers h4,
+.offerpts h4 {
+  margin-bottom: 15px;
+}
+
+.offerpts > h6 {
+  margin-bottom: 20px;
+}
+
+/* FAQ Section */
+.freq {
+  margin-top: 40px;
+}
+
+.freqques > hr {
+  margin: 20px 0;
+}
+
+/* Team Section */
+.Teamname > h2,
+.Teamname > h3,
+.Teamname > h4 {
+  margin-bottom: 10px;
+}
+
+.Teamname > button {
+  margin-right: 5px;
+  padding: 10px 15px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+}
+
+/* Contact Section */
+.contactdet > h3,
+.contactdet > h6 {
+  margin-bottom: 10px;
+}
+
+.contactmap {
+  height: 200px; /* Placeholder height for the map */
+  background-color: #f2f2f2; /* Placeholder background for the map */
+  margin-top: 20px;
+}
+
+/* Newsletter Section */
+.news {
+  text-align: center;
+  padding: 20px 0;
+}
+
+.newshead input {
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+/* Footer Styles */
+footer {
+  text-align: center;
+  margin-top: 40px;
+}
+
+footer h6 {
+  margin: 5px 0;
+}
