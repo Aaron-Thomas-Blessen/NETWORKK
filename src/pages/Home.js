@@ -89,6 +89,28 @@ const Home = () => {
             map here
           </div>
         </div>
+        <div className="news">
+          <div className="newshead">
+            <h2>LOGO</h2>
+            <h5>Stay up to date on features and releases by joining our newsletter.</h5>
+            <input type="email" placeholder="Your Email"></input>
+            <button>Subscribe</button>
+            <h6>By subscribing, you agree to our Privacy Policy and consent to receive updates from our company.</h6>
+          </div>
+          <div className="newsfollow">
+            <h3>Follow us</h3>
+            <h4>Facebook</h4>
+            <h4>Instagram</h4>
+            <h4>Twitter</h4>
+            <h4>LinkedIn</h4>
+            <h4>Youtube</h4>
+          </div>
+        </div>
+        <hr></hr>
+        <h6>© 2024 Networkk  All rights reserved.</h6>
+        <h6>Privacy Policy</h6>
+        <h6>Terms of Service</h6>
+        <h6>Cookies Settings</h6>
       </div>
     );
   };
