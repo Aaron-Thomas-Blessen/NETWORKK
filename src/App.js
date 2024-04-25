@@ -2,8 +2,12 @@ import Home from "./pages/Home";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 import Service from "./pages/Service";
+import Navbar from "./components/nav";
+
 
 const App = () => {
+
+
   return (
     <BrowserRouter>
       <Routes>
@@ -12,6 +16,8 @@ const App = () => {
         <Route path="/dashboard" element={<Dashboard />}></Route>
       </Routes>
     </BrowserRouter>
+    
+
   );
 };
 
