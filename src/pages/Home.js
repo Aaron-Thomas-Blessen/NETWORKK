@@ -6,7 +6,7 @@ const Home = () => {
     'https://picsum.photos/1980/1080',
     'https://picsum.photos/1980/1080',
     'https://picsum.photos/1980/1080',
-    // Add more image URLs as needed
+    // Just some demo images
   ];
 
 
