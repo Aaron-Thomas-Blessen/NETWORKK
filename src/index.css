@@ -1,0 +1,135 @@
+/* Home */
+#root{
+    padding: 0px;
+}
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    padding: 0px;
+    height: 7vh;
+  }
+  
+  .navbar-logo img {
+    height: 40px;
+  }
+  
+  .nav-options {
+    list-style: none;
+    display: flex;
+  }
+  
+  .nav-options li {
+    margin-right: 20px;
+  }
+  
+  .nav-options a {
+    color: #000;
+    text-decoration: none;
+  }
+  
+  .signup-button button {
+    padding: 8px 16px;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    
+  }
+  
+  .carousel-container {
+    overflow: hidden;
+    padding: 0px;
+  }
+  
+  .carousel {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .carousel-inner {
+    display: flex;
+    transition: transform 0.5s ease;
+  }
+  
+  .carousel-slide {
+    flex: 0 0 100%;
+  }
+  
+  .carousel img {
+    width: 100%;
+    height: auto;
+  }
+  
+  .carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .prev {
+    left: 10px;
+  }
+  
+  .next {
+    right: 10px;
+  }
+
+  .two-column-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .left-column,
+  .right-column {
+    flex: 1;
+    padding: 20px;
+    border: 1px solid #000;
+  }
+  
+  .left-column {
+    margin-right: 10px; 
+  }
+
+  .left-column .btn{
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    width: 300px;
+    padding: 0px;
+  }
+
+  .left-column p{
+    margin-left: 30px;
+  }
+  
+  .right-column {
+    margin-left: 10px; 
+  }
+  
+  
+  .left-column button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #fff;
+    color: #000;
+    border: 1px solid #000;
+    
+    cursor: pointer;
+  }
+  
+  .button:hover {
+    background-color: #0056b3;
+  }
+  
+  
