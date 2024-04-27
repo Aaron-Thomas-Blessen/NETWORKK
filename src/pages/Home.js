@@ -1,5 +1,6 @@
 import Navbar from "../components/nav";
 import Carousel from "../components/carousel";
+import { SiBnbchain } from "react-icons/si";
 const Home = () => {
 
   const images = [
@@ -22,7 +23,24 @@ const TwoColumnSection = () => {
       </div>
       </div>
       <div className="right-column">
-
+        <ul>
+        <li>
+          <h3> Step 1</h3>
+          <p>Search for skilled workers in your area</p>
+        </li>
+        <li>
+          <h3>Step 1</h3>
+          <p>Search for skilled workers in your area</p>
+        </li>
+        <li>
+          <h3>Step 1</h3>
+          <p>Search for skilled workers in your area</p>
+        </li>
+        <li>
+          <h3>Step 1</h3>
+          <p>Search for skilled workers in your area</p>
+        </li>
+        </ul>
       </div>
     </div>
   );
