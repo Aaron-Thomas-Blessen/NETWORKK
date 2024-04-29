@@ -12,7 +12,6 @@ body {
 /*Offers*/
 
 .Offers {
-  width: 100vw; /* 100% of viewport width */
   height: 100vh; /* 100% of viewport height */
   margin: 0;
   padding: 0;
@@ -20,13 +19,10 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  transform: scale(1.5); /* Scale by 120% */
-  transform-origin: center; /* Keep scaling centered */
 }
 
 .Offerhead {
   text-align: center;
-  margin-bottom: 20px;
 }
 
 /*Frequently asked*/
@@ -36,6 +32,7 @@ body {
   justify-content: center;
   align-items: center;
   padding: 20px;
+  height: 600px;
 }
 
 .freqhead,
@@ -49,7 +46,7 @@ body {
 }
 
 .freqhead button {
-  background-color: #007bff;
+  background-color: #000000;
   color: #fff;
   border: none;
   padding: 10px 20px;
@@ -70,6 +67,7 @@ body {
   flex-direction: column;
   align-items: center;
   padding: 20px;
+  height: 600px;
 }
 
 .Teamhead {
@@ -106,4 +104,45 @@ body {
 .Teamname button {
   margin-right: 10px;
   margin-bottom: 10px;
+}
+
+/* Contact Us */
+
+.contact {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 700px; /* Fill the entire viewport height */
+  margin-left: 100px;
+  margin-right: 100px;
+}
+
+.contacthead {
+  display: flex;
+  flex-direction: row;
+
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.contactus,
+.contactdet {
+  width: 45%; /* Adjust width as needed */
+}
+
+.contactus {
+  text-align: left;
+}
+
+.contactdet {
+  text-align: left;
+  margin-left: 200px;
+}
+
+.contactmap {
+  width: 100%;
+  height: 300px; /* Set height as needed */
+  align-items: center;
+  justify-content: center;
 }

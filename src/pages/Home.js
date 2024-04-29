@@ -78,6 +78,7 @@ const Home = () => {
           </div>
         </div>
         <div className="contact">
+          <div className="contacthead">
           <div className="contactus">
             <h1>Contact Us</h1>
             <h6>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.</h6>
@@ -89,6 +90,7 @@ const Home = () => {
             <h6>+1 (555) 000-0000</h6>
             <h3>Office</h3>
             <h6>123 Sample St, Sydney NSW 2000 AU</h6>
+          </div>
           </div>
           <div className="contactmap">
             map here
