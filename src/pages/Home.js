@@ -1,9 +1,13 @@
 const Home = () => {
   return (
     <div className="home">
+
+      {//ALAN PHILIP CODE
+      }
+      
       <img
         className="freelancer-img"
-        src="../images/Freelance-worker.jpg"
+        src={require("../images/Freelance-worker.jpg")}
         alt="Freelance-Workers-img"
       />
 
@@ -61,8 +65,8 @@ const Home = () => {
           <div>
             <img
               className="carpenter"
-              src="carpentericon.png"
-              alt="../images/carpentryicon.jpg"
+              src={require("../images/carpentericon.png")}
+              alt="carpentryicon"
             />
             <br />
             <h4 style={{ textAlign: "center" }}>Carpentry Work</h4>
@@ -76,7 +80,7 @@ const Home = () => {
           <div>
             <img
               className="home-repair"
-              src="home repair icon.png"
+              src={require("../images/home repair icon.png")}
               alt="home-repair-icon"
             />
             <br />
@@ -88,13 +92,17 @@ const Home = () => {
           </div>
         </div>
 
-        <img className="carpenter-img" src="carpenter.jpg" alt="service-img" />
+        <img
+          className="carpenter-img"
+          src={require("../images/carpenter.jpg")}
+          alt="service-img"
+        />
 
         <div className="services-container2">
           <div>
             <img
               className="electrical"
-              src="voltmeter.png"
+              src={require("../images/voltmeter.png")}
               alt="electrical-work-icon"
             />
             <br />
@@ -107,7 +115,11 @@ const Home = () => {
           <br />
 
           <div>
-            <img className="masonry" src="brickwork.png" alt="masonry-icon" />
+            <img
+              className="masonry"
+              src={require("../images/brickwork.png")}
+              alt="masonry-icon"
+            />
             <br />
             <h4 style={{ textAlign: "center" }}>Masonry Work</h4>
             <p style={{ textAlign: "center" }}>
@@ -131,7 +143,7 @@ const Home = () => {
       <img
         className="freelancer-img"
         alt="Freelance-Workers-img"
-        src="Painter.jpg"
+        src={require("../images/Painter.jpg")}
       />
 
       <div className="mid-page-signup">
@@ -167,6 +179,10 @@ const Home = () => {
           </div>
         </div>
       </div>
+
+
+      {//AARON THOMAS BLESSEN CODE
+      }
 
       <div className="Offers">
         <div className="Offerhead">
