@@ -43,33 +43,38 @@ const Home = () => {
             <h6>Meet the talented individuals behind Networkk</h6>
           </div>
           <div className="Teamname">
-            <h2>Aaron Thomas Blessen</h2>
-            <h3>CMO</h3>
-            <h4>Experienced strategist with a passion for innovation and growth.</h4>
-            <button>LinkedIn</button>
-            <button>Twitter</button>
-            <button>Portfolio</button>
-
-            <h2>Akshay Gopan</h2>
-            <h3>CTO</h3>
-            <h4>Tech enthusiast with expertise in developing cutting-edge solutions.</h4>
-            <button>LinkedIn</button>
-            <button>Twitter</button>
-            <button>Portfolio</button>
-
-            <h2>Alan Philip</h2>
-            <h3>COO</h3>
-            <h4>Operations expert focused on delivering exceptional user experiences.</h4>
-            <button>LinkedIn</button>
-            <button>Twitter</button>
-            <button>Portfolio</button>
-
-            <h2>Chandrasekhar C.A</h2>
-            <h3>Marketing Director</h3>
-            <h4>Strategic marketer driving brand awareness and customer acquisition.</h4>
-            <button>LinkedIn</button>
-            <button>Twitter</button>
-            <button>Portfolio</button>
+            <div className="Aaron">
+              <h2>Aaron Thomas Blessen</h2>
+              <h3>CMO</h3>
+              <h4>Experienced strategist with a passion for innovation and growth.</h4>
+              <button>LinkedIn</button>
+              <button>Twitter</button>
+              <button>Portfolio</button>
+            </div>
+            <div className="Akshay">
+              <h2>Akshay Gopan</h2>
+              <h3>CTO</h3>
+              <h4>Tech enthusiast with expertise in developing cutting-edge solutions.</h4>
+              <button>LinkedIn</button>
+              <button>Twitter</button>
+              <button>Portfolio</button>
+            </div>
+            <div className="Alan">
+              <h2>Alan Philip</h2>
+              <h3>COO</h3>
+              <h4>Operations expert focused on delivering exceptional user experiences.</h4>
+              <button>LinkedIn</button>
+              <button>Twitter</button>
+              <button>Portfolio</button>
+            </div>
+            <div className="Chand">
+              <h2>Chandrasekhar C.A</h2>
+              <h3>Marketing Director</h3>
+              <h4>Strategic marketer driving brand awareness and customer acquisition.</h4>
+              <button>LinkedIn</button>
+              <button>Twitter</button>
+              <button>Portfolio</button>
+            </div>
           </div>
         </div>
         <div className="contact">
