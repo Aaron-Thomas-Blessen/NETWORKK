@@ -1,3 +1,10 @@
+
+
+
+
+
+
+
 /*AARON THOMAS BLESSEN CSS*/
 
 /*General*/
@@ -145,4 +152,75 @@ body {
   height: 300px; /* Set height as needed */
   align-items: center;
   justify-content: center;
+}
+
+/*NewsLetter*/
+
+.news {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px; /* Ensures vertical centering */
+}
+
+.newshead,
+.newsfollow {
+  width: 45%; /* Adjust width as needed */
+  text-align: left;
+  margin-left: 80px;
+}
+
+.newsfollow {
+  margin-left: 10%; /* Add some space between the sections */
+}
+
+.newshead h2 {
+  margin-top: 0;
+}
+
+.newshead input[type="email"],
+.newshead button {
+  display: inline-block; /* Make email input and button inline */
+  vertical-align: middle; /* Align elements vertically */
+}
+
+.newshead button {
+  margin-left: 5px; /* Add space between email input and button */
+}
+
+.newshead h6 {
+  margin-top: 10px;
+  font-size: 12px;
+}
+
+.newsfollow h3 {
+  margin-top: 0;
+}
+
+.newsfollow h4 {
+  margin: 10px 0;
+}
+
+/*footer*/
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 50px;
+}
+
+.footer h6 {
+  margin: 0;
+}
+
+.footer .left {
+  order: 1; /* Place on the left side */
+}
+
+.footer .right {
+  display: flex;
+  flex-direction: row;
+  gap: 20px; /* Adjust the space between items */
+  order: 2; /* Place on the right side */
 }
