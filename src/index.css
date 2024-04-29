@@ -1,6 +1,345 @@
 
 
+/* AKSHAY GOPAN CSS */
 
+/* Home */
+#root{
+  padding: 0px;
+}
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  padding: 0px;
+  height: 7vh;
+}
+
+.navbar-logo img {
+  height: 40px;
+}
+
+.nav-options {
+  list-style: none;
+  display: flex;
+}
+
+.nav-options li {
+  margin-right: 20px;
+}
+
+.nav-options a {
+  color: #000;
+  text-decoration: none;
+}
+
+.signup-button button {
+  padding: 8px 16px;
+  background-color: #000;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  
+}
+
+.carousel-container {
+  overflow: hidden;
+  padding: 0px;
+}
+
+.carousel {
+  position: relative;
+  overflow: hidden;
+}
+
+.carousel-inner {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+.carousel-slide {
+  flex: 0 0 100%;
+}
+
+.carousel img {
+  width: 100%;
+  height: auto;
+}
+
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.prev {
+  left: 10px;
+}
+
+.next {
+  right: 10px;
+}
+
+.two-column-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: normal;
+  margin-bottom: 20px;
+  padding: 0px;
+
+}
+
+.left-column,
+.right-column {
+  flex: 1;
+  padding: 20px;
+  margin-top: 30px;
+  
+}
+
+.left-column {
+  margin-right: 10px; 
+  margin-top: 0px;
+}
+
+.left-column .btn{
+  display: flex;
+  justify-content: left;
+  align-items: flex-start;
+  width: 300px;
+  padding: 0px;
+}
+
+.left-column p{
+  margin-left: 30px;
+}
+
+.right-column {
+  font-weight: 600;
+  
+ 
+}
+
+
+.left-column button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #fff;
+  color: #000;
+  border: 1px solid #000;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #0056b3;
+}
+
+
+
+/* ALAN PHILIP CSS */
+.freelancer-img{
+  display: flex;
+  float: right;
+  width: 50%;
+  height: auto;
+  padding-top: 8vh;
+  margin-right: 20px;
+  
+}
+
+.text-container {
+  float: left;
+  width: 45%;
+}
+
+
+.flex-container1{
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 3%;
+ 
+}
+
+.flex-container2{
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-left: 5.5%;
+}
+
+.flex-container3{
+  display: flex;
+  align-items: center;
+  float: left;
+  width: 40%;
+  margin-left: 5%;
+  margin-top: 2%;
+  
+}
+
+.flex-container3 > div{
+  margin: 10px;
+  
+}
+
+section{
+  display: flex;
+  float: center;
+  width: 100%;
+  flex-wrap: wrap;
+  padding-top: 15vh;
+}
+
+.section__text{
+  max-width: 50%;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+}
+
+.center-text{
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.carpenter-img{
+  display: block;
+  max-width: 50%;
+  margin: 0 auto;
+  padding-top: 5vh;
+  padding-bottom: 5vh;
+}
+
+.services-container1{
+  display: block;
+  align-items: center;
+  float: left;
+  width: 15%;
+  margin-left: 2%;
+  padding-top: 10vh;
+  
+}
+
+.carpenter{
+  
+  display: flex;
+  width: 30px;
+  height: 30px;
+  float: left;
+  flex-wrap: wrap;
+  padding-left: 12vh;
+}
+
+.home-repair{
+  
+  display: flex;
+  width: 30px;
+  height: 30px;
+  float: left;
+  flex-wrap: wrap;
+  padding-left: 12vh;
+}
+
+.services-container2 {
+  display: block;
+  align-items: center;
+  float: right;
+  width: 15%;
+  margin-right: 2%;
+  padding-top: 11vh;
+  
+}
+
+.electrical{
+  display: flex;
+  width: 30px;
+  height: 30px;
+  float: right;
+  flex-wrap: wrap;
+  padding-right: 12vh;
+}
+
+.masonry{
+  display: flex;
+  width: 30px;
+  height: 30px;
+  float: right;
+  flex-wrap: wrap;
+  padding-right: 12vh;
+}
+
+.button-container1{
+  display: flex;
+  max-width: 10%;
+  margin: 0 auto;
+  margin-bottom: 10%;
+}
+
+.explore{
+  margin-right: 2vh;
+  padding: 1vh;
+  background-color: white;
+  
+  
+}
+
+.signup{
+  border: none;
+  padding: 1vh;
+  background: none;
+  flex-wrap: nowrap;
+}
+
+.mid-page-signup{
+  display: flex;
+  max-width: 70%;
+  text-align: center;
+  
+}
+  
+.flex-container4{
+  display: flex;
+  margin: 2%;
+  font-size: 1rem;
+}
+
+.flex-container5{
+  display: flex;
+  margin-left: 12%;
+}
+
+.signup1{
+  margin-right: 2vh;
+  padding: 9px;
+  background-color: black;
+  border: none;
+  
+}
+
+.button-container2{
+  display: flex;
+  padding: 5%;
+  margin-left: 1%;
+  padding-bottom: 60%;
+}
+
+.login1{
+  display: flex;
+  padding: 7px; 
+  flex-wrap: nowrap;
+  padding-right: 3vh;
+  justify-content: center;
+  background: none;
+  flex-wrap: nowrap;
+
+}
 
 
 

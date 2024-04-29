@@ -1,6 +1,173 @@
 const Home = () => {
   return (
-    <div className="Home">
+    <div className="home">
+      <img
+        className="freelancer-img"
+        src="../images/Freelance-worker.jpg"
+        alt="Freelance-Workers-img"
+      />
+
+      <div
+        className="flex-container1"
+        style={{
+          fontFamily:
+            "'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif",
+        }}
+      >
+        <h1>Find Skilled Workers Nearby for Your Freelance Projects</h1>
+      </div>
+
+      <div className="flex-container2">
+        <p>
+          Networkk connects you with skilled workers in your area, providing
+          convenient access to local job opportunities and trusted verified
+          services.
+        </p>
+      </div>
+
+      <div className="flex-container3">
+        <div>
+          <h4>Convenience</h4>
+          <p>
+            Easily find and hire skilled workers for your projects, saving you
+            time and effort.
+          </p>
+        </div>
+        <div>
+          <h4>Local Job Opportunities</h4>
+          <p>
+            Discover job opportunities in your area and connect with employers
+            seeking your skills.
+          </p>
+        </div>
+      </div>
+
+      <section id="services-home-container">
+        <div className="center-text">
+          <h1>Discover a Diverse Range of Services on Networkk</h1>
+          <p className="section__text">
+            Networkk is your go-to platform for finding skilled workers in your
+            area. Whether you need a carpenter, plumber, electrician, or any
+            other service provider, we've got you covered. Our diverse range of
+            services ensures that you can easily find the right professional for
+            your needs. With Networkk, you can trust that you're hiring
+            experienced professionals who will deliver high-quality work. Don't
+            settle for anything less than the best - explore our services today
+            and get your project started with ease.
+          </p>
+        </div>
+
+        <div className="services-container1">
+          <div>
+            <img
+              className="carpenter"
+              src="carpentericon.png"
+              alt="../images/carpentryicon.jpg"
+            />
+            <br />
+            <h4 style={{ textAlign: "center" }}>Carpentry Work</h4>
+            <p style={{ textAlign: "center" }}>
+              Carpenters are skilled craftsmen who specialize in the
+              construction of wooden furniture and other wooden structures.
+            </p>
+          </div>
+          <br />
+
+          <div>
+            <img
+              className="home-repair"
+              src="home repair icon.png"
+              alt="home-repair-icon"
+            />
+            <br />
+            <h4 style={{ textAlign: "center" }}>Home Repairs and Renovation</h4>
+            <p style={{ textAlign: "center" }}>
+              Hire experienced professionals for all your home repair,
+              maintenance, and renovation needs.
+            </p>
+          </div>
+        </div>
+
+        <img className="carpenter-img" src="carpenter.jpg" alt="service-img" />
+
+        <div className="services-container2">
+          <div>
+            <img
+              className="electrical"
+              src="voltmeter.png"
+              alt="electrical-work-icon"
+            />
+            <br />
+            <h4 style={{ textAlign: "center" }}>Electrical Work</h4>
+            <p style={{ textAlign: "center" }}>
+              Find skilled workers in your area for all your home's electrical
+              and wiring needs.
+            </p>
+          </div>
+          <br />
+
+          <div>
+            <img className="masonry" src="brickwork.png" alt="masonry-icon" />
+            <br />
+            <h4 style={{ textAlign: "center" }}>Masonry Work</h4>
+            <p style={{ textAlign: "center" }}>
+              Masonry workers are the skilled people you may hire to do all your
+              construction and building works.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <div className="button-container1">
+        <div>
+          <button className="explore">Explore</button>
+        </div>
+
+        <div>
+          <button className="signup">Sign Up</button>
+        </div>
+      </div>
+
+      <img
+        className="freelancer-img"
+        alt="Freelance-Workers-img"
+        src="Painter.jpg"
+      />
+
+      <div className="mid-page-signup">
+        <div className="text-container1">
+          <div
+            className="flex-container4"
+            style={{
+              fontFamily:
+                "'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif",
+            }}
+          >
+            <h1>Find Skilled Workers Near You</h1>
+          </div>
+
+          <div className="flex-container5">
+            <p style={{ marginLeft: "-4vh" }}>
+              Connect with talented freelancers for all your service needs.
+            </p>
+          </div>
+
+          <div className="button-container2">
+            <div>
+              <button style={{ color: "white" }} className="signup1">
+                Sign Up
+              </button>
+            </div>
+
+            <div>
+              <div className="mid-login">
+                <button className="login1">Log In</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div className="Offers">
         <div className="Offerhead">
           <h1>What Network Offers</h1>
@@ -108,7 +275,7 @@ const Home = () => {
               Suspendisse varius enim in eros elementum tristique.
             </h6>
           </div>
-          <div class="contactdet">
+          <div className="contactdet">
             <h3>Email</h3>
             <h6>hello@relume.io</h6>
             <h3>Phone</h3>
