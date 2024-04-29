@@ -333,7 +333,7 @@ body {
 /*Offers*/
 
 .Offers {
-  height: 100vh; /* 100% of viewport height */
+  height: 400px; /* 100% of viewport height */
   margin: 0;
   padding: 0;
   display: flex;
@@ -353,7 +353,7 @@ body {
   justify-content: center;
   align-items: center;
   padding: 20px;
-  height: 600px;
+  height: 400px;
 }
 
 .freqhead,
