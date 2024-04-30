@@ -37,12 +37,12 @@ const Carousel = ({ images }) => {
             </div>
           ))}
         </div>
-        <button className="carousel-btn prev" onClick={prevSlide}>
+        {/* <button className="carousel-btn prev" onClick={prevSlide}>
           &lt;
         </button>
         <button className="carousel-btn next" onClick={nextSlide}>
           &gt;
-        </button>
+        </button> */}
       </div>
     </div>
   );
