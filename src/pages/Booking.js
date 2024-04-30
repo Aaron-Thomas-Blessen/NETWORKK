@@ -9,7 +9,7 @@ const Booking = () => {
             <h1 className="text-xl font-bold mb-4">Book Appointment</h1>
             <input type="date" placeholder="Choose Date" className="mb-2 border rounded p-2 w-full"></input>
             <input type="text" placeholder="Input the Google Map Location" className="mb-2 border rounded p-2 w-full"></input>
-            <textarea placeholder="Input the Google Map Location" className="mb-2 border rounded p-2 w-full"></textarea>
+            <textarea placeholder="Work Description" className="mb-2 border rounded p-2 w-full"></textarea>
           </div>
         </div>
         <div className="w-2/5 p-4 bg-gray-200">
