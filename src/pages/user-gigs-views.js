@@ -1,20 +1,26 @@
 import React from 'react';
-import { SlMagnifier } from "react-icons/sl";
+import { SlHeart, SlShare } from "react-icons/sl";
+
 
 
 
 const UserGigView = () => {
   return (
-    <div className="flex justify-between items-center bg-gray-200 p-4">
-      <div className="flex items-center">
-        <img src="path_to_your_logo" alt="Logo" className="h-10 mr-2" />
-
+    <>
+      <div className="flex justify-between items-center bg-gray-200 p-4">
+        <div className="flex items-center">
+          <img src="path_to_your_logo" alt="Logo" className="h-10 mr-2" />
+        </div>
       </div>
-      <div className="relative w-100">
-      <input type="text" placeholder="What ypu are looking for..." className="p-2 pl-10 rounded border border-gray-300 w-full" />
-      <SlMagnifier className="h-6 w-6 absolute top-1/2 left-3 transform -translate-y-1/2 text-gray-400" />
-    </div>
-    </div>
+      <div className="flex justify-between items-center  p-4">
+        <div></div> {/* Left side blank */}
+        <div className="flex items-center space-x-4">
+          <SlHeart className="h-6 w-6 text-gray-400 cursor-pointer" />
+          <SlShare className="h-6 w-6 text-gray-400 cursor-pointer" />
+        </div>
+      </div>
+      <div></div>
+    </>
   );
 };
 
