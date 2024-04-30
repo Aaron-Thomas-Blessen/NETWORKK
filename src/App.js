@@ -2,8 +2,8 @@ import Home from "./pages/Home";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 import Service from "./pages/Service";
-import Navbar from "./components/nav";
 import UserGigView from "./pages/user-gigs-views";
+
 
 
 const App = () => {
@@ -18,6 +18,7 @@ const App = () => {
     //   </Routes>
     // </BrowserRouter>
     <UserGigView />    
+    
 
   );
 };
