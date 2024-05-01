@@ -6,6 +6,8 @@ import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import Admin from "./pages/Admin";
 import Booking from "./pages/Booking";
+import UserProfilePage from "./pages/UserProfilePage";
+import SellerProfilePage from "./pages/SellerProfilePage";
 
 import { IsSignedUpProvider } from "./Context/Context";
 
@@ -21,6 +23,8 @@ const App = () => {
           <Route path="/signin" element={<SignIn />}></Route>
           <Route path="/Admin" element={<Admin />}></Route>
           <Route path="/Booking" element={<Booking />}></Route>
+          <Route path="/UserProfilePage" element={<UserProfilePage />}></Route>
+        <Route path="/SellerProfilePage" element={<SellerProfilePage />}></Route>
         </Routes>
       </IsSignedUpProvider>
     </BrowserRouter>

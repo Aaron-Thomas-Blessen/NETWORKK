@@ -49,7 +49,7 @@ const Home = () => {
   const Two = () => {
     return (
       <div className="home bg-offwhite py-10">
-        <img className="freelancer-img mx-auto" src="https://path.to/Freelance-worker.jpg" alt="Freelance Workers"/>
+        <img className="freelancer-img mx-auto" src={require("../images/Freelance-worker.jpg")} alt="Freelance Workers"/>
         <div className="text-center p-4 font-myfont">
           <h1 className="text-4xl">Find Skilled Workers Nearby for Your Freelance Projects</h1>
         </div>
@@ -77,13 +77,13 @@ const Home = () => {
         {/* Example for one service block */}
         <div className="grid grid-cols-2 gap-4 p-4">
           <div className="text-center">
-            <img className="mx-auto" src="https://path.to/carpentericon.png" alt="Carpentry Work"/>
+            <img className="mx-auto" src={require("../images/carpentericon.png")} alt="Carpentry Work"/>
             <h4 className="text-lg font-semibold mt-2">Carpentry Work</h4>
             <p>Carpenters are skilled craftsmen who specialize in the construction of wooden furniture and other wooden structures.</p>
           </div>
           {/*
           <div className="text-center">
-            <img className="mx-auto" src="https://path.to/home-repair-icon.png" alt="Home Repairs and Renovation"/>
+            <img className="mx-auto" src={require("../images/path.to/home repair icon.png")} alt="Home Repairs and Renovation"/>
             <h4 className="text-lg font-semibold mt-2">Home Repairs and Renovation</h4>
             <p>Hire experienced professionals for all your home repair, maintenance, and renovation needs.</p>
           </div>
@@ -95,12 +95,12 @@ const Home = () => {
         </div>
         <div className="grid grid-cols-2 gap-4 p-4">
           <div className="text-center">
-            <img className="mx-auto" src="https://path.to/electrical-icon.png" alt="Electrical Work"/>
+            <img className="mx-auto" src={require("../images/voltmeter.png")} alt="Electrical Work"/>
             <h4 className="text-lg font-semibold mt-2">Electrical Work</h4>
             <p>Find skilled workers in your area for all your home's electrical and wiring needs.</p>
           </div>
           <div className="text-center">
-            <img className="mx-auto" src="https://path.to/masonry-icon.png" alt="Masonry Work"/>
+            <img className="mx-auto" src={require("../images/brickwork.png")} alt="Masonry Work"/>
             <h4 className="text-lg font-semibold mt-2">Masonry Work</h4>
             <p>Masonry workers are the skilled people you may hire to do all your construction and building works.</p>
           </div>
@@ -152,7 +152,7 @@ const Home = () => {
         {/* Contact and Footer */}
         <div className="bg-gray-100 py-10">
         <div className="text-center">
-            <img className="mx-auto" src="https://path.to/home_repair_icon.png" alt="Home Repairs and Renovation"/>
+            <img className="mx-auto" src={require("../images/Painter.jpg")} alt="Home Repairs and Renovation"/>
             <h4 className="text-lg font-semibold mt-2">Home Repairs and Renovation</h4>
             <p>Hire experienced professionals for all your home repair, maintenance, and renovation needs.</p>
           </div>
@@ -161,7 +161,7 @@ const Home = () => {
           <button className="bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 transition-colors">Explore</button>
           <button className="bg-green-500 text-white font-bold py-2 px-4 rounded hover:bg-green-700 transition-colors">Sign Up</button>
         </div>
-        <img className="freelancer-img mx-auto mt-5" src="https://path.to/Painter.jpg" alt="Freelance Workers"/>
+        <img className="freelancer-img mx-auto mt-5" src={require("../images/Painter.jpg")} alt="Freelance Workers"/>
         <div className="text-center py-5">
           <div className="font-myfont">
             <h1 className="text-4xl">Find Skilled Workers Near You</h1>
