@@ -8,6 +8,7 @@ import Admin from "./pages/Admin";
 import Booking from "./pages/Booking";
 import UserProfilePage from "./pages/UserProfilePage";
 import SellerProfilePage from "./pages/SellerProfilePage";
+import Gigcreate from "./pages/Gigcreate";
 
 import { IsSignedUpProvider } from "./Context/Context";
 
@@ -24,7 +25,8 @@ const App = () => {
           <Route path="/Admin" element={<Admin />}></Route>
           <Route path="/Booking" element={<Booking />}></Route>
           <Route path="/UserProfilePage" element={<UserProfilePage />}></Route>
-        <Route path="/SellerProfilePage" element={<SellerProfilePage />}></Route>
+          <Route path="/SellerProfilePage" element={<SellerProfilePage />}></Route>
+          <Route path="/Gigcreate" element={<Gigcreate />}></Route>
         </Routes>
       </IsSignedUpProvider>
     </BrowserRouter>
