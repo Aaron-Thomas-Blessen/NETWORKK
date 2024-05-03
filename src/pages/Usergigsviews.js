@@ -2,8 +2,7 @@ import React from "react";
 import { SlHeart, SlShare, SlStar } from "react-icons/sl";
 import Carousel from "../components/carousel";
 import MyCalendar from "../components/calender";
-
-
+import Navsign from "../components/navsign";
 
 const Images = [
   "https://picsum.photos/1980/1080",
@@ -75,17 +74,17 @@ const ContactBox = ({ phno, email }) => {
 
 const ReviewBox = ({ name, rating, review }) => {
   return (
-    <div className="bg-slate-200 w-80 items-center p-3 shadow-md rounded-md" >
+    <div className="bg-slate-200 w-80 items-center p-3 shadow-md rounded-md">
       <div className="flex items-center mt-4">
-            {Array.from({ length: rating }).map((_, index) => (
-              <SlStar key={index} className="h-5 w-5 text-yellow-500" />
-            ))}
+        {Array.from({ length: rating }).map((_, index) => (
+          <SlStar key={index} className="h-5 w-5 text-yellow-500" />
+        ))}
       </div>
       <p className="font-medium">{review}</p>
       <p className="font-medium">{name}</p>
     </div>
-  )
-}
+  );
+};
 
 const ProfileLayout = () => {
   return (
@@ -110,30 +109,33 @@ const ProfileLayout = () => {
 };
 
 const UserGigView = () => {
+  const Gigview = () => {
+    return (
+      <>
+        <div className="flex justify-between items-center  p-4">
+          <div></div> {/* Left side blank */}
+          <div className="flex items-center space-x-4 m-5">
+            <SlHeart className="h-6 w-6 mr-5 text-gray-400 cursor-pointer" />
+            <SlShare className="h-6 w-6 text-gray-400 cursor-pointer" />
+          </div>
+        </div>
+        <div>
+          <ProfileLayout />
+        </div>
+        <div className=" flex flex-row justify-evenly mt-12 px-3">
+          <ReviewBox name="Alan" rating={5} review="He is cool!" />
+          <ReviewBox name="Akahay" rating={5} review="He is cool!" />
+          <ReviewBox name="Aaron" rating={5} review="He is cool!" />
+          <ReviewBox name="Chandu" rating={5} review="He is cool!" />
+        </div>
+      </>
+    );
+  };
   return (
-    <>
-      <div className="flex justify-between items-center bg-gray-200 p-4">
-        <div className="flex items-center">
-          <img src="path_to_your_logo" alt="Logo" className="h-10 mr-2" />
-        </div>
-      </div>
-      <div className="flex justify-between items-center  p-4">
-        <div></div> {/* Left side blank */}
-        <div className="flex items-center space-x-4 m-5">
-          <SlHeart className="h-6 w-6 mr-5 text-gray-400 cursor-pointer" />
-          <SlShare className="h-6 w-6 text-gray-400 cursor-pointer" />
-        </div>
-      </div>
-      <div>
-        <ProfileLayout />
-      </div>
-      <div className=" flex flex-row justify-evenly mt-12 px-3">
-        <ReviewBox name="Alan" rating={5} review="He is cool!" />
-        <ReviewBox name="Akahay" rating={5} review="He is cool!" />
-        <ReviewBox name="Aaron" rating={5} review="He is cool!" />
-        <ReviewBox name="Chandu" rating={5} review="He is cool!" />
-      </div>
-    </>
+    <div className="usertot">
+      <Navsign />
+      <Gigview />
+    </div>
   );
 };
 
