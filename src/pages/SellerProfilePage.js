@@ -12,7 +12,7 @@ const SellerProfilePage = () => {
     );
   };
   return (
-    <div className="Gigcreate">
+    <div className="sellertot">
       <Navsign />
       <Seller />
     </div>

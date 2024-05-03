@@ -25,7 +25,7 @@ const GigsSearch = () => {
   );
 }
 return(
-    <div className="Gigcreate">
+    <div className="Gigsearch">
         <Navsign />
         <Search />
     </div>
