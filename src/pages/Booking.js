@@ -1,4 +1,4 @@
-import Navbar from "../components/nav";
+import Navsign from "../components/navsign";
 
 const Booking = () => {
   const Book = () => {
@@ -30,7 +30,7 @@ const Booking = () => {
 
   return (
     <div className="Booking">
-      <Navbar />
+      <Navsign />
       <Book />
     </div>
   );
