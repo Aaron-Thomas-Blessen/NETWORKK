@@ -1,14 +1,16 @@
 import Navbar from "../components/nav";
 import Carousel from "../components/carousel";
 import { SiBnbchain } from "react-icons/si";
+
+
 const Home = () => {
 
-  const images = [
+const Images = [
     'https://picsum.photos/1980/1080',
     'https://picsum.photos/1980/1080',
-    'https://picsum.photos/1980/1080',
-    // Just some demo images
-  ];
+    'https://picsum.photos/1980/1080'
+    // Just some demo images for carousel
+];
 
 
 const TwoColumnSection = () => {
@@ -50,7 +52,7 @@ const TwoColumnSection = () => {
     return(
     <div className="home">
       <Navbar />
-      <Carousel images={images} />
+      <Carousel images={Images} />
       <TwoColumnSection />
     </div>
     );
