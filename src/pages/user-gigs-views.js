@@ -73,8 +73,14 @@ const ContactBox = ({ phno, email }) => {
 
 const ReviewBox = ({ name, rating, review }) => {
   return (
-    <div>
-      
+    <div className="bg-slate-200 w-80 items-center p-3 shadow-md rounded-md" >
+      <div className="flex items-center mt-4">
+            {Array.from({ length: rating }).map((_, index) => (
+              <SlStar key={index} className="h-5 w-5 text-yellow-500" />
+            ))}
+      </div>
+      <p className="font-medium">{review}</p>
+      <p className="font-medium">{name}</p>
     </div>
   )
 }
@@ -119,8 +125,11 @@ const UserGigView = () => {
       <div>
         <ProfileLayout />
       </div>
-      <div>
-
+      <div className=" flex flex-row justify-evenly mt-12 px-3">
+        <ReviewBox name="Alan" rating={5} review="He is cool!" />
+        <ReviewBox name="Akahay" rating={5} review="He is cool!" />
+        <ReviewBox name="Aaron" rating={5} review="He is cool!" />
+        <ReviewBox name="Chandu" rating={5} review="He is cool!" />
       </div>
     </>
   );
