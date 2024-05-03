@@ -1,12 +1,8 @@
 import { SlMagnifier } from "react-icons/sl";
 
-
 const GigsSearch = () => {
   return (
     <>
-        <div className="flex justify-between items-center bg-gray-200 p-4">
-          <img src="path_to_logo" alt="Logo" className="h-10 mr-2" />
-        </div>
 
         <div className="flex flex-row w-full justify-center mt-16 ">
         <input
