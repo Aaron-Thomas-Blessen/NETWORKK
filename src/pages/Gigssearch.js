@@ -1,6 +1,8 @@
 import { SlMagnifier } from "react-icons/sl";
+import Navsign from "../components/navsign";
 
 const GigsSearch = () => {
+  const Search = () => {
   return (
     <>
 
@@ -21,6 +23,13 @@ const GigsSearch = () => {
         
     </>
   );
+}
+return(
+    <div className="Gigcreate">
+        <Navsign />
+        <Search />
+    </div>
+);
 };
 
 export default GigsSearch;
