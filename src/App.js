@@ -9,6 +9,8 @@ import Booking from "./pages/Booking";
 import UserProfilePage from "./pages/UserProfilePage";
 import SellerProfilePage from "./pages/SellerProfilePage";
 import Gigcreate from "./pages/Gigcreate";
+import Gigssearch from "./pages/Gigssearch";
+import Usergigsviews from "./pages/Usergigsviews";
 
 import { IsSignedUpProvider } from "./Context/Context";
 
@@ -27,6 +29,8 @@ const App = () => {
           <Route path="/UserProfilePage" element={<UserProfilePage />}></Route>
           <Route path="/SellerProfilePage" element={<SellerProfilePage />}></Route>
           <Route path="/Gigcreate" element={<Gigcreate />}></Route>
+          <Route path="/Gigssearch" element={<Gigssearch />}></Route>
+          <Route path="/Usergigsviews" element={<Usergigsviews />}></Route>
         </Routes>
       </IsSignedUpProvider>
     </BrowserRouter>

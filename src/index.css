@@ -10,3 +10,143 @@
     font-family: "Oxanium", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
   }
 }
+
+/* Home */
+#root{
+  padding: 0px;
+}
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  padding: 0px;
+  height: 7vh;
+}
+
+.navbar-logo img {
+  height: 40px;
+}
+
+.nav-options {
+  list-style: none;
+  display: flex;
+}
+
+.nav-options li {
+  margin-right: 20px;
+}
+
+.nav-options a {
+  color: #000;
+  text-decoration: none;
+}
+
+.signup-button button {
+  padding: 8px 16px;
+  background-color: #000;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  
+}
+
+.carousel-container {
+  overflow: hidden;
+  padding: 0px;
+}
+
+.carousel {
+  position: relative;
+  overflow: hidden;
+}
+
+.carousel-inner {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+.carousel-slide {
+  flex: 0 0 100%;
+}
+
+.carousel img {
+  width: 100%;
+  height: auto;
+}
+
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  border: 1px solid white;
+  color: white;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.prev {
+  left: 10px;
+}
+
+.next {
+  right: 10px;
+}
+
+.two-column-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: normal;
+  margin-bottom: 20px;
+  padding: 0px;
+
+}
+
+.left-column,
+.right-column {
+  flex: 1;
+  padding: 20px;
+  margin-top: 30px;
+  
+}
+
+.left-column {
+  margin-right: 10px; 
+  margin-top: 0px;
+}
+
+.left-column .btn{
+  display: flex;
+  justify-content: left;
+  align-items: flex-start;
+  width: 300px;
+  padding: 0px;
+}
+
+.left-column p{
+  margin-left: 30px;
+}
+
+.right-column {
+  font-weight: 600;
+  
+ 
+}
+
+
+.left-column button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #fff;
+  color: #000;
+  border: 1px solid #000;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #0056b3;
+}
+
