@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 import Service from "./pages/Service";
 import UserGigView from "./pages/user-gigs-views";
+import GigsSearch from "./pages/gigs-search";
 
 
 
@@ -17,7 +18,7 @@ const App = () => {
     //     <Route path="/dashboard" element={<Dashboard />}></Route>
     //   </Routes>
     // </BrowserRouter>
-    <UserGigView />    
+    <GigsSearch />    
     
 
   );
