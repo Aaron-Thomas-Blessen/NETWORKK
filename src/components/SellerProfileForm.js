@@ -34,10 +34,10 @@ const SellerProfileForm = () => {
         </div>
         <div className="mb-4">
           <label htmlFor="policeClearanceCert" className="block text-sm font-medium text-gray-700">Police Clearance Certificate</label>
-          <input type="file" id="policeClearanceCert" name="policeClearanceCert" className="mt-1 block w-full"/>
+          <input type="file" id="policeClearanceCert" name="policeClearanceCert" className="mb-8 mt-1 block w-full "/>
         </div>
         <div className="mb-4">
-          <button type="submit" className="bg-black text-white px-6 py-2 rounded-md hover:bg-gray-800 block mx-auto">Save</button> {/* Updated button */}
+          <button type="submit" className="bg-black text-white px-12 py-2 rounded-md hover:bg-gray-800 block mx-auto">Save</button> {/* Updated button */}
         </div>
       </form>
     </div>
