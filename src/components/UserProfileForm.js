@@ -3,7 +3,6 @@ import React from 'react';
 const UserProfileForm = () => {
   return (
     <div className="mx-auto max-w-md p-6 bg-white shadow-md rounded-md">
-      <h2 className="text-2xl font-semibold mb-4">User Profile</h2>
       <form>
         <div className="mb-4">
           <label htmlFor="username" className="block text-sm font-medium text-gray-700">Username</label>
@@ -31,10 +30,12 @@ const UserProfileForm = () => {
         </div>
         <div className="mb-4">
           <label htmlFor="profilePic" className="block text-sm font-medium text-gray-700">Profile Picture</label>
-          <input type="file" id="profilePic" name="profilePic" className="mt-1 block w-full"/>
+          <input type="file" id="profilePic" name="profilePic" className=" mb-8 mt-1 block w-full"/>
         </div>
-        <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Save</button>
-      </form>
+        <div className="mb-4">
+          <button type="submit" className="bg-black text-white px-12 py-2 rounded-md hover:bg-gray-800 block mx-auto">Save</button> {/* Updated button */}
+        </div>
+        </form>
     </div>
   );
 }
