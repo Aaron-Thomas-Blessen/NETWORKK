@@ -201,35 +201,36 @@ const Home = () => {
           </div>
         </section>
 
-        <img
-          className="freelancer-img"
-          alt="Freelance-Workers-img"
-          src={require("../images/Painter.jpg")}
-        />
-
-        <div className="mid-page-signup py-8">
-          <div className="text-container1 text-center">
-            <h1 className="text-4xl font-bold">
-              Find Skilled Workers Near You
-            </h1>
-            <div className="flex-container5 py-4">
-              <p>
-                Connect with talented freelancers for all your service needs.
-              </p>
-            </div>
-            <div className="button-container2 flex justify-center">
-              <div className="mx-4">
-                <button className="signup1 px-6 py-3 bg-blue-500 text-white rounded-lg">
-                  Sign Up
-                </button>
+        <div className="flex flex-col lg:flex-row items-center justify-center lg:justify-start lg:mr-8 mb-8 lg:mb-0">
+          <div className="mid-page-signup py-8 lg:w-1/2 lg:pr-8">
+            <div className="text-container1 text-center lg:text-center lg:text-left">
+              <h1 className="text-4xl font-bold mb-4">
+                Find Skilled Workers Near You
+              </h1>
+              <div className="flex-container5 py-4">
+                <p>
+                  Connect with talented freelancers for all your service needs.
+                </p>
               </div>
-              <div className="mx-4">
-                <button className="login1 px-6 py-3 bg-gray-500 text-white rounded-lg">
-                  Log In
-                </button>
+              <div className="button-container2 flex justify-center lg:justify-center lg:justify-start">
+                <div className="mx-4">
+                  <button className="signup1 px-6 py-3 bg-black text-white rounded-lg hover:bg-gray-800 hover:text-white">
+                    Sign Up
+                  </button>
+                </div>
+                <div className="mx-4">
+                  <button className="login1 px-6 py-3 bg-white text-black rounded-lg hover:bg-gray-200 hover:text-black">
+                    Log In
+                  </button>
+                </div>
               </div>
             </div>
           </div>
+          <img
+            className="freelancer-img mb-4 lg:mb-0"
+            alt="Freelance-Workers-img"
+            src={require("../images/Painter.jpg")}
+          />
         </div>
       </div>
     );
