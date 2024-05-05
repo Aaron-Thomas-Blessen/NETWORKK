@@ -97,96 +97,109 @@ const Home = () => {
         </div>
 
         <section id="services-home-container" className="py-12">
-  <div className="container mx-auto px-4">
-    <div className="text-center">
-      <h1 className="text-4xl font-bold mb-8">Discover a Diverse Range of Services on Networkk</h1>
-      <p className="text-base text-gray-700 px-48 mb-8">
-        Networkk is your go-to platform for finding skilled workers in your area. Whether you need a carpenter, plumber, electrician, or any other service provider, we've got you covered. Our diverse range of services ensures that you can easily find the right professional for your needs. With Networkk, you can trust that you're hiring experienced professionals who will deliver high-quality work. Don't settle for anything less than the best - explore our services today and get your project started with ease.
-      </p>
-    </div>
+          <div className="container mx-auto px-4">
+            <div className="text-center">
+              <h1 className="text-4xl font-bold mb-8">
+                Discover a Diverse Range of Services on Networkk
+              </h1>
+              <p className="text-base text-gray-700 px-48 mb-8">
+                Networkk is your go-to platform for finding skilled workers in
+                your area. Whether you need a carpenter, plumber, electrician,
+                or any other service provider, we've got you covered. Our
+                diverse range of services ensures that you can easily find the
+                right professional for your needs. With Networkk, you can trust
+                that you're hiring experienced professionals who will deliver
+                high-quality work. Don't settle for anything less than the best
+                - explore our services today and get your project started with
+                ease.
+              </p>
+            </div>
 
+            <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
+              <div className="lg:col-span-1">
+                <div className="text-center">
+                  <img
+                    className="mx-auto mb-2 w-8 h-auto"
+                    src={require("../images/carpentericon.png")}
+                    alt="carpentryicon"
+                  />
+                  <h4 className="text-lg font-semibold mb-2">Carpentry Work</h4>
+                  <p>
+                    Carpenters are skilled craftsmen who specialize in the
+                    construction of wooden furniture and other wooden
+                    structures.
+                  </p>
+                </div>
+                <div className="text-center mt-8">
+                  <img
+                    className="mx-auto mb-2 w-8 h-auto"
+                    src={require("../images/home repair icon.png")}
+                    alt="carpentryicon"
+                  />
+                  <h4 className="text-lg font-semibold mb-2">
+                    Home Repairs and Renovation
+                  </h4>
+                  <p>
+                    Hire experienced professionals for all your home repair,
+                    maintenance, and renovation needs.
+                  </p>
+                </div>
+              </div>
 
-    <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
-      
-      <div className="lg:col-span-1">
-        <div className="text-center">
-          
-          <img
-            className="mx-auto mb-2 w-8 h-auto"
-            src={require("../images/carpentericon.png")}
-            alt="carpentryicon"
-          />
-          <h4 className="text-lg font-semibold mb-2">Carpentry Work</h4>
-          <p>
-            Carpenters are skilled craftsmen who specialize in the
-            construction of wooden furniture and other wooden structures.
-          </p>
-        </div>
-        <div className="text-center mt-8">
-          <img
-            className="mx-auto mb-2 w-8 h-auto"
-            src={require("../images/home repair icon.png")}
-            alt="carpentryicon"
-          />
-          <h4 className="text-lg font-semibold mb-2">Home Repairs and Renovation</h4>
-          <p>
-            Hire experienced professionals for all your home repair, maintenance, and renovation needs.
-          </p>
-        </div>
-      </div>
+              <div className="lg:col-span-3">
+                <div className="text-center">
+                  <img
+                    className="mx-auto mb-4"
+                    src={require("../images/carpenter.jpg")}
+                    alt="carpentryicon"
+                  />
+                </div>
+              </div>
 
-      <div className="lg:col-span-3">
-        <div className="text-center">
-          <img
-            className="mx-auto mb-4"
-            src={require("../images/carpenter.jpg")}
-            alt="carpentryicon"
-          />
-        </div>
-      </div>
-
-      <div className="lg:col-span-1">
-        <div className="text-center">
-          <img
-            className="mx-auto mb-2 w-8 h-auto"
-            src={require("../images/voltmeter.png")}
-            alt="carpentryicon"
-          />
-          <h4 className="text-lg font-semibold mb-2">Electrical Work</h4>
-          <p>
-            Find skilled workers in your area for all your home's electrical and wiring needs and say goodbye to all your troubles.
-          </p>
-        </div>
-        <div className="text-center mt-8">
-          <img
-            className="mx-auto mb-2 w-8 h-auto"
-            src={require("../images/brickwork.png")}
-            alt="carpentryicon"
-          />
-          <h4 className="text-lg font-semibold mb-2">Masonry Work</h4>
-          <p>
-            Masonry workers are the skilled people you may hire to do all your construction and building works.
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-
-        <div className="button-container1 flex justify-center py-8">
-          <div className="mx-4">
-            <button className="explore px-6 py-3 bg-blue-500 text-white rounded-lg">
-              Explore
-            </button>
+              <div className="lg:col-span-1">
+                <div className="text-center">
+                  <img
+                    className="mx-auto mb-2 w-8 h-auto"
+                    src={require("../images/voltmeter.png")}
+                    alt="carpentryicon"
+                  />
+                  <h4 className="text-lg font-semibold mb-2">
+                    Electrical Work
+                  </h4>
+                  <p>
+                    Find skilled workers in your area for all your home's
+                    electrical and wiring needs and say goodbye to all your
+                    troubles.
+                  </p>
+                </div>
+                <div className="text-center mt-8">
+                  <img
+                    className="mx-auto mb-2 w-8 h-auto"
+                    src={require("../images/brickwork.png")}
+                    alt="carpentryicon"
+                  />
+                  <h4 className="text-lg font-semibold mb-2">Masonry Work</h4>
+                  <p>
+                    Masonry workers are the skilled people you may hire to do
+                    all your construction and building works.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="button-container1 flex justify-center py-8">
+              <div className="mx-4">
+                <button className="explore px-6 py-3 bg-black text-white rounded-lg hover:bg-gray-800 hover:text-white">
+                  Explore
+                </button>
+              </div>
+              <div className="mx-4">
+                <button className="signup px-6 py-3 bg-white text-black rounded-lg hover:bg-gray-200 hover:text-black">
+                  Sign Up
+                </button>
+              </div>
+            </div>
           </div>
-          <div className="mx-4">
-            <button className="signup px-6 py-3 bg-blue-500 text-white rounded-lg">
-              Sign Up
-            </button>
-          </div>
-        </div>
+        </section>
 
         <img
           className="freelancer-img"
