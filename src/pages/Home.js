@@ -51,7 +51,7 @@ const Home = () => {
   const Two = () => {
     return (
       <div className="home">
-        <div className="flex flex-col lg:flex-row items-center justify-center">
+        <div className="flex flex-col lg:flex-row items-center justify-center mb-16">
           <div className="lg:w-1/2 lg:pl-4">
             <div className="flex flex-col items-center">
               <h1 className="text-4xl font-bold mb-4 text-center">
@@ -231,6 +231,54 @@ const Home = () => {
             alt="Freelance-Workers-img"
             src={require("../images/Painter.jpg")}
           />
+        </div>
+        <div className="flex justify-center">
+          <div className="Offers mt-8">
+            <div className="Offerhead text-center mb-8">
+              <h1 className="text-4xl font-bold mb-4">What Network Offers</h1>
+              <h4 className="text-base">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              </h4>
+            </div>
+            <div className="offerpts mt-4">
+              <div className="flex items-start mb-4">
+                <div className="rounded-full h-4 w-4 bg-black mr-2 mt-1"></div>
+                <div>
+                  <h4 className="text-xl font-semibold mb-2">
+                    Connects you to the right person
+                  </h4>
+                  <h6 className="text-sm">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Suspendisse varius enim in eros elementum tristique.
+                  </h6>
+                </div>
+              </div>
+              <div className="flex items-start mb-4">
+                <div className="rounded-full h-4 w-4 bg-black mr-2 mt-1"></div>
+                <div>
+                  <h4 className="text-lg font-semibold mb-2">
+                    Map based interface
+                  </h4>
+                  <h6 className="text-sm">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Suspendisse varius enim in eros elementum tristique.
+                  </h6>
+                </div>
+              </div>
+              <div className="flex items-start">
+                <div className="rounded-full h-4 w-4 bg-black mr-2 mt-1"></div>
+                <div>
+                  <h4 className="text-lg font-semibold mb-2">
+                    Safe and Secure Services
+                  </h4>
+                  <h6 className="text-sm">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Suspendisse varius enim in eros elementum tristique.
+                  </h6>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     );
