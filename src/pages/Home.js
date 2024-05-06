@@ -51,7 +51,7 @@ const Home = () => {
   const Two = () => {
     return (
       <div className="home">
-        <div className="flex flex-col lg:flex-row items-center justify-center">
+        <div className="flex flex-col lg:flex-row items-center justify-center mb-16">
           <div className="lg:w-1/2 lg:pl-4">
             <div className="flex flex-col items-center">
               <h1 className="text-4xl font-bold mb-4 text-center">
@@ -232,6 +232,32 @@ const Home = () => {
             src={require("../images/Painter.jpg")}
           />
         </div>
+        <div className="Offers mt-16 ml-8">
+  <div className="Offerhead mb-12">
+    <h1 className="text-3xl font-bold mb-4">What Network Offers</h1>
+    <h4 className="text-sm">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h4>
+  </div>
+  <div className="offerpts mt-4">
+    <h4 className="text-lg font-semibold mb-2">Connects you to the right person</h4>
+    <h6 className="text-sm">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      Suspendisse varius enim in eros elementum tristique.
+    </h6>
+    <h4 className="text-lg font-semibold mb-2 mt-4">Map based interface</h4>
+    <h6 className="text-sm">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      Suspendisse varius enim in eros elementum tristique.
+    </h6>
+    <h4 className="text-lg font-semibold mb-2 mt-4">Safe and Secure Services</h4>
+    <h6 className="text-sm">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      Suspendisse varius enim in eros elementum tristique.
+    </h6>
+  </div>
+</div>
+
+
+
       </div>
     );
   };
