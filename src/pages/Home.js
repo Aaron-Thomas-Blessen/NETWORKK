@@ -417,18 +417,18 @@ const Home = () => {
           </div>
         </div>
         <div class="news flex justify-center py-8">
-  <div class="newshead pr-8">
+  <div class="newshead pr-8 w-2/3 ml-16">
     <h2 class="text-3xl font-bold">LOGO</h2>
     <h5 class="text-base">
       Stay up to date on features and releases by joining our newsletter.
     </h5>
     <input type="email" placeholder="Your Email" class="mt-4 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"></input>
-    <button class="mt-2 px-4 py-2 bg-blue-500 text-white rounded-lg">Subscribe</button>
+    <button class="mt-2 px-4 py-2 bg-black text-white rounded-lg">Subscribe</button>
     <h6 class="text-sm mt-4">
       By subscribing, you agree to our Privacy Policy and consent to receive updates from our company.
     </h6>
   </div>
-  <div class="newsfollow">
+  <div class="newsfollow w-1/3">
     <h3 class="text-lg font-semibold">Follow us</h3>
     <h4 class="mt-2">Facebook</h4>
     <h4>Instagram</h4>
@@ -437,6 +437,7 @@ const Home = () => {
     <h4>Youtube</h4>
   </div>
 </div>
+
 
       </div>
     );
