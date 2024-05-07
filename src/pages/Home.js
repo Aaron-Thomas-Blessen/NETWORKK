@@ -445,18 +445,19 @@ const Home = () => {
             <h4>Youtube</h4>
           </div>
         </div>
-        <hr class="border-t-2 border-gray-300 my-8"></hr>
+        <hr class="border-t-2 border-gray-300 my-2"></hr>
 
-        <div class="footer flex justify-between items-center">
-          <div class="left">
-            <h6>© 2024 Networkk All rights reserved.</h6>
-          </div>
-          <div class="right">
-            <h6 class="mr-4">Privacy Policy</h6>
-            <h6 class="mr-4">Terms of Service</h6>
-            <h6>Cookies Settings</h6>
-          </div>
-        </div>
+<div class="footer flex justify-between items-center mb-2">
+  <div class="left">
+    <h6>© 2024 Networkk All rights reserved.</h6>
+  </div>
+  <div class="right flex">
+    <h6 class="mr-4">Privacy Policy</h6>
+    <h6 class="mr-4">Terms of Service</h6>
+    <h6>Cookies Settings</h6>
+  </div>
+</div>
+
       </div>
     );
   };
