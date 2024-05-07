@@ -281,7 +281,7 @@ const Home = () => {
           </div>
         </div>
         <div className="mb-8 flex justify-between">
-          <div className="freqhead w-1/2 ml-12 my-24">
+          <div className="freqhead w-1/2 ml-12 my-28">
             <h1 className="text-3xl font-bold">Frequently asked Questions</h1>
             <h6 className="text-sm">
               Find answers to commonly asked questions about our platform and
@@ -392,15 +392,15 @@ const Home = () => {
           </div>
         </div>
         <div class="contact py-12">
-  <div class="contacthead flex justify-between">
-    <div class="contactus">
+  <div class="contacthead flex ">
+    <div class="contactus w-1/2 pr-4 ml-16 py-8">
       <h1 class="text-3xl font-bold">Contact Us</h1>
       <h6 class="text-sm">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
         varius enim in eros elementum tristique.
       </h6>
     </div>
-    <div class="contactdet ml-8">
+    <div class="contactdet w-1/2 pl-4 ml-8">
       <div>
         <h3 class="font-semibold">Email</h3>
         <h6 class="text-sm">hello@relume.io</h6>
