@@ -391,6 +391,32 @@ const Home = () => {
             </div>
           </div>
         </div>
+        <div class="contact py-12">
+  <div class="contacthead flex justify-between">
+    <div class="contactus">
+      <h1 class="text-3xl font-bold">Contact Us</h1>
+      <h6 class="text-sm">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+        varius enim in eros elementum tristique.
+      </h6>
+    </div>
+    <div class="contactdet ml-8">
+      <div>
+        <h3 class="font-semibold">Email</h3>
+        <h6 class="text-sm">hello@relume.io</h6>
+      </div>
+      <div class="mt-4">
+        <h3 class="font-semibold">Phone</h3>
+        <h6 class="text-sm">+1 (555) 000-0000</h6>
+      </div>
+      <div class="mt-4">
+        <h3 class="font-semibold">Office</h3>
+        <h6 class="text-sm">123 Sample St, Sydney NSW 2000 AU</h6>
+      </div>
+    </div>
+  </div>
+</div>
+
       </div>
     );
   };
