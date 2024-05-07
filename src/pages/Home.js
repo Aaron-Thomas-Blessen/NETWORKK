@@ -232,15 +232,15 @@ const Home = () => {
             src={require("../images/Painter.jpg")}
           />
         </div>
-        <div className="flex justify-center">
-          <div className="Offers mt-8">
+        <div className="flex justify-center py-8">
+          <div className="Offers">
             <div className="Offerhead text-center mb-8">
               <h1 className="text-4xl font-bold mb-4">What Network Offers</h1>
               <h4 className="text-base">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
               </h4>
             </div>
-            <div className="offerpts mt-4">
+            <div className="offerpts mt-6">
               <div className="flex items-start mb-4">
                 <div className="rounded-full h-4 w-4 bg-black mr-2 mt-1"></div>
                 <div>
@@ -280,6 +280,32 @@ const Home = () => {
             </div>
           </div>
         </div>
+        <div className="flex justify-center">
+  <div className="freq flex justify-between items-center">
+    <div className="freqhead mr-8">
+      <h1 className="text-3xl font-bold">Frequently asked Questions</h1>
+      <h6 className="text-sm">
+        Find answers to commonly asked questions about our platform and services.
+      </h6>
+      <button className="px-4 py-2 mt-4 bg-black text-white rounded-lg">Contact</button>
+    </div>
+    <div className="freqques">
+      <hr className="my-4 border-t-2 border-gray-300" />
+      <h4 className="text-lg font-semibold">How does it work?</h4>
+      <hr className="my-4 border-t-2 border-gray-300" />
+      <h4 className="text-lg font-semibold">Is it safe?</h4>
+      <hr className="my-4 border-t-2 border-gray-300" />
+      <h4 className="text-lg font-semibold">How do I sign Up?</h4>
+      <hr className="my-4 border-t-2 border-gray-300" />
+      <h4 className="text-lg font-semibold">Can I offer my services?</h4>
+      <hr className="my-4 border-t-2 border-gray-300" />
+      <h4 className="text-lg font-semibold">How can I get paid?</h4>
+      <hr className="my-4 border-t-2 border-gray-300" />
+    </div>
+  </div>
+</div>
+
+
       </div>
     );
   };
