@@ -306,63 +306,91 @@ const Home = () => {
           </div>
         </div>
         <div className="Team py-12">
-  <div className="Teamhead text-center">
-    <h6 className="text-lg">Connecting</h6>
-    <h1 className="text-4xl font-bold">Our Team</h1>
-    <h6 className="text-lg">Meet the talented individuals behind Networkk</h6>
-  </div>
-  <div className="Teamname ml-6 mr-2 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 mt-8">
-    <div className="Aaron text-center">
-      <h2 className="text-xl font-semibold">Aaron Thomas Blessen</h2>
-      <h3 className="text-lg">CMO</h3>
-      <h4 className="text-base">
-        Experienced strategist with a passion for innovation and growth.
-      </h4>
-      <div className="flex justify-center mt-4 space-x-2">
-        <button className="px-3 py-1 bg-black text-white rounded-lg">LinkedIn</button>
-        <button className="px-3 py-1 bg-black text-white rounded-lg">Twitter</button>
-        <button className="px-3 py-1 bg-black text-white rounded-lg">Portfolio</button>
-      </div>
-    </div>
-    <div className="Akshay text-center">
-      <h2 className="text-xl font-semibold">Akshay Gopan</h2>
-      <h3 className="text-lg">CTO</h3>
-      <h4 className="text-base">
-        Tech enthusiast with expertise in developing cutting-edge solutions.
-      </h4>
-      <div className="flex justify-center mt-4 space-x-2">
-        <button className="px-3 py-1 bg-black text-white rounded-lg">LinkedIn</button>
-        <button className="px-3 py-1 bg-black text-white rounded-lg">Twitter</button>
-        <button className="px-3 py-1 bg-black text-white rounded-lg">Portfolio</button>
-      </div>
-    </div>
-    <div className="Alan text-center">
-      <h2 className="text-xl font-semibold">Alan Philip</h2>
-      <h3 className="text-lg">COO</h3>
-      <h4 className="text-base">
-        Operations expert focused on delivering exceptional user experiences.
-      </h4>
-      <div className="flex justify-center mt-4 space-x-2">
-        <button className="px-3 py-1 bg-black text-white rounded-lg">LinkedIn</button>
-        <button className="px-3 py-1 bg-black text-white rounded-lg">Twitter</button>
-        <button className="px-3 py-1 bg-black text-white rounded-lg">Portfolio</button>
-      </div>
-    </div>
-    <div className="Chand text-center">
-      <h2 className="text-xl font-semibold">Chandrasekhar C.A</h2>
-      <h3 className="text-lg">Marketing Director</h3>
-      <h4 className="text-base">
-        Strategic marketer driving brand awareness and customer acquisition.
-      </h4>
-      <div className="flex justify-center mt-4 space-x-2">
-        <button className="px-3 py-1 bg-black text-white rounded-lg">LinkedIn</button>
-        <button className="px-3 py-1 bg-black text-white rounded-lg">Twitter</button>
-        <button className="px-3 py-1 bg-black text-white rounded-lg">Portfolio</button>
-      </div>
-    </div>
-  </div>
-</div>
-
+          <div className="Teamhead text-center mb-4">
+            <h6 className="text-lg">Connecting</h6>
+            <h1 className="text-4xl font-bold">Our Team</h1>
+            <h6 className="text-lg">
+              Meet the talented individuals behind Networkk
+            </h6>
+          </div>
+          <div className="Teamname ml-6 mr-2 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 mt-8">
+            <div className="Aaron text-center ">
+              <h2 className="text-xl font-semibold">Aaron Thomas Blessen</h2>
+              <h3 className="text-lg">CMO</h3>
+              <h4 className="text-base">
+                Experienced strategist with a passion for innovation and growth.
+              </h4>
+              <div className="flex justify-center mt-4 space-x-2">
+                <button className="px-3 py-1 bg-black text-white rounded-lg">
+                  LinkedIn
+                </button>
+                <button className="px-3 py-1 bg-black text-white rounded-lg">
+                  Twitter
+                </button>
+                <button className="px-3 py-1 bg-black text-white rounded-lg">
+                  Portfolio
+                </button>
+              </div>
+            </div>
+            <div className="Akshay text-center">
+              <h2 className="text-xl font-semibold">Akshay Gopan</h2>
+              <h3 className="text-lg">CTO</h3>
+              <h4 className="text-base">
+                Tech enthusiast with expertise in developing cutting-edge
+                solutions.
+              </h4>
+              <div className="flex justify-center mt-4 space-x-2">
+                <button className="px-3 py-1 bg-black text-white rounded-lg">
+                  LinkedIn
+                </button>
+                <button className="px-3 py-1 bg-black text-white rounded-lg">
+                  Twitter
+                </button>
+                <button className="px-3 py-1 bg-black text-white rounded-lg">
+                  Portfolio
+                </button>
+              </div>
+            </div>
+            <div className="Alan text-center">
+              <h2 className="text-xl font-semibold">Alan Philip</h2>
+              <h3 className="text-lg">COO</h3>
+              <h4 className="text-base">
+                Operations expert focused on delivering exceptional user
+                experiences.
+              </h4>
+              <div className="flex justify-center mt-4 space-x-2">
+                <button className="px-3 py-1 bg-black text-white rounded-lg">
+                  LinkedIn
+                </button>
+                <button className="px-3 py-1 bg-black text-white rounded-lg">
+                  Twitter
+                </button>
+                <button className="px-3 py-1 bg-black text-white rounded-lg">
+                  Portfolio
+                </button>
+              </div>
+            </div>
+            <div className="Chand text-center">
+              <h2 className="text-xl font-semibold">Chandrasekhar C.A</h2>
+              <h3 className="text-lg">Marketing Director</h3>
+              <h4 className="text-base">
+                Strategic marketer driving brand awareness and customer
+                acquisition.
+              </h4>
+              <div className="flex justify-center mt-4 space-x-2">
+                <button className="px-3 py-1 bg-black text-white rounded-lg">
+                  LinkedIn
+                </button>
+                <button className="px-3 py-1 bg-black text-white rounded-lg">
+                  Twitter
+                </button>
+                <button className="px-3 py-1 bg-black text-white rounded-lg">
+                  Portfolio
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     );
   };
