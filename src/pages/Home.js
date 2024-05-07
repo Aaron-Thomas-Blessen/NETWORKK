@@ -232,15 +232,15 @@ const Home = () => {
             src={require("../images/Painter.jpg")}
           />
         </div>
-        <div className="flex justify-center">
-          <div className="Offers mt-8">
+        <div className="mb-8 flex justify-center py-8">
+          <div className="Offers">
             <div className="Offerhead text-center mb-8">
               <h1 className="text-4xl font-bold mb-4">What Network Offers</h1>
               <h4 className="text-base">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
               </h4>
             </div>
-            <div className="offerpts mt-4">
+            <div className="offerpts mt-6">
               <div className="flex items-start mb-4">
                 <div className="rounded-full h-4 w-4 bg-black mr-2 mt-1"></div>
                 <div>
@@ -280,6 +280,184 @@ const Home = () => {
             </div>
           </div>
         </div>
+        <div className="mb-8 flex justify-between">
+          <div className="freqhead w-1/2 ml-12 my-28">
+            <h1 className="text-3xl font-bold">Frequently asked Questions</h1>
+            <h6 className="text-sm">
+              Find answers to commonly asked questions about our platform and
+              services.
+            </h6>
+            <button className="px-4 py-2 mt-4 bg-black text-white rounded-lg">
+              Contact
+            </button>
+          </div>
+          <div className="freqques w-1/2 mr-12">
+            <hr className="my-4 border-t-2 border-gray-300" />
+            <h4 className="text-lg font-semibold">How does it work?</h4>
+            <hr className="my-4 border-t-2 border-gray-300" />
+            <h4 className="text-lg font-semibold">Is it safe?</h4>
+            <hr className="my-4 border-t-2 border-gray-300" />
+            <h4 className="text-lg font-semibold">How do I sign Up?</h4>
+            <hr className="my-4 border-t-2 border-gray-300" />
+            <h4 className="text-lg font-semibold">Can I offer my services?</h4>
+            <hr className="my-4 border-t-2 border-gray-300" />
+            <h4 className="text-lg font-semibold">How can I get paid?</h4>
+            <hr className="my-4 border-t-2 border-gray-300" />
+          </div>
+        </div>
+        <div className="Team py-12">
+          <div className="Teamhead text-center mb-4">
+            <h6 className="text-lg">Connecting</h6>
+            <h1 className="text-4xl font-bold">Our Team</h1>
+            <h6 className="text-lg">
+              Meet the talented individuals behind Networkk
+            </h6>
+          </div>
+          <div className="Teamname ml-6 mr-2 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 mt-8">
+            <div className="Aaron text-center ">
+              <h2 className="text-xl font-semibold">Aaron Thomas Blessen</h2>
+              <h3 className="text-lg">CMO</h3>
+              <h4 className="text-base">
+                Experienced strategist with a passion for innovation and growth.
+              </h4>
+              <div className="flex justify-center mt-4 space-x-2">
+                <button className="px-3 py-1 bg-black text-white rounded-lg">
+                  LinkedIn
+                </button>
+                <button className="px-3 py-1 bg-black text-white rounded-lg">
+                  Twitter
+                </button>
+                <button className="px-3 py-1 bg-black text-white rounded-lg">
+                  Portfolio
+                </button>
+              </div>
+            </div>
+            <div className="Akshay text-center">
+              <h2 className="text-xl font-semibold">Akshay Gopan</h2>
+              <h3 className="text-lg">CTO</h3>
+              <h4 className="text-base">
+                Tech enthusiast with expertise in developing cutting-edge
+                solutions.
+              </h4>
+              <div className="flex justify-center mt-4 space-x-2">
+                <button className="px-3 py-1 bg-black text-white rounded-lg">
+                  LinkedIn
+                </button>
+                <button className="px-3 py-1 bg-black text-white rounded-lg">
+                  Twitter
+                </button>
+                <button className="px-3 py-1 bg-black text-white rounded-lg">
+                  Portfolio
+                </button>
+              </div>
+            </div>
+            <div className="Alan text-center">
+              <h2 className="text-xl font-semibold">Alan Philip</h2>
+              <h3 className="text-lg">COO</h3>
+              <h4 className="text-base">
+                Operations expert focused on delivering exceptional user
+                experiences.
+              </h4>
+              <div className="flex justify-center mt-4 space-x-2">
+                <button className="px-3 py-1 bg-black text-white rounded-lg">
+                  LinkedIn
+                </button>
+                <button className="px-3 py-1 bg-black text-white rounded-lg">
+                  Twitter
+                </button>
+                <button className="px-3 py-1 bg-black text-white rounded-lg">
+                  Portfolio
+                </button>
+              </div>
+            </div>
+            <div className="Chand text-center">
+              <h2 className="text-xl font-semibold">Chandrasekhar C.A</h2>
+              <h3 className="text-lg">Marketing Director</h3>
+              <h4 className="text-base">
+                Strategic marketer driving brand awareness and customer
+                acquisition.
+              </h4>
+              <div className="flex justify-center mt-4 space-x-2">
+                <button className="px-3 py-1 bg-black text-white rounded-lg">
+                  LinkedIn
+                </button>
+                <button className="px-3 py-1 bg-black text-white rounded-lg">
+                  Twitter
+                </button>
+                <button className="px-3 py-1 bg-black text-white rounded-lg">
+                  Portfolio
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="contact py-12">
+          <div class="contacthead flex ">
+            <div class="contactus w-1/2 pr-4 ml-16 py-8">
+              <h1 class="text-3xl font-bold">Contact Us</h1>
+              <h6 class="text-sm">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Suspendisse varius enim in eros elementum tristique.
+              </h6>
+            </div>
+            <div class="contactdet w-1/2 pl-4 ml-8">
+              <div>
+                <h3 class="font-semibold">Email</h3>
+                <h6 class="text-sm">hello@relume.io</h6>
+              </div>
+              <div class="mt-4">
+                <h3 class="font-semibold">Phone</h3>
+                <h6 class="text-sm">+1 (555) 000-0000</h6>
+              </div>
+              <div class="mt-4">
+                <h3 class="font-semibold">Office</h3>
+                <h6 class="text-sm">123 Sample St, Sydney NSW 2000 AU</h6>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="news flex justify-center py-8">
+          <div class="newshead pr-8 w-2/3 ml-16">
+            <h2 class="text-3xl font-bold">LOGO</h2>
+            <h5 class="text-base">
+              Stay up to date on features and releases by joining our
+              newsletter.
+            </h5>
+            <input
+              type="email"
+              placeholder="Your Email"
+              class="mt-4 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+            ></input>
+            <button class="mt-2 px-4 py-2 bg-black text-white rounded-lg">
+              Subscribe
+            </button>
+            <h6 class="text-sm mt-4">
+              By subscribing, you agree to our Privacy Policy and consent to
+              receive updates from our company.
+            </h6>
+          </div>
+          <div class="newsfollow w-1/3">
+            <h3 class="text-lg font-semibold">Follow us</h3>
+            <h4 class="mt-2">Facebook</h4>
+            <h4>Instagram</h4>
+            <h4>Twitter</h4>
+            <h4>LinkedIn</h4>
+            <h4>Youtube</h4>
+          </div>
+        </div>
+        <hr class="border-t-2 border-gray-300 my-2"></hr>
+
+<div class="footer flex justify-between items-center mb-2">
+  <div class="left">
+    <h6>© 2024 Networkk All rights reserved.</h6>
+  </div>
+  <div class="right flex">
+    <h6 class="mr-4">Privacy Policy</h6>
+    <h6 class="mr-4">Terms of Service</h6>
+    <h6>Cookies Settings</h6>
+  </div>
+</div>
+
       </div>
     );
   };
