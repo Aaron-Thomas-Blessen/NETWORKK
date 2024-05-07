@@ -280,31 +280,28 @@ const Home = () => {
             </div>
           </div>
         </div>
-        <div className="flex justify-center">
-  <div className="freq flex justify-between items-center">
-    <div className="freqhead mr-8">
-      <h1 className="text-3xl font-bold">Frequently asked Questions</h1>
-      <h6 className="text-sm">
-        Find answers to commonly asked questions about our platform and services.
-      </h6>
-      <button className="px-4 py-2 mt-4 bg-black text-white rounded-lg">Contact</button>
-    </div>
-    <div className="freqques">
-      <hr className="my-4 border-t-2 border-gray-300" />
-      <h4 className="text-lg font-semibold">How does it work?</h4>
-      <hr className="my-4 border-t-2 border-gray-300" />
-      <h4 className="text-lg font-semibold">Is it safe?</h4>
-      <hr className="my-4 border-t-2 border-gray-300" />
-      <h4 className="text-lg font-semibold">How do I sign Up?</h4>
-      <hr className="my-4 border-t-2 border-gray-300" />
-      <h4 className="text-lg font-semibold">Can I offer my services?</h4>
-      <hr className="my-4 border-t-2 border-gray-300" />
-      <h4 className="text-lg font-semibold">How can I get paid?</h4>
-      <hr className="my-4 border-t-2 border-gray-300" />
-    </div>
+        <div className="flex justify-between">
+  <div className="freqhead w-1/2 mr-8">
+    <h1 className="text-3xl font-bold">Frequently asked Questions</h1>
+    <h6 className="text-sm">
+      Find answers to commonly asked questions about our platform and services.
+    </h6>
+    <button className="px-4 py-2 mt-4 bg-black text-white rounded-lg">Contact</button>
+  </div>
+  <div className="freqques w-1/2">
+    <hr className="my-4 border-t-2 border-gray-300" />
+    <h4 className="text-lg font-semibold">How does it work?</h4>
+    <hr className="my-4 border-t-2 border-gray-300" />
+    <h4 className="text-lg font-semibold">Is it safe?</h4>
+    <hr className="my-4 border-t-2 border-gray-300" />
+    <h4 className="text-lg font-semibold">How do I sign Up?</h4>
+    <hr className="my-4 border-t-2 border-gray-300" />
+    <h4 className="text-lg font-semibold">Can I offer my services?</h4>
+    <hr className="my-4 border-t-2 border-gray-300" />
+    <h4 className="text-lg font-semibold">How can I get paid?</h4>
+    <hr className="my-4 border-t-2 border-gray-300" />
   </div>
 </div>
-
 
       </div>
     );
