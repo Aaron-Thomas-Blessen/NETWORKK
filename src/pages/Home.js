@@ -392,28 +392,49 @@ const Home = () => {
           </div>
         </div>
         <div class="contact py-12">
-  <div class="contacthead flex ">
-    <div class="contactus w-1/2 pr-4 ml-16 py-8">
-      <h1 class="text-3xl font-bold">Contact Us</h1>
-      <h6 class="text-sm">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-        varius enim in eros elementum tristique.
-      </h6>
-    </div>
-    <div class="contactdet w-1/2 pl-4 ml-8">
-      <div>
-        <h3 class="font-semibold">Email</h3>
-        <h6 class="text-sm">hello@relume.io</h6>
-      </div>
-      <div class="mt-4">
-        <h3 class="font-semibold">Phone</h3>
-        <h6 class="text-sm">+1 (555) 000-0000</h6>
-      </div>
-      <div class="mt-4">
-        <h3 class="font-semibold">Office</h3>
-        <h6 class="text-sm">123 Sample St, Sydney NSW 2000 AU</h6>
-      </div>
-    </div>
+          <div class="contacthead flex ">
+            <div class="contactus w-1/2 pr-4 ml-16 py-8">
+              <h1 class="text-3xl font-bold">Contact Us</h1>
+              <h6 class="text-sm">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Suspendisse varius enim in eros elementum tristique.
+              </h6>
+            </div>
+            <div class="contactdet w-1/2 pl-4 ml-8">
+              <div>
+                <h3 class="font-semibold">Email</h3>
+                <h6 class="text-sm">hello@relume.io</h6>
+              </div>
+              <div class="mt-4">
+                <h3 class="font-semibold">Phone</h3>
+                <h6 class="text-sm">+1 (555) 000-0000</h6>
+              </div>
+              <div class="mt-4">
+                <h3 class="font-semibold">Office</h3>
+                <h6 class="text-sm">123 Sample St, Sydney NSW 2000 AU</h6>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="news flex justify-center py-8">
+  <div class="newshead pr-8">
+    <h2 class="text-3xl font-bold">LOGO</h2>
+    <h5 class="text-base">
+      Stay up to date on features and releases by joining our newsletter.
+    </h5>
+    <input type="email" placeholder="Your Email" class="mt-4 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"></input>
+    <button class="mt-2 px-4 py-2 bg-blue-500 text-white rounded-lg">Subscribe</button>
+    <h6 class="text-sm mt-4">
+      By subscribing, you agree to our Privacy Policy and consent to receive updates from our company.
+    </h6>
+  </div>
+  <div class="newsfollow">
+    <h3 class="text-lg font-semibold">Follow us</h3>
+    <h4 class="mt-2">Facebook</h4>
+    <h4>Instagram</h4>
+    <h4>Twitter</h4>
+    <h4>LinkedIn</h4>
+    <h4>Youtube</h4>
   </div>
 </div>
 
