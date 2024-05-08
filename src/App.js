@@ -9,7 +9,7 @@ import SellerProfilePage from "./pages/SellerProfilePage";
 import Gigcreate from "./pages/Gigcreate";
 import Gigssearch from "./pages/Gigssearch";
 import Usergigsviews from "./pages/Usergigsviews";
-
+import ProfileDashboardPage from './pages/ProfileDashboardPage';
 import { IsSignedUpProvider } from "./Context/Context";
 
 const App = () => {
@@ -27,6 +27,7 @@ const App = () => {
           <Route path="/Gigcreate" element={<Gigcreate />}></Route>
           <Route path="/Gigssearch" element={<Gigssearch />}></Route>
           <Route path="/Usergigsviews" element={<Usergigsviews />}></Route>
+          <Route path="/ProfileDashboard" element={<ProfileDashboardPage />}></Route>
         </Routes>
       </IsSignedUpProvider>
     </BrowserRouter>
