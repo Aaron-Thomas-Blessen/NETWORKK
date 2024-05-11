@@ -6,6 +6,7 @@ import { getAuth } from "firebase/auth";
 import { ref as storageRef, uploadBytes, getDownloadURL } from "firebase/storage"; 
 import { Button } from "@material-tailwind/react";
 import { ClipLoader } from "react-spinners";
+import Navbar from "../components/nav";
 
 
 const UserProfilePage = () => {
@@ -74,48 +75,55 @@ const UserProfilePage = () => {
     }
   };
 
+  const handleEditClick = () => {
+    setEditing(true);
+  };
+
   if (loading) {
     return <ClipLoader color="#00BFFF" loading={loading} size={150} />;
   }
 
   return (
-    <div className="container mx-auto mt-8 flex flex-wrap">
-      <div className="w-full md:w-1/2 lg:w-1/2 xl:w-1/2 p-4">
-        <div className="bg-white shadow-md rounded-lg p-4 mb-4 flex flex-col items-center justify-center">
-          <label htmlFor="profilePictureInput" className="cursor-pointer mb-4">
-            <img src={profilePicture} alt="Profile" className="w-24 h-24 rounded-full mb-4" />
-            <div className="text-blue-500">Change Profile Picture</div>
-          </label>
-          <input
-            id="profilePictureInput"
-            type="file"
-            accept="image/*"
-            className="hidden"
-            onChange={handleProfilePictureChange}
-          />
-          {editing ? (
-            <>
-              <input type="text" value={formData.firstName || ''} name="firstName" onChange={handleInputChange} />
-              <input type="text" value={formData.lastName || ''} name="lastName" onChange={handleInputChange} />
-              <input type="text" value={formData.phoneNumber || ''} name="phoneNumber" onChange={handleInputChange} />
-              <input type="text" value={formData.address || ''} name="address" onChange={handleInputChange} />
-              {/* Add other fields as necessary */}
-              <Button color="blue" onClick={handleSaveClick}>Save</Button>
-            </>
-          ) : (
-            <>
-              <p>Username: {userData.username}</p>
-              <p>Email: {userData.email}</p>
-              <p>First Name: {userData.firstName}</p>
-              <p>Last Name: {userData.lastName}</p>
-              <p>Phone Number: {userData.phoneNumber}</p>
-              <p>Address: {userData.address}</p>
-              {/* Display other fields */}
-              <Button color="blue" onClick={() => setEditing(true)}>Edit</Button>
-            </>
-          )}
+    <div>
+      <Navbar currentPage="userProfilePage"/>
+        <div className="container mx-auto mt-8 flex flex-wrap">
+          <div className="w-full md:w-1/2 lg:w-1/2 xl:w-1/2 p-4">
+            <div className="bg-white shadow-md rounded-lg p-4 mb-4 flex flex-col items-center justify-center">
+              <label htmlFor="profilePictureInput" className="cursor-pointer mb-4">
+                <img src={profilePicture} alt="Profile" className="w-24 h-24 rounded-full mb-4" />
+                <div className="text-blue-500">Change Profile Picture</div>
+              </label>
+              <input
+                id="profilePictureInput"
+                type="file"
+                accept="image/*"
+                className="hidden"
+                onChange={handleProfilePictureChange}
+              />
+              {editing ? (
+                <>
+                  <input type="text" value={formData.firstName || ''} name="firstName" onChange={handleInputChange} />
+                  <input type="text" value={formData.lastName || ''} name="lastName" onChange={handleInputChange} />
+                  <input type="text" value={formData.phoneNumber || ''} name="phoneNumber" onChange={handleInputChange} />
+                  <input type="text" value={formData.address || ''} name="address" onChange={handleInputChange} />
+                  {/* Add other fields as necessary */}
+                  <Button color="blue" onClick={handleSaveClick}>Save</Button>
+                </>
+              ) : (
+                <>
+                  <p>Username: {userData.username}</p>
+                  <p>Email: {userData.email}</p>
+                  <p>First Name: {userData.firstName}</p>
+                  <p>Last Name: {userData.lastName}</p>
+                  <p>Phone Number: {userData.phoneNumber}</p>
+                  <p>Address: {userData.address}</p>
+                  {/* Display other fields */}
+                  <Button color="blue" onClick={handleEditClick}>Edit</Button>
+                </>
+              )}
+            </div>
+          </div>
         </div>
-      </div>
     </div>
   );
 };

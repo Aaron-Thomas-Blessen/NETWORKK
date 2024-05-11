@@ -37,7 +37,7 @@ const SignIn = () => {
 
            
             console.log("user"+user);
-             navigate("/")
+             navigate("/", { replace : true })
 
         })
         .catch((error) => {

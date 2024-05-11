@@ -1,4 +1,4 @@
-import Navsign from "../components/navsign";
+import Navbar from "../components/nav";
 
 const Gigcreate = () => {
     const Gig = () => {
@@ -39,7 +39,7 @@ const Gigcreate = () => {
     }
     return (
         <div className="Gigcreate">
-            <Navsign />
+            <Navbar />
             <Gig />
         </div>
     );

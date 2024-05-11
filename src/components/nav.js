@@ -1,54 +1,46 @@
 import React from 'react';
 import { useUser } from '../Context/Context';
-import { getStorage, ref, getDownloadURL } from 'firebase/storage';
+import { doc, getDoc, getFirestore } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { getAuth, signOut } from 'firebase/auth';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'; 
 
-const getProfilePictureUrl = async (userId) => {
-  const storage = getStorage();
-  let imageUrl;
-
-  try {
-    const userProfilePicRef = ref(storage, 'profilePictures/' + userId);
-    imageUrl = await getDownloadURL(userProfilePicRef);
-  } catch (error) {
-    // If no profile picture, use default
-    const defaultPicRef = ref(storage, 'gs://network-c70d4.appspot.com/ProfilePic.jpeg'); // Adjust path as needed
-    imageUrl = await getDownloadURL(defaultPicRef);
-  }
-
-  return imageUrl;
+const getUserData = async (userId) => {
+  const db = getFirestore();
+  const userDocRef = doc(db, 'users', userId);
+  const userDocSnapshot = await getDoc(userDocRef);
+  return userDocSnapshot.data();
 };
-
-
-const handleLogout = () => {
-  const auth = getAuth();
-  signOut(auth).then(() => {
-    console.log("User logged out successfully");
-    // Additional actions upon successful logout if necessary
-  }).catch((error) => {
-    console.error("Logout failed", error);
-  });
-};
-
 
 const Navbar = () => {
   const { user } = useUser();
   const [profilePicUrl, setProfilePicUrl] = useState('');
-
   useEffect(() => {
     if (user) {
-      getProfilePictureUrl(user.uid)
-        .then(url => {
-          setProfilePicUrl(url);
+      getUserData(user.uid)
+        .then(userData => {
+          if (userData.profilePicture) {
+            setProfilePicUrl(userData.profilePicture);
+          } else {
+            // If no profile picture, use default
+            setProfilePicUrl('gs://network-c70d4.appspot.com/ProfilePic.jpeg'); // Adjust default URL as needed
+          }
         })
         .catch(error => {
-          console.error('Error fetching profile picture:', error);
-          // Set to default manually if needed or handled inside getProfilePictureUrl
+          console.error('Error fetching user data:', error);
         });
     }
-  }, [user]);  // Dependency array ensures this effect runs when user state changes
+  }, [user]);
+
+  const handleLogout = () => {
+    const auth = getAuth();
+    signOut(auth).then(() => {
+      console.log("User logged out successfully");
+      // Additional actions upon successful logout if necessary
+    }).catch((error) => {
+      console.error("Logout failed", error);
+    });
+  };
 
   const userLinks = () => (
     <>
@@ -67,7 +59,7 @@ const Navbar = () => {
 
   const serviceProviderLinks = () => (
     <>
-      <li><a href="/gigs" className="hover:text-gray-300">Gigs</a></li>
+      <li><a href="/Gigs" className="hover:text-gray-300">Gigs</a></li>
       <li><a href="/bookings" className="hover:text-gray-300">Bookings</a></li>
       <li><a href="/history" className="hover:text-gray-300">History</a></li>
       <li>
