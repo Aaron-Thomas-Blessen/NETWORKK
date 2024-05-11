@@ -1,5 +1,5 @@
 import { SlMagnifier } from "react-icons/sl";
-import Navsign from "../components/navsign";
+import Navsign from "../../components/navsign";
 
 const GigsSearch = () => {
   const Search = () => {

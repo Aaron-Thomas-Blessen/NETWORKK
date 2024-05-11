@@ -1,12 +1,12 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { db, storage } from "../Firebase/Firebase"; 
+import { db, storage } from "../../Firebase/Firebase"; 
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { ref as storageRef, uploadBytes, getDownloadURL } from "firebase/storage"; 
 import { Button } from "@material-tailwind/react";
 import { ClipLoader } from "react-spinners";
-import Navbar from "../components/nav";
+import Navbar from "../../components/nav";
 
 
 const SellerProfilePage = () => {

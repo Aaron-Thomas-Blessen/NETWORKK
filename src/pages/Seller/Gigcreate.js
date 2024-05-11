@@ -1,0 +1,163 @@
+import React, { useState } from 'react';
+import Navbar from "../../components/nav";
+import { useUser } from '../../Context/Context';
+import { getFirestore, collection, addDoc } from 'firebase/firestore';
+import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { useNavigate } from 'react-router-dom';
+
+const Gigcreate = () => {
+    const { user } = useUser();
+    const [gigData, setGigData] = useState({
+        title: '',
+        category: '',
+        basePrice: '',
+        description: '',
+        phoneNumber: '',
+        address: '',
+        demoPics: [],
+        gigPdf: null,
+        holidays: ["01-01-2000"]
+    });
+
+    const navigate = useNavigate();
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setGigData(prevState => ({
+            ...prevState,
+            [name]: value
+        }));
+    };
+
+    const handleDemoPicsChange = (e) => {
+        const files = e.target.files;
+        const picsArray = [];
+        for (let i = 0; i < files.length; i++) {
+            picsArray.push(files[i]);
+        }
+        setGigData(prevState => ({
+            ...prevState,
+            demoPics: picsArray
+        }));
+    };
+
+    const handlePdfChange = (e) => {
+        const pdfFile = e.target.files[0];
+        setGigData(prevState => ({
+            ...prevState,
+            gigPdf: pdfFile
+        }));
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const db = getFirestore();
+        const storage = getStorage();
+
+        try {
+            // Upload demo pics to Cloud Storage
+            const demoPicsUrls = [];
+            for (const pic of gigData.demoPics) {
+                const picRef = ref(storage, `demoPics/${user.uid}/${pic.name}`);
+                await uploadBytes(picRef, pic);
+                const url = await getDownloadURL(picRef);
+                demoPicsUrls.push(url);
+            }
+
+            // Upload gig PDF to Cloud Storage
+            if (gigData.gigPdf) {
+                const pdfRef = ref(storage, `gigPdfs/${user.uid}/${gigData.gigPdf.name}`);
+                await uploadBytes(pdfRef, gigData.gigPdf);
+                const pdfUrl = await getDownloadURL(pdfRef);
+
+                // Add gig data to Firestore with PDF URL
+                await addDoc(collection(db, 'services'), {
+                    ...gigData,
+                    serviceProviderId: user.uid,
+                    status: "Pending",
+                    demoPics: demoPicsUrls,
+                    gigPdf: pdfUrl
+                });
+            } else {
+                // Add gig data to Firestore without PDF URL
+                await addDoc(collection(db, 'services'), {
+                    ...gigData,
+                    serviceProviderId: user.uid,
+                    status: false,
+                    demoPics: demoPicsUrls
+                });
+            }
+
+            console.log('Gig created successfully');
+            navigate(-1); // Redirect to home page after gig creation
+        } catch (error) {
+            console.error('Error creating gig: ', error);
+            // Handle error
+        }
+    };
+
+    return (
+        <div className="Gigcreate">
+            <Navbar />
+            <div className="flex flex-col items-center justify-center mt-8">
+                <div className="gig-container rounded-lg p-8 mb-8 w-96 border border-gray-400 rounded-l-md">
+                    <div className="gigcreate">
+                        <h1 className="text-3xl text-center mb-4">Create your Gig</h1>
+                    </div>
+                    <form onSubmit={handleSubmit}>
+                        <div className="gigtitle mb-4">
+                            <label htmlFor="title" className="block">Gig Title</label>
+                            <input type="text" id="title" name="title" value={gigData.title} onChange={handleChange} placeholder="Enter your Gig title" className="w-full h-full border border-black rounded p-2 border-gray-400 rounded-l-md py-2 px-4 w-96 focus:outline-none focus:ring-1 focus:ring-slate-950" />
+                        </div>
+                        <div className="gigcat mb-4">
+                            <label htmlFor="category" className="block">Gig Category</label>
+                            <select id="category" name="category" value={gigData.category} onChange={handleChange} className="w-full h-full border border-black rounded p-2 border-gray-400 rounded-l-md py-2 px-4 w-96 focus:outline-none focus:ring-1 focus:ring-slate-950">
+                                <option value="">Select Gig Category</option>
+                                <option value="Carpenter">Carpenter</option>
+                                <option value="Plumber">Plumber</option>
+                                <option value="Electrician">Electrician</option>
+                                <option value="Mechanic">Mechanic</option>
+                                <option value="Mason">Mason</option>
+                                <option value="Laundry">Laundry</option>
+                            </select>
+                        </div>
+                        {/* Add other input fields for basePrice, description, phoneNumber, address */}
+                        <div className="gigbaseprice mb-4">
+                            <label htmlFor="basePrice" className="block">Base Price</label>
+                            <input type="number" id="basePrice" name="basePrice" value={gigData.basePrice} onChange={handleChange} placeholder="Enter Base Price" className="w-full h-full border border-black rounded p-2 border-gray-400 rounded-l-md py-2 px-4 w-96 focus:outline-none focus:ring-1 focus:ring-slate-950" />
+                        </div>
+                        <div className="gigdes mb-4">
+                            <label htmlFor="description" className="block">Description</label>
+                            <textarea id="description" name="description" value={gigData.description} onChange={handleChange} placeholder="Enter Description" className="w-full h-full border border-black rounded p-2 border-gray-400 rounded-l-md py-2 px-4 w-96 focus:outline-none focus:ring-1 focus:ring-slate-950"></textarea>
+                        </div>
+                        <div className="gigphone mb-4">
+                            <label htmlFor="phoneNumber" className="block">Phone Number</label>
+                            <input type="tel" id="phoneNumber" name="phoneNumber" value={gigData.phoneNumber} onChange={handleChange} placeholder="Enter Phone Number" className="w-full h-full border border-black rounded p-2 border-gray-400 rounded-l-md py-2 px-4 w-96 focus:outline-none focus:ring-1 focus:ring-slate-950" />
+                        </div>
+                        <div className="gigaddress mb-4">
+                            <label htmlFor="address" className="block">Address</label>
+                            <input type="text" id="address" name="address" value={gigData.address} onChange={handleChange} placeholder="Enter Address" className="w-full h-full border border-black rounded p-2 border-gray-400 rounded-l-md py-2 px-4 w-96 focus:outline-none focus:ring-1 focus:ring-slate-950" />
+                        </div>
+                        <div className="gigperv mb-8">
+                            <div className="">
+                                <label htmlFor="demoPics" className="block">Demo Pics</label>
+                                <input className="w-full h-full border border-black rounded p-2 border-gray-400 rounded-l-md py-2 px-4 w-96 focus:outline-none focus:ring-1 focus:ring-slate-950" type="file" id="demoPics" name="demoPics" accept="image/png, image/jpeg" multiple onChange={handleDemoPicsChange} />
+                            </div>
+                        </div>
+                        <div className="gigperv mb-8">
+                            <div className="">
+                                <label htmlFor="gigPdf" className="block">Gig PDF</label>
+                                <input className="w-full h-full border border-black rounded p-2 border-gray-400 rounded-l-md py-2 px-4 w-96 focus:outline-none focus:ring-1 focus:ring-slate-950" type="file" id="gigPdf" name="gigPdf" accept=".pdf" onChange={handlePdfChange} />
+                            </div>
+                        </div>
+                        <div className="gigsubmit flex justify-center">
+                            <input type="submit" value="Publish Gig" className="bg-black text-white px-6 py-3 rounded-lg hover:bg-gray-800 cursor-pointer text-lg" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+export default Gigcreate;

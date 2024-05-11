@@ -2,16 +2,18 @@ import Home from "./pages/Home";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
-import Admin from "./pages/Admin";
-import Booking from "./pages/Booking";
-import UserProfilePage from "./pages/UserProfilePage";
-import SellerProfilePage from "./pages/SellerProfilePage";
-import Gigs from "./pages/Gigs";
-import Gigcreate from "./pages/Gigcreate";
-import Gigssearch from "./pages/Gigssearch";
+import Admin from "./pages/Admin/Admin";
+import Booking from "./pages/User/Booking";
+import UserProfilePage from "./pages/User/UserProfilePage";
+import SellerProfilePage from "./pages/Seller/SellerProfilePage";
+import Gigs from "./pages/Seller/Gigs";
+import Gigcreate from "./pages/Seller/Gigcreate";
+import Gigssearch from "./pages/User/Gigssearch";
 import Usergigsviews from "./pages/Usergigsviews";
 import ProfileDashboardPage from './pages/ProfileDashboardPage';
 import { Protected } from "./components/Protected";
+import { AdminProtected } from "./components/AdminProtected";
+import AdminGigs from "./pages/Admin/AdminGigs";
 
 const App = () => {
   return (
@@ -20,7 +22,8 @@ const App = () => {
           <Route path="/" element={<Home />}></Route>
           <Route path="/signup" element={<SignUp />}></Route>
           <Route path="/signin" element={<SignIn />}></Route>
-          <Route path="/Admin" element={<Protected> <Admin /> </Protected>}></Route>
+          <Route path="/Admin" element={<AdminProtected> <Admin /> </AdminProtected>}></Route>
+          <Route path="/Admingigs" element={<AdminProtected> <AdminGigs /> </AdminProtected>}></Route>
           <Route path="/Booking" element={<Booking />}></Route>
           <Route path="/UserProfilePage" element={<Protected> <UserProfilePage /> </Protected>}></Route>
           <Route path="/SellerProfilePage" element={<Protected> <SellerProfilePage /> </Protected>}></Route>

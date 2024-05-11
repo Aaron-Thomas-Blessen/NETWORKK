@@ -1,11 +1,16 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { auth, db } from '../Firebase/Firebase';
 import { onAuthStateChanged } from 'firebase/auth';
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, getFirestore } from "firebase/firestore";
 
 const UserContext = createContext();
 
 export const useUser = () => useContext(UserContext);
+
+export const useFirestore = () => {
+  const firestore = getFirestore(); // Get Firestore instance
+  return firestore;
+};
 
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);

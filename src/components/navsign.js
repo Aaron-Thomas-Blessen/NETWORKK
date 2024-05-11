@@ -5,27 +5,21 @@ const Navbarsign = () => {
     <nav className="bg-gray-800 text-white flex justify-between items-center p-4">
       <div className="navbar-logo">
         <img src="logo.png" alt="Logo" className="h-8" />{" "}
-        {/* Adjust the height as needed */}
       </div>
       <ul className="flex gap-4">
         <li>
-          <a href="/" className="hover:text-gray-300">
-            Home
+          <a href="/admingigs" className="hover:text-gray-300">
+            Gigs
           </a>
         </li>
         <li>
-          <a href="/about" className="hover:text-gray-300">
-            About
+          <a href="/adminbookings" className="hover:text-gray-300">
+            Bookings
           </a>
         </li>
         <li>
-          <a href="/services" className="hover:text-gray-300">
-            Services
-          </a>
-        </li>
-        <li>
-          <a href="/contact" className="hover:text-gray-300">
-            Contact
+          <a href="/adminpayments" className="hover:text-gray-300">
+            Payments
           </a>
         </li>
       </ul>

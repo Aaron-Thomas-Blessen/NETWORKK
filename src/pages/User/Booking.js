@@ -1,4 +1,4 @@
-import Navsign from "../components/navsign";
+import Navsign from "../../components/navsign";
 
 const Booking = () => {
   const Book = () => {
