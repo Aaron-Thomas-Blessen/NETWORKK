@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import {  createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
-import { auth } from '../Firebase/Firebase';
+import { auth, db } from '../Firebase/Firebase';
+import { doc, setDoc } from 'firebase/firestore';
 import { NavLink, useNavigate } from 'react-router-dom';
 import Navbar from '../components/nav';
 
@@ -8,47 +9,33 @@ const SignUp = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
+  const [role, setRole] = useState("user");
   const navigate = useNavigate();
   const [error, setError] = useState(null);
-  
- 
-  const onSubmit = async (e) => {
-      e.preventDefault()
-     
-      await createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-            // Signed in
-            const user = userCredential.user;
-            console.log(user);
-            console.log("User created successfully");
-            navigate("/signin")
-            return updateProfile(user, {
-              displayName: name
-            }).then(() => {
-              console.log("Profile updated successfully!");
-              console.log(user.displayName); // Now this should be 'John Doe'
-            });
-            
-            // ...
-        })
-        .catch((error) => {
-            const errorCode = error.code;
-            var errorMessage = error.message;
-         
-            console.log(errorCode, errorMessage);
-            setError(errorCode);
-            // ..
-        });
- 
-   
-  }
 
-  
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle the sign in logic here
-    console.log(email, password);
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setError(""); // Clear previous errors
+
+    try {
+      // Create user with email and password
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+      
+      // Add username and email to Firestore
+      await setDoc(doc(db, "users", user.uid), {
+        username: name,
+        email: email,
+        isUser: role === "user"
+      });
+
+      console.log("User created and data stored in Firestore!");
+      navigate('/signin'); // Navigate to signin page after successful signup
+    } catch (error) {
+      console.error("Error signing up:", error.message);
+      setError(error.message); // Set error message to display to the user
+    }
   };
 
   return (
@@ -62,7 +49,7 @@ const SignUp = () => {
             Sign Up
           </h2>
         </div>
-        <form className="mt-8 space-y-6" onSubmit={onSubmit}>
+        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <input type="hidden" name="remember" defaultValue="true" />
           <div className="rounded-md shadow-sm -space-y-px">
           <div>
@@ -117,7 +104,17 @@ const SignUp = () => {
 
           <div className="flex items-center justify-between">
             <div className="text-sm">
-              
+              <label
+                className="text-xl font-bold font-jakarta-sans text-black-600 mb-2"
+              >
+                Sign up as:
+                <div>
+                  <select value={role} onChange={(e) => setRole(e.target.value)}>
+                    <option value="user">User</option>
+                    <option value="serviceProvider">Service Provider</option>
+                  </select>
+                </div>
+              </label>
             </div>
           </div>
 

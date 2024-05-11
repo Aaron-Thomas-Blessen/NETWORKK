@@ -10,12 +10,10 @@ import Gigcreate from "./pages/Gigcreate";
 import Gigssearch from "./pages/Gigssearch";
 import Usergigsviews from "./pages/Usergigsviews";
 import ProfileDashboardPage from './pages/ProfileDashboardPage';
-import { IsSignedUpProvider } from "./Context/Context";
 
 const App = () => {
   return (
     <BrowserRouter>
-      <IsSignedUpProvider>
         <Routes>
           <Route path="/" element={<Home />}></Route>
           <Route path="/signup" element={<SignUp />}></Route>
@@ -29,7 +27,6 @@ const App = () => {
           <Route path="/Usergigsviews" element={<Usergigsviews />}></Route>
           <Route path="/ProfileDashboard" element={<ProfileDashboardPage />}></Route>
         </Routes>
-      </IsSignedUpProvider>
     </BrowserRouter>
   );
 };
