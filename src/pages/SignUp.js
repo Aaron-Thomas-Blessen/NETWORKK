@@ -27,11 +27,11 @@ const SignUp = () => {
       await setDoc(doc(db, "users", user.uid), {
         username: name,
         email: email,
-        isUser: role === "user"
+        isUser: role === "user",
       });
 
       console.log("User created and data stored in Firestore!");
-      navigate('/signin'); // Navigate to signin page after successful signup
+      navigate('/', { replace: true } ); // Navigate to signin page after successful signup
     } catch (error) {
       console.error("Error signing up:", error.message);
       setError(error.message); // Set error message to display to the user

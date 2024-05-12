@@ -4,6 +4,8 @@ import { doc, getDoc, getFirestore } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { getAuth, signOut } from 'firebase/auth';
 import { Link } from 'react-router-dom'; 
+import { ref } from 'firebase/storage';
+import { storage } from '../Firebase/Firebase';
 
 const getUserData = async (userId) => {
   const db = getFirestore();
@@ -23,7 +25,8 @@ const Navbar = () => {
             setProfilePicUrl(userData.profilePicture);
           } else {
             // If no profile picture, use default
-            setProfilePicUrl('gs://network-c70d4.appspot.com/ProfilePic.jpeg'); // Adjust default URL as needed
+            const url = 'https://firebasestorage.googleapis.com/v0/b/network-c70d4.appspot.com/o/ProfilePic.jpeg?alt=media&token=3e6a4919-4c75-4c15-b1bb-8ab6be94feac';
+            setProfilePicUrl(url); // Adjust default URL as needed
           }
         })
         .catch(error => {

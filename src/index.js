@@ -4,13 +4,14 @@ import App from "./App";
 import "./index.css";
 import { UserProvider } from "./Context/Context";
 import { AuthProvider } from "./Context/UseAuth";
+import { GigProvider } from "./Context/GigContext";
 
 ReactDOM.render(
   <React.StrictMode>
     <UserProvider>
-      <AuthProvider>
+      <GigProvider>
         <App />
-      </AuthProvider>
+      </GigProvider>
     </UserProvider>
   </React.StrictMode>,
   document.getElementById("root")

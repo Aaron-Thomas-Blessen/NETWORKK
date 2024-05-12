@@ -12,6 +12,7 @@ const Gigcreate = () => {
         category: '',
         basePrice: '',
         description: '',
+        email: '',
         phoneNumber: '',
         address: '',
         demoPics: [],
@@ -129,6 +130,10 @@ const Gigcreate = () => {
                         <div className="gigdes mb-4">
                             <label htmlFor="description" className="block">Description</label>
                             <textarea id="description" name="description" value={gigData.description} onChange={handleChange} placeholder="Enter Description" className="w-full h-full border border-black rounded p-2 border-gray-400 rounded-l-md py-2 px-4 w-96 focus:outline-none focus:ring-1 focus:ring-slate-950"></textarea>
+                        </div>
+                        <div className="gigemail mb-4">
+                            <label htmlFor="email" className="block">Email</label>
+                            <input type="email" id="email" name="email" value={gigData.email} onChange={handleChange} placeholder="Enter your Gig email" className="w-full h-full border border-black rounded p-2 border-gray-400 rounded-l-md py-2 px-4 w-96 focus:outline-none focus:ring-1 focus:ring-slate-950" />
                         </div>
                         <div className="gigphone mb-4">
                             <label htmlFor="phoneNumber" className="block">Phone Number</label>

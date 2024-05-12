@@ -9,11 +9,12 @@ import SellerProfilePage from "./pages/Seller/SellerProfilePage";
 import Gigs from "./pages/Seller/Gigs";
 import Gigcreate from "./pages/Seller/Gigcreate";
 import Gigssearch from "./pages/User/Gigssearch";
-import Usergigsviews from "./pages/Usergigsviews";
-import ProfileDashboardPage from './pages/ProfileDashboardPage';
+import Usergigsviews from "./pages/User/Usergigsviews";
+import ProfileDashboardPage from './pages/Seller/ProfileDashboardPage';
 import { Protected } from "./components/Protected";
 import { AdminProtected } from "./components/AdminProtected";
 import AdminGigs from "./pages/Admin/AdminGigs";
+import SearchBar from "./pages/User/Search";
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
           <Route path="/Admingigs" element={<AdminProtected> <AdminGigs /> </AdminProtected>}></Route>
           <Route path="/Booking" element={<Booking />}></Route>
           <Route path="/UserProfilePage" element={<Protected> <UserProfilePage /> </Protected>}></Route>
+          <Route path="/search" element={<Protected> <SearchBar /> </Protected>}></Route>
           <Route path="/SellerProfilePage" element={<Protected> <SellerProfilePage /> </Protected>}></Route>
           <Route path="/Gigs" element={<Protected> <Gigs /> </Protected>}></Route>
           <Route path="/Gigcreate" element={<Protected> <Gigcreate /> </Protected>}></Route>

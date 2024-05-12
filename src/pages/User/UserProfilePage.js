@@ -60,7 +60,7 @@ const UserProfilePage = () => {
   const handleProfilePictureChange = async (e) => {
     const file = e.target.files[0];
     if (file) {
-      const fileReference = storageRef(storage, `${auth.currentUser.uid}/profilePicture/${file.name}`);
+      const fileReference = storageRef(storage, `profilePicture/${auth.currentUser.uid}/${file.name}`);
       setLoading(true);
       try {
         await uploadBytes(fileReference, file);

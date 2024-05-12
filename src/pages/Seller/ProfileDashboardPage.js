@@ -1,4 +1,68 @@
 import React from 'react';
+import { useGig } from '../../Context/GigContext';
+import Carousel from '../../components/carousel';
+import { getStorage, ref, getDownloadURL } from 'firebase/storage';
+import { useEffect, useState } from 'react';
+import { useUser } from '../../Context/Context';
+
+const ProfileDashboard = () => {
+  const { selectedGig } = useGig();
+  const { user } = useUser();
+  const [demoPicsUrls, setDemoPicsUrls] = useState([]);
+  const [gigPdfUrl, setGigPdfUrl] = useState('');
+
+  useEffect(() => {
+    const fetchUrls = async () => {
+      const storage = getStorage();
+      console.log(selectedGig)
+
+      // Fetch demo pics URLs
+      const demoPicsUrls = selectedGig.demoPics;
+      setDemoPicsUrls(demoPicsUrls);
+
+      // Fetch gig PDF URL
+      const gigPdfRef = ref(storage, `${selectedGig.gigPdf}`);
+      const gigPdfUrl = await getDownloadURL(gigPdfRef);
+      setGigPdfUrl(gigPdfUrl);
+    };
+
+    if (selectedGig) {
+      fetchUrls();
+    }
+  }, [selectedGig]);
+
+  if (!selectedGig) {
+    return <div>Loading...</div>;
+  }
+
+  return (
+    <div>
+      {/* Render selected gig details here */}
+      <h1>{selectedGig.title}</h1>
+      <p>Category: {selectedGig.category}</p>
+      <p>Description: {selectedGig.description}</p>
+      <p>Base Price: Rs.{selectedGig.basePrice} /-</p>
+      <p>Address: {selectedGig.address}</p>
+      <p>Phone Number: {selectedGig.phoneNumber}</p>
+      <p>Email: {selectedGig.email}</p>
+      <div>
+        <h2>Demo Pics</h2>
+        <Carousel images={demoPicsUrls} />
+      </div>
+      <div>
+        <h2>Gig PDF</h2>
+        <a href={gigPdfUrl} target="_blank" rel="noreferrer" download>
+          Download Gig PDF
+        </a>
+      </div>
+    </div>
+  );
+};
+
+export default ProfileDashboard;
+
+
+/*import React from 'react';
 import Navbar from '../components/nav';
 
 
@@ -33,10 +97,8 @@ import Navbar from '../components/nav';
           <p className="text-sm text-gray-600">Total Income</p>
           <p className="text-xl font-bold">{totalIncome}</p>
         </div>
-        {/* ... other data points ... */}
       </div>
       <div className="bg-white p-4 shadow rounded-lg mb-6">
-        {/* Work Data Table */}
         <div className="border p-4 rounded-lg">
           <h2 className="font-bold">Work Data</h2>
           <table className="table-auto w-full text-left">
@@ -62,7 +124,6 @@ import Navbar from '../components/nav';
         </div>
       </div>
       <div className="bg-white p-4 shadow rounded-lg mb-6">
-        {/* Recent Customers Table */}
         <div>
           <h2 className="text-1xl font-bold mb-2">Recent Customers</h2>
           <table className="table-auto w-full text-left">
@@ -106,3 +167,4 @@ import Navbar from '../components/nav';
 }
 
 export default ProfileDashboardPage;
+*/
