@@ -48,7 +48,7 @@ const Navbar = () => {
   const userLinks = () => (
     <>
       <li><a href="/search" className="hover:text-gray-300">Search</a></li>
-      <li><a href="/bookings" className="hover:text-gray-300">Bookings</a></li>
+      <li><a href="/showBookings" className="hover:text-gray-300">Bookings</a></li>
       <li>
         <Link to="/userProfilePage" className="hover:text-gray-300">
           {user.username}
@@ -63,7 +63,7 @@ const Navbar = () => {
   const serviceProviderLinks = () => (
     <>
       <li><a href="/Gigs" className="hover:text-gray-300">Gigs</a></li>
-      <li><a href="/bookings" className="hover:text-gray-300">Bookings</a></li>
+      <li><a href="/showSellerBookings" className="hover:text-gray-300">Bookings</a></li>
       <li><a href="/history" className="hover:text-gray-300">History</a></li>
       <li>
         <Link to="/SellerProfilePage" className="hover:text-gray-300">
@@ -80,8 +80,9 @@ const Navbar = () => {
     if (!user) {
       return (
         <>
-          <li><a href="/signup" className="hover:text-gray-300">SignUp</a></li>
-          <li><a href="/signin" className="hover:text-gray-300">SignIn</a></li>
+          <li><Link to="/" className="hover:text-gray-300">Home</Link></li>
+          <li><Link to="/signup" className="hover:text-gray-300">SignUp</Link></li>
+          <li><Link to="/signin" className="hover:text-gray-300">SignIn</Link></li>
         </>
       );
     } else {

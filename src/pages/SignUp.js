@@ -54,7 +54,7 @@ const SignUp = () => {
           <div className="rounded-md shadow-sm -space-y-px">
           <div>
             <div className="text-xl font-bold font-jakarta-sans text-black-600 mb-2">
-                Full name
+                User Name
               </div>
               <input
                 id="name"

@@ -1,17 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const Carousel = ({ images }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
+  // Function to move to the next image
   const nextImage = () => {
     setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
   };
 
-  const prevImage = () => {
-    setCurrentImageIndex((prevIndex) =>
-      prevIndex === 0 ? images.length - 1 : prevIndex - 1
-    );
-  };
+  useEffect(() => {
+    // Start automatic sliding
+    const interval = setInterval(nextImage, 3000); // Change slide every 3 seconds
+
+    // Clear interval on component unmount
+    return () => clearInterval(interval);
+  }, [currentImageIndex]); // Run effect whenever currentImageIndex changes
 
   return (
     <div style={{ position: 'relative', width: '100%', height: '300px' }}>
@@ -22,34 +25,6 @@ const Carousel = ({ images }) => {
           style={{ width: '100%', height: '100%', objectFit: 'cover' }}
         />
       )}
-      <button
-        onClick={prevImage}
-        style={{
-          position: 'absolute',
-          top: '50%',
-          left: '10px',
-          transform: 'translateY(-50%)',
-          backgroundColor: 'transparent',
-          border: 'none',
-          cursor: 'pointer',
-        }}
-      >
-        Prev
-      </button>
-      <button
-        onClick={nextImage}
-        style={{
-          position: 'absolute',
-          top: '50%',
-          right: '10px',
-          transform: 'translateY(-50%)',
-          backgroundColor: 'transparent',
-          border: 'none',
-          cursor: 'pointer',
-        }}
-      >
-        Next
-      </button>
     </div>
   );
 };

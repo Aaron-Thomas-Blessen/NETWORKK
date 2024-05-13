@@ -15,6 +15,8 @@ import { Protected } from "./components/Protected";
 import { AdminProtected } from "./components/AdminProtected";
 import AdminGigs from "./pages/Admin/AdminGigs";
 import SearchBar from "./pages/User/Search";
+import BookingsPage from "./pages/User/ShowBookings";
+import SellerBookingsPage from "./pages/Seller/ShowGigBookings";
 
 const App = () => {
   return (
@@ -26,6 +28,8 @@ const App = () => {
           <Route path="/Admin" element={<AdminProtected> <Admin /> </AdminProtected>}></Route>
           <Route path="/Admingigs" element={<AdminProtected> <AdminGigs /> </AdminProtected>}></Route>
           <Route path="/Booking" element={<Booking />}></Route>
+          <Route path="/showBookings" element={<BookingsPage />}></Route>
+          <Route path="/showSellerBookings" element={<SellerBookingsPage />}></Route>
           <Route path="/UserProfilePage" element={<Protected> <UserProfilePage /> </Protected>}></Route>
           <Route path="/search" element={<Protected> <SearchBar /> </Protected>}></Route>
           <Route path="/SellerProfilePage" element={<Protected> <SellerProfilePage /> </Protected>}></Route>
