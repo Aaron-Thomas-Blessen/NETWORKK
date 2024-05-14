@@ -40,10 +40,10 @@ const SignUp = () => {
 
   return (
     <div>
-        <Navbar currentPage="signup"/>
-    <div className="min-h-90vh flex items-center justify-center bg-gray-100">
+        {/* <Navbar currentPage="signup"/> */}
+    <div className="min-h-90vh mt-16 flex items-center justify-center">
        
-      <div className="max-w-md w-full space-y-8">
+      <div className="max-w-md w-1/3 bg-gray-100 p-5 pb-8 rounded-lg drop-shadow-lg">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
             Sign Up
@@ -62,7 +62,7 @@ const SignUp = () => {
                 type="name"
                 
                 required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 mb-4 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm font-bold font-jakarta-sans"
+                className="appearance-none relative block w-full px-3 py-2 mb-4 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm font-bold font-jakarta-sans"
                 placeholder="Full name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
@@ -78,7 +78,7 @@ const SignUp = () => {
                 type="email"
                 autoComplete="email"
                 required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 mb-4 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm font-bold font-jakarta-sans"
+                className="appearance-none  relative block w-full px-3 py-2 mb-4 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm font-bold font-jakarta-sans"
                 placeholder="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -94,7 +94,7 @@ const SignUp = () => {
                 type="password"
                 autoComplete="current-password"
                 required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 mb-4 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm font-bold font-jakarta-sans"
+                className="appearance-none  relative block w-full px-3 py-2 mb-4 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm font-bold font-jakarta-sans"
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -105,11 +105,13 @@ const SignUp = () => {
           <div className="flex items-center justify-between">
             <div className="text-sm">
               <label
-                className="text-xl font-bold font-jakarta-sans text-black-600 mb-2"
+                className="text-xl font-bold font-jakarta-sans text-black-600 "
               >
+              <div className="text-xl font-bold font-jakarta-sans text-black-600 mb-2">
                 Sign up as:
+              </div>
                 <div>
-                  <select value={role} onChange={(e) => setRole(e.target.value)}>
+                  <select value={role} onChange={(e) => setRole(e.target.value)} className='block w-full px-2 py-2 border border-gray-300 rounded-md bg-white text-gray-800 focus:outline-none focus:border-indigo-600'>
                     <option value="user">User</option>
                     <option value="serviceProvider">Service Provider</option>
                   </select>
