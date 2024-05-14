@@ -4,6 +4,7 @@ import Carousel from '../../components/carousel';
 import { getStorage, ref, getDownloadURL } from 'firebase/storage';
 import { useEffect, useState } from 'react';
 import { useUser } from '../../Context/Context';
+import Navbar from "../../components/nav";
 
 const ProfileDashboard = () => {
   const { selectedGig } = useGig();
@@ -14,7 +15,6 @@ const ProfileDashboard = () => {
   useEffect(() => {
     const fetchUrls = async () => {
       const storage = getStorage();
-      console.log(selectedGig)
 
       // Fetch demo pics URLs
       const demoPicsUrls = selectedGig.demoPics;
@@ -37,24 +37,28 @@ const ProfileDashboard = () => {
 
   return (
     <div>
-      {/* Render selected gig details here */}
-      <h1>{selectedGig.title}</h1>
-      <p>Category: {selectedGig.category}</p>
-      <p>Description: {selectedGig.description}</p>
-      <p>Base Price: Rs.{selectedGig.basePrice} /-</p>
-      <p>Address: {selectedGig.address}</p>
-      <p>Phone Number: {selectedGig.phoneNumber}</p>
-      <p>Email: {selectedGig.email}</p>
-      <div>
-        <h2>Demo Pics</h2>
-        <Carousel images={demoPicsUrls} />
+      <Navbar currentPage="ProfileDashboardPage" />
+    
+    <div className="container mx-auto px-4 py-8">
+      
+      <div className="max-w-4xl  mx-auto">
+        <h1 className="text-3xl font-bold mb-4">{selectedGig.title}</h1>
+        <p className="text-lg mb-4"><span className="font-semibold">Category:</span> {selectedGig.category}</p>
+        <p className="text-lg mb-4"><span className="font-semibold">Description:</span> {selectedGig.description}</p>
+        <p className="text-lg mb-4"><span className="font-semibold">Base Price:</span> Rs.{selectedGig.basePrice} /-</p>
+        <p className="text-lg mb-4"><span className="font-semibold">Address:</span> {selectedGig.address}</p>
+        <p className="text-lg mb-4"><span className="font-semibold">Phone Number:</span> {selectedGig.phoneNumber}</p>
+        <p className="text-lg mb-4"><span className="font-semibold">Email:</span> {selectedGig.email}</p>
+        <div className="mb-8">
+          <h2 className=" font-semibold mb-4">Demo Pics</h2>
+          <Carousel images={demoPicsUrls} />
+        </div>
+        <div>
+          <h2 className="text-2xl font-semibold mb-4">Gig PDF</h2>
+          <a href={gigPdfUrl} target="_blank" rel="noreferrer" download className="text-blue-500 hover:underline">Download Gig PDF</a>
+        </div>
       </div>
-      <div>
-        <h2>Gig PDF</h2>
-        <a href={gigPdfUrl} target="_blank" rel="noreferrer" download>
-          Download Gig PDF
-        </a>
-      </div>
+    </div>
     </div>
   );
 };
