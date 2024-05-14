@@ -143,15 +143,14 @@ const Home = () => {
               </div>
             </div>
 
-            <div className="lg:w-1/2 lg:pr-4">
+          </div>
+          <div className="lg:w-1/2 lg:pr-4">
             <img
               className="freelancer-img lg:float-right "
               src={require("../images/Freelance-worker.jpg")}
               alt="Freelance-Workers-img"
             />
           </div>
-          </div>
-
           
         </div>
 
