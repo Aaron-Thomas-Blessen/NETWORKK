@@ -59,9 +59,9 @@ const SignIn = () => {
 
   return (
     <div>
-      <Navbar currentPage="signin"></Navbar>
-    <div className="min-h-90vh flex items-center justify-center bg-gray-100">
-      <div className="max-w-md w-full space-y-8">
+      {/* <Navbar currentPage="signin"></Navbar> */}
+    <div className="min-h-90vh mt-20 flex items-center justify-center">
+      <div className="max-w-md w-1/3 bg-gray-100 p-5 pb-8 rounded-lg drop-shadow-lg">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
             Sign In
@@ -80,7 +80,7 @@ const SignIn = () => {
                 type="email"
                 autoComplete="email"
                 required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 mb-4 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm font-bold font-jakarta-sans"
+                className="appearance-none  relative block w-full px-3 py-2 mb-4 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm font-bold font-jakarta-sans"
                 placeholder="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -96,7 +96,7 @@ const SignIn = () => {
                 type="password"
                 autoComplete="current-password"
                 required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 mb-4 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm font-bold font-jakarta-sans"
+                className="appearance-none  relative block w-full px-3 py-2 mb-4 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm font-bold font-jakarta-sans"
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
