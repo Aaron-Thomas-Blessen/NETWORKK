@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import {  createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
-import { auth } from '../Firebase/Firebase';
+import { auth, db } from '../Firebase/Firebase';
+import { doc, setDoc } from 'firebase/firestore';
 import { NavLink, useNavigate } from 'react-router-dom';
 import Navbar from '../components/nav';
 
@@ -8,66 +9,53 @@ const SignUp = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
+  const [role, setRole] = useState("user");
   const navigate = useNavigate();
   const [error, setError] = useState(null);
-  
- 
-  const onSubmit = async (e) => {
-      e.preventDefault()
-     
-      await createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-            // Signed in
-            const user = userCredential.user;
-            console.log(user);
-            console.log("User created successfully");
-            navigate("/signin")
-            return updateProfile(user, {
-              displayName: name
-            }).then(() => {
-              console.log("Profile updated successfully!");
-              console.log(user.displayName); // Now this should be 'John Doe'
-            });
-            
-            // ...
-        })
-        .catch((error) => {
-            const errorCode = error.code;
-            var errorMessage = error.message;
-         
-            console.log(errorCode, errorMessage);
-            setError(errorCode);
-            // ..
-        });
- 
-   
-  }
 
-  
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle the sign in logic here
-    console.log(email, password);
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setError(""); // Clear previous errors
+
+    try {
+      // Create user with email and password
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+      
+      // Add username and email to Firestore
+      await setDoc(doc(db, "users", user.uid), {
+        username: name,
+        email: email,
+        isUser: role === "user",
+      });
+
+      console.log("User created and data stored in Firestore!");
+      navigate('/', { replace: true } ); // Navigate to signin page after successful signup
+    } catch (error) {
+      console.error("Error signing up:", error.message);
+      setError(error.message); // Set error message to display to the user
+    }
   };
 
   return (
-    <div>
-        <Navbar currentPage="signup"/>
-    <div className="min-h-90vh flex items-center justify-center bg-gray-100">
+    
+    <div className="min-h-screen bg-cover bg-center bg-no-repeat" style={{ backgroundImage: 'url("https://firebasestorage.googleapis.com/v0/b/network-c70d4.appspot.com/o/login%2Floginpic2.jpg?alt=media&token=d21b673e-cb2f-4a4a-9a90-7dfbc7a13925")' }}>
+        {/* <Navbar currentPage="signup"/> */}
+    <div className="min-h-90vh  flex items-center justify-center"  >
        
-      <div className="max-w-md w-full space-y-8">
+      <div className="max-w-md w-1/3 mt-16 bg-gray-100 p-5 pb-8 rounded-lg drop-shadow-lg">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
             Sign Up
           </h2>
         </div>
-        <form className="mt-8 space-y-6" onSubmit={onSubmit}>
+        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <input type="hidden" name="remember" defaultValue="true" />
           <div className="rounded-md shadow-sm -space-y-px">
           <div>
             <div className="text-xl font-bold font-jakarta-sans text-black-600 mb-2">
-                Full name
+                User Name
               </div>
               <input
                 id="name"
@@ -75,7 +63,7 @@ const SignUp = () => {
                 type="name"
                 
                 required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 mb-4 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm font-bold font-jakarta-sans"
+                className="appearance-none relative block w-full px-3 py-2 mb-4 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm font-bold font-jakarta-sans"
                 placeholder="Full name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
@@ -91,7 +79,7 @@ const SignUp = () => {
                 type="email"
                 autoComplete="email"
                 required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 mb-4 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm font-bold font-jakarta-sans"
+                className="appearance-none  relative block w-full px-3 py-2 mb-4 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm font-bold font-jakarta-sans"
                 placeholder="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -107,7 +95,7 @@ const SignUp = () => {
                 type="password"
                 autoComplete="current-password"
                 required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 mb-4 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm font-bold font-jakarta-sans"
+                className="appearance-none  relative block w-full px-3 py-2 mb-4 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm font-bold font-jakarta-sans"
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -117,7 +105,19 @@ const SignUp = () => {
 
           <div className="flex items-center justify-between">
             <div className="text-sm">
-              
+              <label
+                className="text-xl font-bold font-jakarta-sans text-black-600 "
+              >
+              <div className="text-xl font-bold font-jakarta-sans text-black-600 mb-2">
+                Sign up as:
+              </div>
+                <div>
+                  <select value={role} onChange={(e) => setRole(e.target.value)} className='block w-full px-2 py-2 border border-gray-300 rounded-md bg-white text-gray-800 focus:outline-none focus:border-indigo-600'>
+                    <option value="user">User</option>
+                    <option value="serviceProvider">Service Provider</option>
+                  </select>
+                </div>
+              </label>
             </div>
           </div>
 
@@ -136,6 +136,7 @@ const SignUp = () => {
           }
         </form>
       </div>
+      
     </div>
     </div>
   );

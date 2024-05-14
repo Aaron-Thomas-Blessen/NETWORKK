@@ -1,5 +1,11 @@
-import Navbar from "../components/nav";
+
 import Carousel from "../components/carousel";
+import React, { useState } from 'react';
+import { SiAntdesign, SiLinkedin } from "react-icons/si";
+import { BsFacebook, BsGlobe, BsInstagram, BsTwitterX, BsYoutube } from "react-icons/bs";
+import { SlArrowDown  } from "react-icons/sl";
+
+
 
 const Home = () => {
   const images = [
@@ -10,37 +16,53 @@ const Home = () => {
 
   const TwoColumnSection = () => {
     return (
-      <div className="flex flex-wrap justify-between items-center mb-20 mx-auto mt-20 ml-48">
+      <div className="flex flex-wrap justify-between items-center mb-20 mb-sm-30 mt-20 p-5 lg:pl-20">
         <div className="w-full md:w-1/2 lg:w-auto lg:flex-1 lg:pr-10">
           <h4 className="text-2xl font-bold mb-4">Discover</h4>
           <h1 className="text-4xl font-bold mb-6">
             Find Skilled Workers and <br />
             Offer Your Services
           </h1>
-          <div className="btn">
-            <button className="px-8 py-4 bg-black text-white rounded-lg mr-4">
+          <div className="btn flex ">
+            <button className="px-8 py-4 bg-black text-white rounded-lg mr-4 ">
               Get Started
             </button>
-            <p className="text-gray-700">Learn more</p>
+            <button className="px-8 py-4  bg-white border-solid border-2 border-blue-gray-700  text-black rounded-lg hover:bg-gray-200 hover:text-black ml-4">
+              Learn more
+            </button>
           </div>
         </div>
         <div className="w-full md:w-1/2 lg:w-auto lg:flex-1 lg:pl-10 mt-8 lg:mt-0">
           <ul>
             <li className="mb-4">
-              <h3 className="text-lg font-semibold mb-2">Step 1</h3>
-              <p>Search for skilled workers in your area</p>
+              <div className="flex ">
+                <SiAntdesign className="mt-1 mr-6" />
+                <h2 className="text-lg font-bold mb-2">Step 1</h2>
+              </div>
+              <p className="ml-10">Create an account using your Mail Id.</p>
+            </li>
+
+            <li className="mb-4">
+              <div className="flex ">
+                <SiAntdesign className="mt-1 mr-6" />
+                <h2 className="text-lg font-bold mb-2">Step 2</h2>
+              </div>
+              <p className="ml-10">Search for skilled workers in your area.</p>
+            </li>
+
+            <li className="mb-4">
+              <div className="flex ">
+                <SiAntdesign className="mt-1 mr-6" />
+                <h2 className="text-lg font-bold mb-2">Step 3</h2>
+              </div>
+              <p className="ml-10">Book your appointment.</p>
             </li>
             <li className="mb-4">
-              <h3 className="text-lg font-semibold mb-2">Step 2</h3>
-              <p>Search for skilled workers in your area</p>
-            </li>
-            <li className="mb-4">
-              <h3 className="text-lg font-semibold mb-2">Step 3</h3>
-              <p>Search for skilled workers in your area</p>
-            </li>
-            <li className="mb-4">
-              <h3 className="text-lg font-semibold mb-2">Step 4</h3>
-              <p>Search for skilled workers in your area</p>
+              <div className="flex ">
+                <SiAntdesign className="mt-1 mr-6" />
+                <h2 className="text-lg font-bold mb-2">Step 4</h2>
+              </div>
+              <p className="ml-10">Make the payment ones your job is done.</p>
             </li>
           </ul>
         </div>
@@ -48,18 +70,54 @@ const Home = () => {
     );
   };
 
+ 
+
+
+    const FAQToggle = ({ question, answer }) => {
+      const [isOpen, setIsOpen] = useState(false);
+    
+      const toggleAccordion = () => {
+        setTimeout(() => {
+          setIsOpen(!isOpen);
+      }, 200);
+    };
+    
+      return (
+        <div>
+          <div className="faq-item">
+            <button
+              className="faq-question flex justify-between items-center w-full px-4 py-2 rounded-md cursor-pointer"
+              onClick={toggleAccordion}
+            >
+              <span className="font-semibold">{question}</span>
+              <span className={`arrow ${isOpen ? 'transform rotate-180' : ''}`}>
+                <SlArrowDown className="justify-items-end" />
+              </span>
+            </button>
+            {isOpen && (
+              <div className="faq-answer p-4 mt-2">
+                <p>{answer}</p>
+              </div>
+            )}
+          </div>
+        </div>
+      );
+    };
+
+
   const Two = () => {
     return (
       <div className="home">
+        
         <div className="flex flex-col lg:flex-row items-center justify-center mb-16">
-          <div className="lg:w-1/2 lg:pl-4">
+          <div className="lg:w-1/2 lg:pl-4 p-10 ml-6">
             <div className="flex flex-col items-center">
               <h1 className="text-4xl font-bold mb-4 text-center">
                 Find Skilled Workers Nearby for Your Freelance Projects
               </h1>
             </div>
 
-            <div className="text-center py-8 mb-4">
+            <div className="text-center lg:py-8 mb-4">
               <p>
                 Networkk connects you with skilled workers in your area,
                 providing convenient access to local job opportunities and
@@ -85,24 +143,25 @@ const Home = () => {
                 </p>
               </div>
             </div>
-          </div>
 
+          </div>
           <div className="lg:w-1/2 lg:pr-4">
             <img
-              className="freelancer-img lg:float-right"
+              className="freelancer-img lg:float-right "
               src={require("../images/Freelance-worker.jpg")}
               alt="Freelance-Workers-img"
             />
           </div>
+          
         </div>
 
         <section id="services-home-container" className="py-12">
-          <div className="container mx-auto px-4">
+          <div className="container mx-auto px-4 px-sm-0">
             <div className="text-center">
               <h1 className="text-4xl font-bold mb-8">
                 Discover a Diverse Range of Services on Networkk
               </h1>
-              <p className="text-base text-gray-700 px-48 mb-8">
+              <p className="text-base text-gray-700  p-sm-0 mb-8">
                 Networkk is your go-to platform for finding skilled workers in
                 your area. Whether you need a carpenter, plumber, electrician,
                 or any other service provider, we've got you covered. Our
@@ -193,7 +252,7 @@ const Home = () => {
                 </button>
               </div>
               <div className="mx-4">
-                <button className="signup px-6 py-3 bg-white text-black rounded-lg hover:bg-gray-200 hover:text-black">
+                <button className="signup px-6 py-3 bg-white border-solid border-2 border-blue-gray-700 text-black rounded-lg hover:bg-gray-200 hover:text-black">
                   Sign Up
                 </button>
               </div>
@@ -219,7 +278,7 @@ const Home = () => {
                   </button>
                 </div>
                 <div className="mx-4">
-                  <button className="login1 px-6 py-3 bg-white text-black rounded-lg hover:bg-gray-200 hover:text-black">
+                  <button className="login1 px-6 py-3 bg-white border-solid border-2 border-blue-gray-700 text-black rounded-lg hover:bg-gray-200 hover:text-black">
                     Log In
                   </button>
                 </div>
@@ -232,12 +291,12 @@ const Home = () => {
             src={require("../images/Painter.jpg")}
           />
         </div>
-        <div className="mb-8 flex justify-center py-8">
-          <div className="Offers">
+        <div className="mb-8 mt-10 flex justify-center py-8">
+          <div className="Offers p-5">
             <div className="Offerhead text-center mb-8">
               <h1 className="text-4xl font-bold mb-4">What Network Offers</h1>
               <h4 className="text-base">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              Empowering skilled workers and users with rewarding opportunities and services.
               </h4>
             </div>
             <div className="offerpts mt-6">
@@ -248,8 +307,7 @@ const Home = () => {
                     Connects you to the right person
                   </h4>
                   <h6 className="text-sm">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Suspendisse varius enim in eros elementum tristique.
+                    Network connects the users with the absolute skilled person to get their job done.
                   </h6>
                 </div>
               </div>
@@ -260,8 +318,7 @@ const Home = () => {
                     Map based interface
                   </h4>
                   <h6 className="text-sm">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Suspendisse varius enim in eros elementum tristique.
+                    Network provides a location based filtering feature which allows to find the right skilled person within their locality.
                   </h6>
                 </div>
               </div>
@@ -272,64 +329,68 @@ const Home = () => {
                     Safe and Secure Services
                   </h4>
                   <h6 className="text-sm">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Suspendisse varius enim in eros elementum tristique.
+                    Network ensures the safety of the users by through checking of the sellers' background.
                   </h6>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div className="mb-8 flex justify-between">
-          <div className="freqhead w-1/2 ml-12 my-28">
-            <h1 className="text-3xl font-bold">Frequently asked Questions</h1>
-            <h6 className="text-sm">
+        <div className="mb-4 flex justify-between">
+          <div className="freqhead w-1/2 ml-12 my-10">
+            <h1 className="text-3xl font-bold mb-3">Frequently asked Questions</h1>
+            <h6 className="text-sm ">
               Find answers to commonly asked questions about our platform and
               services.
             </h6>
             <button className="px-4 py-2 mt-4 bg-black text-white rounded-lg">
-              Contact
+              Contact Us
             </button>
-          </div>
+          </div >
+
           <div className="freqques w-1/2 mr-12">
             <hr className="my-4 border-t-2 border-gray-300" />
-            <h4 className="text-lg font-semibold">How does it work?</h4>
+            <FAQToggle question={"How are you"} answer={"All good!"}/>
             <hr className="my-4 border-t-2 border-gray-300" />
-            <h4 className="text-lg font-semibold">Is it safe?</h4>
+            
+            <FAQToggle question={"How are you"} answer={"All good!"}/>
             <hr className="my-4 border-t-2 border-gray-300" />
-            <h4 className="text-lg font-semibold">How do I sign Up?</h4>
+
+            <FAQToggle question={"How are you"} answer={"All good!"}/>
             <hr className="my-4 border-t-2 border-gray-300" />
-            <h4 className="text-lg font-semibold">Can I offer my services?</h4>
+
+            <FAQToggle question={"How are you"} answer={"All good!"}/>
             <hr className="my-4 border-t-2 border-gray-300" />
-            <h4 className="text-lg font-semibold">How can I get paid?</h4>
+
+            <FAQToggle question={"How are you"} answer={"All good!"}/>
             <hr className="my-4 border-t-2 border-gray-300" />
           </div>
         </div>
         <div className="Team py-12">
-          <div className="Teamhead text-center mb-4">
+          <div className="Teamhead text-center mb-16">
             <h6 className="text-lg">Connecting</h6>
             <h1 className="text-4xl font-bold">Our Team</h1>
             <h6 className="text-lg">
               Meet the talented individuals behind Networkk
             </h6>
           </div>
-          <div className="Teamname ml-6 mr-2 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 mt-8">
+          <div className="Teamname ml-4 mr-5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 mt-8">
             <div className="Aaron text-center ">
               <h2 className="text-xl font-semibold">Aaron Thomas Blessen</h2>
               <h3 className="text-lg">CMO</h3>
               <h4 className="text-base">
                 Experienced strategist with a passion for innovation and growth.
               </h4>
-              <div className="flex justify-center mt-4 space-x-2">
-                <button className="px-3 py-1 bg-black text-white rounded-lg">
-                  LinkedIn
-                </button>
-                <button className="px-3 py-1 bg-black text-white rounded-lg">
-                  Twitter
-                </button>
-                <button className="px-3 py-1 bg-black text-white rounded-lg">
-                  Portfolio
-                </button>
+              <div className="flex justify-center mt-4 space-x-8">
+              <a href="https://www.example.com" target="_blank" rel="noopener noreferrer">
+                <SiLinkedin className="text-black-500 text-2xl" />
+              </a>
+              <a href="https://www.example.com" target="_blank" rel="noopener noreferrer">
+                <BsTwitterX className="text-black-500 text-2xl" />
+              </a>
+              <a href="https://www.example.com" target="_blank" rel="noopener noreferrer">
+                <BsGlobe className="text-black-500 text-2xl" />
+              </a>
               </div>
             </div>
             <div className="Akshay text-center">
@@ -339,16 +400,16 @@ const Home = () => {
                 Tech enthusiast with expertise in developing cutting-edge
                 solutions.
               </h4>
-              <div className="flex justify-center mt-4 space-x-2">
-                <button className="px-3 py-1 bg-black text-white rounded-lg">
-                  LinkedIn
-                </button>
-                <button className="px-3 py-1 bg-black text-white rounded-lg">
-                  Twitter
-                </button>
-                <button className="px-3 py-1 bg-black text-white rounded-lg">
-                  Portfolio
-                </button>
+              <div className="flex justify-center mt-4 space-x-8">
+              <a href="https://www.example.com" target="_blank" rel="noopener noreferrer">
+                <SiLinkedin className="text-black-500 text-2xl" />
+              </a>
+              <a href="https://www.example.com" target="_blank" rel="noopener noreferrer">
+                <BsTwitterX className="text-black-500 text-2xl" />
+              </a>
+              <a href="https://www.example.com" target="_blank" rel="noopener noreferrer">
+                <BsGlobe className="text-black-500 text-2xl" />
+              </a>
               </div>
             </div>
             <div className="Alan text-center">
@@ -358,16 +419,16 @@ const Home = () => {
                 Operations expert focused on delivering exceptional user
                 experiences.
               </h4>
-              <div className="flex justify-center mt-4 space-x-2">
-                <button className="px-3 py-1 bg-black text-white rounded-lg">
-                  LinkedIn
-                </button>
-                <button className="px-3 py-1 bg-black text-white rounded-lg">
-                  Twitter
-                </button>
-                <button className="px-3 py-1 bg-black text-white rounded-lg">
-                  Portfolio
-                </button>
+              <div className="flex justify-center mt-4 space-x-8">
+              <a href="https://www.example.com" target="_blank" rel="noopener noreferrer">
+                <SiLinkedin className="text-black-500 text-2xl" />
+              </a>
+              <a href="https://www.example.com" target="_blank" rel="noopener noreferrer">
+                <BsTwitterX className="text-black-500 text-2xl" />
+              </a>
+              <a href="https://www.example.com" target="_blank" rel="noopener noreferrer">
+                <BsGlobe className="text-black-500 text-2xl" />
+              </a>
               </div>
             </div>
             <div className="Chand text-center">
@@ -377,47 +438,46 @@ const Home = () => {
                 Strategic marketer driving brand awareness and customer
                 acquisition.
               </h4>
-              <div className="flex justify-center mt-4 space-x-2">
-                <button className="px-3 py-1 bg-black text-white rounded-lg">
-                  LinkedIn
-                </button>
-                <button className="px-3 py-1 bg-black text-white rounded-lg">
-                  Twitter
-                </button>
-                <button className="px-3 py-1 bg-black text-white rounded-lg">
-                  Portfolio
-                </button>
+              <div className="flex justify-center mt-4 space-x-8">
+              <a href="https://www.example.com" target="_blank" rel="noopener noreferrer">
+                <SiLinkedin className="text-black-500 text-2xl" />
+              </a>
+              <a href="https://www.example.com" target="_blank" rel="noopener noreferrer">
+                <BsTwitterX className="text-black-500 text-2xl" />
+              </a>
+              <a href="https://www.example.com" target="_blank" rel="noopener noreferrer">
+                <BsGlobe className="text-black-500 text-2xl" />
+              </a>
               </div>
             </div>
           </div>
         </div>
         <div class="contact py-12">
-          <div class="contacthead flex ">
-            <div class="contactus w-1/2 pr-4 ml-16 py-8">
+          <div class="contacthead flex flex-col ">
+            <div class="contactus py-8 text-center">
               <h1 class="text-3xl font-bold">Contact Us</h1>
-              <h6 class="text-sm">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Suspendisse varius enim in eros elementum tristique.
+              <h6 class="text-sm mt-2">
+              Get in touch with us to explore opportunities, ask questions, or share feedback. We're here to help!
               </h6>
             </div>
-            <div class="contactdet w-1/2 pl-4 ml-8">
-              <div>
-                <h3 class="font-semibold">Email</h3>
-                <h6 class="text-sm">hello@relume.io</h6>
+            <div class="contactdet flex flex-row ">
+              <div className="mt-4 w-1/3 text-center">
+                <h3 class="font-bold text-lg">Email</h3>
+                <h6 class="text-md">hello@relume.io</h6>
               </div>
-              <div class="mt-4">
-                <h3 class="font-semibold">Phone</h3>
-                <h6 class="text-sm">+1 (555) 000-0000</h6>
+              <div class="mt-4 w-1/3 text-center">
+                <h3 class="font-bold text-lg">Phone</h3>
+                <h6 class="text-md">+1 (555) 000-0000</h6>
               </div>
-              <div class="mt-4">
-                <h3 class="font-semibold">Office</h3>
-                <h6 class="text-sm">123 Sample St, Sydney NSW 2000 AU</h6>
+              <div class="mt-4 w-1/3 text-center">
+                <h3 class="font-bold text-lg">Office</h3>
+                <h6 class="text-md">123 Sample St, Sydney NSW 2000 AU</h6>
               </div>
             </div>
           </div>
         </div>
-        <div class="news flex justify-center py-8">
-          <div class="newshead pr-8 w-2/3 ml-16">
+        <div class="news flex flex-row justify-center py-8">
+          <div class="newshead pr-8 w-3/5 ml-5 lg:ml-10">
             <h2 class="text-3xl font-bold">LOGO</h2>
             <h5 class="text-base">
               Stay up to date on features and releases by joining our
@@ -426,9 +486,9 @@ const Home = () => {
             <input
               type="email"
               placeholder="Your Email"
-              class="mt-4 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+              class="mt-4 px-4 py-2 border border-gray-300 rounded-l-lg focus:outline-none focus:border-black"
             ></input>
-            <button class="mt-2 px-4 py-2 bg-black text-white rounded-lg">
+            <button class="mt-2 px-4 py-2 bg-black text-white rounded-r-lg ">
               Subscribe
             </button>
             <h6 class="text-sm mt-4">
@@ -436,27 +496,38 @@ const Home = () => {
               receive updates from our company.
             </h6>
           </div>
-          <div class="newsfollow w-1/3">
-            <h3 class="text-lg font-semibold">Follow us</h3>
-            <h4 class="mt-2">Facebook</h4>
-            <h4>Instagram</h4>
-            <h4>Twitter</h4>
-            <h4>LinkedIn</h4>
-            <h4>Youtube</h4>
+          <div class="newsfollow w-2/5 text-center ">
+            <h3 class="text-lg font-semibold">Follow us on:</h3>
+            <div className="flex justify-center mt-4 space-x-8">
+              <a href="https://www.example.com" target="_blank" rel="noopener noreferrer">
+                <SiLinkedin className="text-black-500 text-2xl" />
+              </a>
+              <a href="https://www.example.com" target="_blank" rel="noopener noreferrer">
+                <BsTwitterX className="text-black-500 text-2xl" />
+              </a>
+              <a href="https://www.example.com" target="_blank" rel="noopener noreferrer">
+                <BsFacebook className="text-black-500 text-2xl" />
+              </a>
+              <a href="https://www.example.com" target="_blank" rel="noopener noreferrer">
+                <BsYoutube className="text-black-500 text-2xl" />
+              </a>
+              
+            </div>
+           
           </div>
         </div>
         <hr class="border-t-2 border-gray-300 my-2"></hr>
 
-<div class="footer flex justify-between items-center mb-2">
-  <div class="left">
-    <h6>© 2024 Networkk All rights reserved.</h6>
-  </div>
-  <div class="right flex">
-    <h6 class="mr-4">Privacy Policy</h6>
-    <h6 class="mr-4">Terms of Service</h6>
-    <h6>Cookies Settings</h6>
-  </div>
-</div>
+        <div class="footer flex justify-between items-center mb-2">
+          <div class="left">
+            <h6>© 2024 Networkk All rights reserved.</h6>
+          </div>
+          <div class="right flex">
+            <h6 class="mr-4">Privacy Policy</h6>
+            <h6 class="mr-4">Terms of Service</h6>
+            <h6>Cookies Settings</h6>
+          </div>
+        </div>
 
       </div>
     );
@@ -464,7 +535,7 @@ const Home = () => {
 
   return (
     <div className="home bg-offwhite">
-      <Navbar />
+      
       <Carousel images={images} />
       <TwoColumnSection />
       <Two />
