@@ -30,6 +30,7 @@ const Carousel = ({ images }) => {
   
 
   return (
+    <div><Navbar />
     <div className="carousel-container">
       <div className="carouselrelative h-auto">
         <div
@@ -37,7 +38,7 @@ const Carousel = ({ images }) => {
           style={{ transform: `translateX(-${currentIndex * 100}%)` }}
         >
           <div  className="absolute top-0 w-full overflow-hidden ">
-           <Navbar />
+           
           </div>
           {images.map((image, index) => (
             <div key={index} className="carousel-slide">
@@ -47,6 +48,7 @@ const Carousel = ({ images }) => {
         </div>
         
       </div>
+    </div>
     </div>
   );
 };

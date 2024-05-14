@@ -49,6 +49,7 @@ const Navbar = () => {
 
   const userLinks = () => (
     <>
+    <li><a href="/" className="hover:text-gray-300">Home</a></li>
       <li><a href="/search" className="hover:text-gray-300">Search</a></li>
       <li><a href="/showBookings" className="hover:text-gray-300">Bookings</a></li>
       <li>
@@ -64,6 +65,7 @@ const Navbar = () => {
 
   const serviceProviderLinks = () => (
     <>
+    <li><a href="/" className="hover:text-gray-300">Home</a></li>
       <li><a href="/Gigs" className="hover:text-gray-300">Gigs</a></li>
       <li><a href="/showSellerBookings" className="hover:text-gray-300">Bookings</a></li>
       <li><a href="/history" className="hover:text-gray-300">History</a></li>
