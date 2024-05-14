@@ -180,6 +180,22 @@ const SellerProfilePage = () => {
                         className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                       />
                     </div>
+                    <div className="mb-4 w-full px-2">
+                      <label
+                        htmlFor="username"
+                        className="block text-gray-700 text-sm font-bold mb-2"
+                      >
+                        User Name:
+                      </label>
+                      <input
+                        type="text"
+                        id="username"
+                        value={formData.username || ""}
+                        name="username"
+                        onChange={handleInputChange}
+                        className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                      />
+                    </div>
                     <div className="mb-4 w-full  px-2">
                       <label
                         htmlFor="phoneNumberInput"
