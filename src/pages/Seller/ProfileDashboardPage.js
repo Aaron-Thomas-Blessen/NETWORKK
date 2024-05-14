@@ -49,10 +49,10 @@ const ProfileDashboard = () => {
         <p className="text-lg mb-4"><span className="font-semibold">Address:</span> {selectedGig.address}</p>
         <p className="text-lg mb-4"><span className="font-semibold">Phone Number:</span> {selectedGig.phoneNumber}</p>
         <p className="text-lg mb-4"><span className="font-semibold">Email:</span> {selectedGig.email}</p>
-        <div className="mb-8">
+        {/* <div className="mb-8">
           <h2 className=" font-semibold mb-4">Demo Pics</h2>
           <Carousel images={demoPicsUrls} />
-        </div>
+        </div> */}
         <div>
           <h2 className="text-2xl font-semibold mb-4">Gig PDF</h2>
           <a href={gigPdfUrl} target="_blank" rel="noreferrer" download className="text-blue-500 hover:underline">Download Gig PDF</a>

@@ -47,39 +47,41 @@ const UsergigsViews = () => {
   }
 
   return (
-    <div className="h-screen bg-gray-100">
+    <div className="min-h-screen bg-gray-100">
       <Navbar />
-      <div className="container mx-auto p-8 h-full flex justify-center items-center">
-      <div className="container mx-auto p-8 h-full flex flex-col justify-center items-center">
+      <div className="container mx-auto p-8 flex flex-col items-center justify-center h-full">
         {/* Gig Details Section */}
-        <div className="flex flex-col items-start mb-8"> 
-          <h1>{selectedGig.title}</h1>
-          <p>Category: {selectedGig.category}</p>
-          <p>Description: {selectedGig.description}</p>
-          <p>Base Price: Rs.{selectedGig.basePrice} /-</p>
-          <p>Address: {selectedGig.address}</p>
-          <p>Phone Number: {selectedGig.phoneNumber}</p>
-          <p>Email: {selectedGig.email}</p>
+        <div className="max-w-md w-full bg-white rounded-lg shadow-md p-6 mb-8">
+          <h1 className="text-2xl font-bold mb-4">{selectedGig.title}</h1>
+          <p className="text-gray-600 mb-2">Category: {selectedGig.category}</p>
+          <p className="text-gray-600 mb-2">Description: {selectedGig.description}</p>
+          <p className="text-gray-600 mb-2">Base Price: Rs.{selectedGig.basePrice} /-</p>
+          <p className="text-gray-600 mb-2">Address: {selectedGig.address}</p>
+          <p className="text-gray-600 mb-2">Phone Number: {selectedGig.phoneNumber}</p>
+          <p className="text-gray-600 mb-4">Email: {selectedGig.email}</p>
+          
+          {/* Gig PDF Section */}
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-xl font-semibold">Gig PDF</h2>
+            <a href={gigPdfUrl} target="_blank" rel="noreferrer" download className="text-blue-500 hover:underline">Download Gig PDF</a>
+          </div>
+          
+          {/* Button to book now */}
+          <button onClick={handleBookNow} className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            Book Now
+          </button>
         </div>
         
-        {/* Gig PDF Section */}
-        <div className="flex flex-col items-start"> 
-          <h2>Gig PDF</h2>
-          <a href={gigPdfUrl} target="_blank" rel="noreferrer" download>
-            Download Gig PDF
-          </a>
-        </div>
-        
-        {/* Button to book now */}
-        <button onClick={handleBookNow} className="mt-8 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-          Book Now
-        </button>
+        {/* Display Carousel of Demo Pics */}
+        {/* {demoPicsUrls.length > 0 && (
+          <div className="max-w-md w-full bg-white rounded-lg shadow-md p-6">
+            <h2 className="text-xl font-semibold mb-4">Demo Pics</h2>
+            <Carousel images={demoPicsUrls} />
+          </div>
+        )} */}
       </div>
     </div>
-  </div>
   );
-  
 };
 
 export default UsergigsViews;
-
