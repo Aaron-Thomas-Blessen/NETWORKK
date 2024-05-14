@@ -31,12 +31,12 @@ const Carousel = ({ images }) => {
 
   return (
     <div className="carousel-container">
-      <div className="carousel z-20 relative h-screen">
+      <div className="carouselrelative h-auto">
         <div
           className="carousel-inner"
           style={{ transform: `translateX(-${currentIndex * 100}%)` }}
         >
-          <div  className="absolute top-0 w-full overflow-hidden z-0">
+          <div  className="absolute top-0 w-full overflow-hidden ">
            <Navbar />
           </div>
           {images.map((image, index) => (
