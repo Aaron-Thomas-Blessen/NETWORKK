@@ -91,7 +91,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-gray-800 text-white flex justify-between items-center p-4">
+    <nav className="bg-transparent z-20 text-white flex justify-between items-center p-4">
       <div className="navbar-logo">
         <img src="logo.png" alt="Logo" className="h-8" />
       </div>
