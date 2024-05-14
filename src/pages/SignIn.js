@@ -68,7 +68,7 @@ const SignIn = () => {
             Sign In
           </h2>
         </div>
-        <form className="mt-8 space-y-6" onSubmit={onLogin}>
+        {/* <form className="mt-8 space-y-6" onSubmit={onLogin}>
           <input type="hidden" name="remember" defaultValue="true" />
           <div className="rounded-md shadow-sm -space-y-px">
             <div>
@@ -113,7 +113,7 @@ const SignIn = () => {
             <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
               Sign In
             </h2>
-          </div>
+          </div> */}
           <form className="mt-8 space-y-6" onSubmit={onLogin}>
             <input type="hidden" name="remember" defaultValue="true" />
             <div className="rounded-md shadow-sm -space-y-px">
