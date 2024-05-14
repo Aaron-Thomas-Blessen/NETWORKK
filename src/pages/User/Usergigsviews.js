@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import Navbar from "../../components/nav";
 import Image from "../../images/carpenter.jpg";
+import { collection, query, where, getDocs } from "firebase/firestore";
+import { db } from "../../Firebase/Firebase";
 
 const UsergigsViews = () => {
   const { selectedGig } = useGig();
@@ -13,13 +15,18 @@ const UsergigsViews = () => {
   useEffect(() => {
     const fetchUrls = async () => {
       const storage = getStorage();
-
       if (!selectedGig) {
         console.log("Selected gig not set.");
         return;
       }
 
       console.log("Selected gig:", selectedGig);
+      const userRef = collection(db, "users");
+      const q = query(userRef, where("uid", "==", selectedGig.serviceProviderId));
+      const querySnapshot = await getDocs(q);
+      console.log(querySnapshot);
+      const gigs = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      console.log(gigs);
 
       // Fetch gig PDF URL
       const gigPdfRef = ref(storage, `${selectedGig.gigPdf}`);
@@ -88,6 +95,7 @@ const UsergigsViews = () => {
             <div className="bg-white rounded-lg shadow-md py-4">
               <div className=" py-5 text-center">
                 <h1 className="mb-8 font-bold">Contact Me</h1>
+                {/* <p>First Name: {userData.firstName}</p> */}
                 <p className="text-gray-600 mb-4">
                   Address: {selectedGig.address}
                 </p>
