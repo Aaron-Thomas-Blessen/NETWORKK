@@ -39,7 +39,7 @@ const Home = () => {
                 <SiAntdesign className="mt-1 mr-6" />
                 <h2 className="text-lg font-bold mb-2">Step 1</h2>
               </div>
-              <p className="ml-10">Search for skilled workers in your area</p>
+              <p className="ml-10">Create an account using your mailid.</p>
             </li>
 
             <li className="mb-4">
@@ -47,7 +47,7 @@ const Home = () => {
                 <SiAntdesign className="mt-1 mr-6" />
                 <h2 className="text-lg font-bold mb-2">Step 2</h2>
               </div>
-              <p className="ml-10">Search for skilled workers in your area</p>
+              <p className="ml-10">Search for skilled workers in your area.</p>
             </li>
 
             <li className="mb-4">
@@ -55,14 +55,14 @@ const Home = () => {
                 <SiAntdesign className="mt-1 mr-6" />
                 <h2 className="text-lg font-bold mb-2">Step 3</h2>
               </div>
-              <p className="ml-10">Search for skilled workers in your area</p>
+              <p className="ml-10">Book your appointment.</p>
             </li>
             <li className="mb-4">
               <div className="flex ">
                 <SiAntdesign className="mt-1 mr-6" />
                 <h2 className="text-lg font-bold mb-2">Step 4</h2>
               </div>
-              <p className="ml-10">Search for skilled workers in your area</p>
+              <p className="ml-10">Make the payment ones your job id done.</p>
             </li>
           </ul>
         </div>
@@ -71,11 +71,6 @@ const Home = () => {
   };
 
  
-    
-    // const [isOpen, setIsOpen] = useState(false);
-    // const toggleAccordion = () => {
-    //   setIsOpen(!isOpen);
-    // };
 
 
     const FAQToggle = ({ question, answer }) => {
@@ -294,12 +289,12 @@ const Home = () => {
             src={require("../images/Painter.jpg")}
           />
         </div>
-        <div className="mb-8 flex justify-center py-8">
+        <div className="mb-8 mt-10 flex justify-center py-8">
           <div className="Offers">
             <div className="Offerhead text-center mb-8">
               <h1 className="text-4xl font-bold mb-4">What Network Offers</h1>
               <h4 className="text-base">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              Empowering skilled workers and users with rewarding opportunities and services.
               </h4>
             </div>
             <div className="offerpts mt-6">
@@ -310,8 +305,7 @@ const Home = () => {
                     Connects you to the right person
                   </h4>
                   <h6 className="text-sm">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Suspendisse varius enim in eros elementum tristique.
+                    Network connects the users with the absolute skilled person to get their job done.
                   </h6>
                 </div>
               </div>
@@ -322,8 +316,7 @@ const Home = () => {
                     Map based interface
                   </h4>
                   <h6 className="text-sm">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Suspendisse varius enim in eros elementum tristique.
+                    Network provides a location based filtering feature which allows to find the right skilled person within their locality.
                   </h6>
                 </div>
               </div>
@@ -334,8 +327,7 @@ const Home = () => {
                     Safe and Secure Services
                   </h4>
                   <h6 className="text-sm">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Suspendisse varius enim in eros elementum tristique.
+                    Network ensures the safety of the users by through checking of the sellers' background.
                   </h6>
                 </div>
               </div>
