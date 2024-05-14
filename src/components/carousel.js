@@ -5,7 +5,7 @@ import Navbar from './nav';
 
 const Carousel = ({ images }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [carouselHeight, setCarouselHeight] = useState(0);
+ 
 
   const nextSlide = () => {
     setCurrentIndex((prevIndex) =>
@@ -27,28 +27,16 @@ const Carousel = ({ images }) => {
     return () => clearInterval(interval);
   }, [currentIndex]);
 
-  useEffect(() => {
-    const updateCarouselHeight = () => {
-      const navbarHeight = document.querySelector('nav').offsetHeight;
-      setCarouselHeight(window.innerHeight - navbarHeight);
-    };
-
-    window.addEventListener('resize', updateCarouselHeight);
-    updateCarouselHeight();
-
-    return () => {
-      window.removeEventListener('resize', updateCarouselHeight);
-    };
-  }, []);
+  
 
   return (
     <div className="carousel-container">
-      <div className="carousel z-20 relative">
+      <div className="carousel z-20 relative h-screen">
         <div
           className="carousel-inner"
           style={{ transform: `translateX(-${currentIndex * 100}%)` }}
         >
-          <div  className="absolute top-0 w-full overflow-hidden z-0" style={{ height: carouselHeight + 'px' }}>
+          <div  className="absolute top-0 w-full overflow-hidden z-0">
            <Navbar />
           </div>
           {images.map((image, index) => (
@@ -57,12 +45,7 @@ const Carousel = ({ images }) => {
             </div>
           ))}
         </div>
-        <button className="carousel-btn prev" onClick={prevSlide}>
-          &lt;
-        </button>
-        <button className="carousel-btn next" onClick={nextSlide}>
-          &gt;
-        </button>
+        
       </div>
     </div>
   );
