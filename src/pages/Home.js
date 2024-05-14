@@ -16,7 +16,7 @@ const Home = () => {
 
   const TwoColumnSection = () => {
     return (
-      <div className="flex flex-wrap justify-between items-center mb-20 mx-auto mt-20 ml-48">
+      <div className="flex flex-wrap justify-between items-center mb-20 mb-sm-30 mt-20 p-5 lg:pl-20">
         <div className="w-full md:w-1/2 lg:w-auto lg:flex-1 lg:pr-10">
           <h4 className="text-2xl font-bold mb-4">Discover</h4>
           <h1 className="text-4xl font-bold mb-6">
@@ -116,7 +116,7 @@ const Home = () => {
               </h1>
             </div>
 
-            <div className="text-center py-8 mb-4">
+            <div className="text-center lg:py-8 mb-4">
               <p>
                 Networkk connects you with skilled workers in your area,
                 providing convenient access to local job opportunities and
@@ -142,24 +142,26 @@ const Home = () => {
                 </p>
               </div>
             </div>
-          </div>
 
-          <div className="lg:w-1/2 lg:pr-4">
+            <div className="lg:w-1/2 lg:pr-4">
             <img
-              className="freelancer-img lg:float-right"
+              className="freelancer-img lg:float-right "
               src={require("../images/Freelance-worker.jpg")}
               alt="Freelance-Workers-img"
             />
           </div>
+          </div>
+
+          
         </div>
 
         <section id="services-home-container" className="py-12">
-          <div className="container mx-auto px-4">
+          <div className="container mx-auto px-4 px-sm-0">
             <div className="text-center">
               <h1 className="text-4xl font-bold mb-8">
                 Discover a Diverse Range of Services on Networkk
               </h1>
-              <p className="text-base text-gray-700 px-48 mb-8">
+              <p className="text-base text-gray-700  p-sm-0 mb-8">
                 Networkk is your go-to platform for finding skilled workers in
                 your area. Whether you need a carpenter, plumber, electrician,
                 or any other service provider, we've got you covered. Our
@@ -290,7 +292,7 @@ const Home = () => {
           />
         </div>
         <div className="mb-8 mt-10 flex justify-center py-8">
-          <div className="Offers">
+          <div className="Offers p-5">
             <div className="Offerhead text-center mb-8">
               <h1 className="text-4xl font-bold mb-4">What Network Offers</h1>
               <h4 className="text-base">
@@ -474,8 +476,8 @@ const Home = () => {
             </div>
           </div>
         </div>
-        <div class="news flex justify-center py-8">
-          <div class="newshead pr-8 w-2/3 ml-16">
+        <div class="news flex flex-row justify-center py-8">
+          <div class="newshead pr-8 w-3/5 ml-5 lg:ml-10">
             <h2 class="text-3xl font-bold">LOGO</h2>
             <h5 class="text-base">
               Stay up to date on features and releases by joining our
@@ -494,7 +496,7 @@ const Home = () => {
               receive updates from our company.
             </h6>
           </div>
-          <div class="newsfollow w-1/3 text-center">
+          <div class="newsfollow w-2/5 text-center ">
             <h3 class="text-lg font-semibold">Follow us on:</h3>
             <div className="flex justify-center mt-4 space-x-8">
               <a href="https://www.example.com" target="_blank" rel="noopener noreferrer">
@@ -509,9 +511,7 @@ const Home = () => {
               <a href="https://www.example.com" target="_blank" rel="noopener noreferrer">
                 <BsYoutube className="text-black-500 text-2xl" />
               </a>
-              <a href="https://www.example.com" target="_blank" rel="noopener noreferrer">
-                <BsInstagram className="text-black-500 text-2xl" />
-              </a>
+              
             </div>
            
           </div>
