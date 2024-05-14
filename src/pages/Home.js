@@ -17,11 +17,13 @@ const Home = () => {
             Find Skilled Workers and <br />
             Offer Your Services
           </h1>
-          <div className="btn">
-            <button className="px-8 py-4 bg-black text-white rounded-lg mr-4">
-              Get Started
-            </button>
-            <p className="text-gray-700">Learn more</p>
+          <div className="btn flex ">          
+              <button className="px-8 py-4 bg-black text-white rounded-lg mr-4 ">
+                Get Started
+              </button>
+              <button className="px-8 py-4  bg-white border-solid border-2 border-blue-gray-700  text-black rounded-lg hover:bg-gray-200 hover:text-black ml-4">
+                Learn more
+              </button>
           </div>
         </div>
         <div className="w-full md:w-1/2 lg:w-auto lg:flex-1 lg:pl-10 mt-8 lg:mt-0">
@@ -52,7 +54,7 @@ const Home = () => {
     return (
       <div className="home">
         <div className="flex flex-col lg:flex-row items-center justify-center mb-16">
-          <div className="lg:w-1/2 lg:pl-4">
+          <div className="lg:w-1/2 lg:pl-4 p-10 ml-6">
             <div className="flex flex-col items-center">
               <h1 className="text-4xl font-bold mb-4 text-center">
                 Find Skilled Workers Nearby for Your Freelance Projects
@@ -193,7 +195,7 @@ const Home = () => {
                 </button>
               </div>
               <div className="mx-4">
-                <button className="signup px-6 py-3 bg-white text-black rounded-lg hover:bg-gray-200 hover:text-black">
+                <button className="signup px-6 py-3 bg-white border-solid border-2 border-blue-gray-700 text-black rounded-lg hover:bg-gray-200 hover:text-black">
                   Sign Up
                 </button>
               </div>
@@ -219,7 +221,7 @@ const Home = () => {
                   </button>
                 </div>
                 <div className="mx-4">
-                  <button className="login1 px-6 py-3 bg-white text-black rounded-lg hover:bg-gray-200 hover:text-black">
+                  <button className="login1 px-6 py-3 bg-white border-solid border-2 border-blue-gray-700 text-black rounded-lg hover:bg-gray-200 hover:text-black">
                     Log In
                   </button>
                 </div>
@@ -464,7 +466,7 @@ const Home = () => {
 
   return (
     <div className="home bg-offwhite">
-      <Navbar />
+      {/* <Navbar /> */}
       <Carousel images={images} />
       <TwoColumnSection />
       <Two />
