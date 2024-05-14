@@ -39,7 +39,7 @@ const SignUp = () => {
   };
 
   return (
-    // <div className="min-h-screen bg-cover bg-center bg-no-repeat" style={{ backgroundImage: 'url("https://firebasestorage.googleapis.com/v0/b/network-c70d4.appspot.com/o/login%2Floginpic1.jpg?alt=media&token=596be882-2300-4179-9dff-2426d227c71e")' }}>
+    
     <div className="min-h-screen bg-cover bg-center bg-no-repeat" style={{ backgroundImage: 'url("https://firebasestorage.googleapis.com/v0/b/network-c70d4.appspot.com/o/login%2Floginpic2.jpg?alt=media&token=d21b673e-cb2f-4a4a-9a90-7dfbc7a13925")' }}>
         {/* <Navbar currentPage="signup"/> */}
     <div className="min-h-90vh  flex items-center justify-center"  >

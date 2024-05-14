@@ -17,6 +17,7 @@ import AdminGigs from "./pages/Admin/AdminGigs";
 import SearchBar from "./pages/User/Search";
 import BookingsPage from "./pages/User/ShowBookings";
 import SellerBookingsPage from "./pages/Seller/ShowGigBookings";
+import PaymentPage from "./pages/User/Payment";
 
 const App = () => {
 
@@ -36,6 +37,7 @@ const App = () => {
           <Route path="/search" element={<Protected> <SearchBar /> </Protected>}></Route>
           <Route path="/SellerProfilePage" element={<Protected> <SellerProfilePage /> </Protected>}></Route>
           <Route path="/Gigs" element={<Protected> <Gigs /> </Protected>}></Route>
+          <Route path="/Payments" element={<Protected> <PaymentPage /> </Protected>}></Route>
           <Route path="/Gigcreate" element={<Protected> <Gigcreate /> </Protected>}></Route>
           <Route path="/Gigssearch" element={<Protected>  <Gigssearch /> </Protected>}></Route>
           <Route path="/Usergigsviews" element={<Protected> <Usergigsviews /> </Protected>}></Route>

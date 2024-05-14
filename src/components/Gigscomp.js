@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { collection, query, where, getDocs } from 'firebase/firestore';
-import Navbar from '../../components/nav';
-import { useUser } from '../../Context/Context';
-import { db } from '../../Firebase/Firebase';
-import { useGig } from '../../Context/GigContext';
+import { useUser } from '../Context/Context';
+import { db } from '../Firebase/Firebase';
+import { useGig } from '../Context/GigContext';
 
-const MyGigs = () => {
+const Gigcomp = () => {
   const { user } = useUser();
   const [userGigs, setUserGigs] = useState([]);
   const { selectGig } = useGig(); // Use the useGig hook to select gig
@@ -30,14 +29,12 @@ const MyGigs = () => {
 
   return (
     <div>
-      <Navbar />
       <div className="container mx-auto mt-8">
         
         <div className="grid grid-cols-3 gap-4">
           {userGigs.map(gig => (
             <div key={gig.id} className="bg-white p-4 shadow-md rounded-md">
               <h2 className="text-xl font-semibold">{gig.title}</h2>
-              <p className="text-gray-500">{gig.description}</p>
               <Link to={`/ProfileDashboard`} onClick={() => selectGig(gig)} className="text-blue-500 hover:underline mt-2 block">
                 View Details
               </Link>
@@ -49,5 +46,5 @@ const MyGigs = () => {
   );
 };
 
-export default MyGigs;
+export default Gigcomp;
 

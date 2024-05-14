@@ -3,7 +3,7 @@ import { useUser } from '../Context/Context';
 import { doc, getDoc, getFirestore } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { getAuth, signOut } from 'firebase/auth';
-import { Link } from 'react-router-dom'; 
+import { Link, useNavigate } from 'react-router-dom'; 
 import { ref } from 'firebase/storage';
 import { storage } from '../Firebase/Firebase';
 
@@ -17,6 +17,7 @@ const getUserData = async (userId) => {
 const Navbar = () => {
   const { user } = useUser();
   const [profilePicUrl, setProfilePicUrl] = useState('');
+  const navigate = useNavigate();
   useEffect(() => {
     if (user) {
       getUserData(user.uid)
@@ -39,6 +40,7 @@ const Navbar = () => {
     const auth = getAuth();
     signOut(auth).then(() => {
       console.log("User logged out successfully");
+      navigate("/");
       // Additional actions upon successful logout if necessary
     }).catch((error) => {
       console.error("Logout failed", error);
@@ -93,7 +95,7 @@ const Navbar = () => {
   return (
     <nav className="bg-gray-600  text-white flex justify-between items-center p-4">
       <div className="navbar-logo">
-        <img src="logo.png" alt="Logo" className="h-8" />
+        <img src="https://firebasestorage.googleapis.com/v0/b/network-c70d4.appspot.com/o/voltmeter.png?alt=media&token=cf4e11b6-7f76-42c1-85a9-ba2593e77238" alt="Logo" className="h-8" />
       </div>
       <ul className="flex gap-4">
         {renderLinks()}

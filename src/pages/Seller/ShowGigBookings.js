@@ -5,6 +5,10 @@ import { ClipLoader } from "react-spinners";
 import Navbar from "../../components/nav";
 import { db } from "../../Firebase/Firebase";
 import { collection, query, where, getDocs, doc, getDoc, updateDoc } from "firebase/firestore";
+import Collapsible from '@edonec/collapsible';
+import '@edonec/collapsible/build/index.css';
+// In case you do not want to customize the icons just import our's (more like fontawesome's) !
+import '@edonec/collapsible/build/icons.css';
 
 const SellerBookingsPage = () => {
   const { user } = useUser();
@@ -30,7 +34,6 @@ const SellerBookingsPage = () => {
             return { id: doc.id, ...bookingData, userData }; 
           }));
           setPendingBookings(pendingBookingsData);
-          console.log("Pending Bookings:", pendingBookings);
 
 
           const acceptedBookingsQuery = query(
@@ -112,50 +115,53 @@ const SellerBookingsPage = () => {
     <div>
       <Navbar currentPage="sellerBookingsPage"/>
       <div className="container mx-auto mt-8">
-        <div className="grid grid-cols-3 gap-4">
+        <div className=" gap-4">
           {/* Pending Bookings */}
-          <div>
-            <h2 className="text-lg font-semibold mb-4">Pending Bookings</h2>
-            {pendingBookings.map((booking) => (
-            <div key={booking.id} className="bg-white p-4 shadow-md rounded-md mb-4">
-                <p><strong>User Name:</strong> {booking.userData && booking.userData.username}</p>
-                <p><strong>Phone Number:</strong> {booking.userData && booking.userData.phoneNumber}</p>
-                <p><strong>Address:</strong> {booking.address}</p>
-                <p><strong>Description:</strong> {booking.description}</p>
-                <p><strong>Date:</strong> {booking.date}</p>
-                <Button color="green" onClick={() => handleAccept(booking.id)}>Accept</Button>
-                <Button color="red" onClick={() => handleReject(booking.id)}>Reject</Button>
+          <Collapsible open header="Pending Bookings">
+            <div>
+              {pendingBookings.map((booking) => (
+                <div key={booking.id} className="bg-white p-4 shadow-md rounded-md mb-4">
+                  <p><strong>User Name:</strong> {booking.userData && booking.userData.username}</p>
+                  <p><strong>Phone Number:</strong> {booking.userData && booking.userData.phoneNumber}</p>
+                  <p><strong>Address:</strong> {booking.address}</p>
+                  <p><strong>Description:</strong> {booking.description}</p>
+                  <p><strong>Date:</strong> {booking.date}</p>
+                  <Button color="green" onClick={() => handleAccept(booking.id)}>Accept</Button>
+                  <Button color="red" onClick={() => handleReject(booking.id)}>Reject</Button>
+                </div>
+              ))}
             </div>
-            ))}
-          </div>
+          </Collapsible>
           
           {/* Accepted Bookings */}
-          <div>
-            <h2 className="text-lg font-semibold mb-4">Accepted Bookings</h2>
-            {acceptedBookings.map((booking) => (
-              <div key={booking.id} className="bg-white p-4 shadow-md rounded-md mb-4">
-                <p><strong>User Name:</strong> {booking.userData && booking.userData.username}</p>
-                <p><strong>Phone Number:</strong> {booking.userData && booking.userData.phoneNumber}</p>
-                <p><strong>Address:</strong> {booking.address}</p>
-                <p><strong>Description:</strong> {booking.description}</p>
-                <p><strong>Date:</strong> {booking.date}</p>
-              </div>
-            ))}
-          </div>
+          <Collapsible open header="Accepted Bookings">
+            <div>
+              {acceptedBookings.map((booking) => (
+                <div key={booking.id} className="bg-white p-4 shadow-md rounded-md mb-4">
+                  <p><strong>User Name:</strong> {booking.userData && booking.userData.username}</p>
+                  <p><strong>Phone Number:</strong> {booking.userData && booking.userData.phoneNumber}</p>
+                  <p><strong>Address:</strong> {booking.address}</p>
+                  <p><strong>Description:</strong> {booking.description}</p>
+                  <p><strong>Date:</strong> {booking.date}</p>
+                </div>
+              ))}
+            </div>
+          </Collapsible>
           
           {/* Rejected Bookings */}
-          <div>
-            <h2 className="text-lg font-semibold mb-4">Rejected Bookings</h2>
-            {rejectedBookings.map((booking) => (
-              <div key={booking.id} className="bg-white p-4 shadow-md rounded-md mb-4">
-                <p><strong>User Name:</strong> {booking.userData && booking.userData.username}</p>
-                <p><strong>Phone Number:</strong> {booking.userData && booking.userData.phoneNumber}</p>
-                <p><strong>Address:</strong> {booking.address}</p>
-                <p><strong>Description:</strong> {booking.description}</p>
-                <p><strong>Date:</strong> {booking.date}</p>
-              </div>
-            ))}
-          </div>
+          <Collapsible open header="Rejected Bookings">
+            <div>
+              {rejectedBookings.map((booking) => (
+                <div key={booking.id} className="bg-white p-4 shadow-md rounded-md mb-4">
+                  <p><strong>User Name:</strong> {booking.userData && booking.userData.username}</p>
+                  <p><strong>Phone Number:</strong> {booking.userData && booking.userData.phoneNumber}</p>
+                  <p><strong>Address:</strong> {booking.address}</p>
+                  <p><strong>Description:</strong> {booking.description}</p>
+                  <p><strong>Date:</strong> {booking.date}</p>
+                </div>
+              ))}
+            </div>
+          </Collapsible>
         </div>
       </div>
     </div>
