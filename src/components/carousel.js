@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import Navbar from './nav';
 
+import Navbar from "../components/nav";
 
 
 const Carousel = ({ images }) => {
@@ -30,7 +30,8 @@ const Carousel = ({ images }) => {
   
 
   return (
-    <div><Navbar />
+    <div>
+      <Navbar/>
     <div className="carousel-container">
       <div className="carouselrelative h-auto">
         <div

@@ -1,4 +1,4 @@
-import Navbar from "../components/nav";
+
 import Carousel from "../components/carousel";
 import React, { useState } from 'react';
 import { SiAntdesign, SiLinkedin } from "react-icons/si";
@@ -108,6 +108,7 @@ const Home = () => {
   const Two = () => {
     return (
       <div className="home">
+        
         <div className="flex flex-col lg:flex-row items-center justify-center mb-16">
           <div className="lg:w-1/2 lg:pl-4 p-10 ml-6">
             <div className="flex flex-col items-center">
@@ -534,7 +535,7 @@ const Home = () => {
 
   return (
     <div className="home bg-offwhite">
-      {/* <Navbar /> */}
+      
       <Carousel images={images} />
       <TwoColumnSection />
       <Two />

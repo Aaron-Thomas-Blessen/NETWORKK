@@ -62,12 +62,6 @@ const UsergigsViews = () => {
           <p>Email: {selectedGig.email}</p>
         </div>
         
-        {/* Demo Pics Section */}
-        <div className="flex flex-col items-start mb-8"> 
-          <h2>Demo Pics</h2>
-          <Carousel images={demoPicsUrls} />
-        </div>
-        
         {/* Gig PDF Section */}
         <div className="flex flex-col items-start"> 
           <h2>Gig PDF</h2>
