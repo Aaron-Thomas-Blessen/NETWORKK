@@ -32,11 +32,7 @@ const MyGigs = () => {
     <div>
       <Navbar />
       <div className="container mx-auto mt-8">
-        <div className="flex justify-end mb-4">
-          <Link to="/Gigcreate" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-            Add Gig
-          </Link>
-        </div>
+        
         <div className="grid grid-cols-3 gap-4">
           {userGigs.map(gig => (
             <div key={gig.id} className="bg-white p-4 shadow-md rounded-md">

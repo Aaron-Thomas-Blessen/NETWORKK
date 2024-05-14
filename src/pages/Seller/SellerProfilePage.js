@@ -6,6 +6,7 @@ import { ref as storageRef, uploadBytes, getDownloadURL } from "firebase/storage
 import { Button } from "@material-tailwind/react";
 import { ClipLoader } from "react-spinners";
 import Navbar from "../../components/nav";
+import { Link } from 'react-router-dom';
 
 const SellerProfilePage = () => {
   const [loading, setLoading] = useState(true);
@@ -85,6 +86,11 @@ const SellerProfilePage = () => {
     <div>
       <Navbar currentPage="sellerProfilePage"/>
       <div className="container mx-auto mt-8">
+      <div className="flex justify-end mb-4">
+          <Link to="/Gigcreate" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            Add Gig
+          </Link>
+        </div>
         <div className="bg-white shadow-md rounded-lg p-4 mb-4 flex flex-col items-center justify-center">
           <label htmlFor="profilePictureInput" className="cursor-pointer mb-4">
             <img src={profilePicture} alt="Profile" className="w-24 h-24 rounded-full mb-4" />
