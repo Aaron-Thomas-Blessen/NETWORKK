@@ -1,5 +1,6 @@
 import Navbar from "../components/nav";
 import Carousel from "../components/carousel";
+import { SiAntdesign } from "react-icons/si";
 
 const Home = () => {
   const images = [
@@ -28,21 +29,35 @@ const Home = () => {
         </div>
         <div className="w-full md:w-1/2 lg:w-auto lg:flex-1 lg:pl-10 mt-8 lg:mt-0">
           <ul>
+          <li className="mb-4">
+              <div className="flex ">
+              <SiAntdesign className="mt-1 mr-6" />
+              <h2 className="text-lg font-bold mb-2">Step 1</h2>
+              </div>
+              <p className="ml-10">Search for skilled workers in your area</p>
+            </li>
+
             <li className="mb-4">
-              <h3 className="text-lg font-semibold mb-2">Step 1</h3>
-              <p>Search for skilled workers in your area</p>
+              <div className="flex ">
+              <SiAntdesign className="mt-1 mr-6" />
+              <h2 className="text-lg font-bold mb-2">Step 2</h2>
+              </div>
+              <p className="ml-10">Search for skilled workers in your area</p>
+            </li>
+              
+            <li className="mb-4">
+              <div className="flex ">
+              <SiAntdesign className="mt-1 mr-6" />
+              <h2 className="text-lg font-bold mb-2">Step 3</h2>
+              </div>
+              <p className="ml-10">Search for skilled workers in your area</p>
             </li>
             <li className="mb-4">
-              <h3 className="text-lg font-semibold mb-2">Step 2</h3>
-              <p>Search for skilled workers in your area</p>
-            </li>
-            <li className="mb-4">
-              <h3 className="text-lg font-semibold mb-2">Step 3</h3>
-              <p>Search for skilled workers in your area</p>
-            </li>
-            <li className="mb-4">
-              <h3 className="text-lg font-semibold mb-2">Step 4</h3>
-              <p>Search for skilled workers in your area</p>
+              <div className="flex ">
+              <SiAntdesign className="mt-1 mr-6" />
+              <h2 className="text-lg font-bold mb-2">Step 4</h2>
+              </div>
+              <p className="ml-10">Search for skilled workers in your area</p>
             </li>
           </ul>
         </div>
