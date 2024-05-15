@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { db, storage } from "../../Firebase/Firebase";
-import { doc, getDoc, updateDoc, collection, query, where, getDocs, addDoc, arrayUnion } from "firebase/firestore";
+import { doc, getDoc, updateDoc, collection, query, where, getDocs, addDoc, arrayUnion, increment } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { ref as storageRef, uploadBytes, getDownloadURL, deleteObject } from "firebase/storage";
 import { Button } from "@material-tailwind/react";
@@ -141,6 +141,7 @@ const UserProfilePage = () => {
     const { description, rating } = reviewForms[booking.id] || {};
     if (description && rating) {
       try {
+        // Add the review to the "reviews" collection
         const reviewRef = await addDoc(collection(db, "reviews"), {
           description,
           rating: Number(rating),
@@ -155,12 +156,28 @@ const UserProfilePage = () => {
           reviewId: reviewRef.id,
         });
 
-        // Add reviewId to the service document's reviews array
-        await updateDoc(doc(db, "services", booking.serviceId), {
+        // Update the service document with the new rating
+        const serviceRef = doc(db, "services", booking.serviceId);
+        await updateDoc(serviceRef, {
           reviews: arrayUnion(reviewRef.id),
+          rating: increment(Number(rating)),
+          count: increment(1),
         });
 
-        console.log("Review submitted successfully");
+        // Re-fetch the updated service data to calculate the new average rating
+        const serviceDoc = await getDoc(serviceRef);
+        if (serviceDoc.exists()) {
+          const serviceData = serviceDoc.data();
+          const newAvgRating = serviceData.rating / serviceData.count;
+
+          // Update the average rating in the service document
+          await updateDoc(serviceRef, {
+            avgRat: newAvgRating,
+          });
+
+          console.log("Review submitted successfully and service updated");
+        }
+
         // Remove the review form for the booking
         setReviewForms((prevState) => {
           const updatedForms = { ...prevState };
@@ -171,7 +188,9 @@ const UserProfilePage = () => {
         // Update the completed bookings state to reflect the review submission
         setCompletedBookings((prevBookings) =>
           prevBookings.map((b) =>
-            b.id === booking.id ? { ...b, isReview: true, reviewId: reviewRef.id, review: { description, rating } } : b
+            b.id === booking.id
+              ? { ...b, isReview: true, reviewId: reviewRef.id, review: { description, rating } }
+              : b
           )
         );
       } catch (error) {

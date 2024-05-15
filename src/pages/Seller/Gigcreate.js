@@ -21,7 +21,8 @@ const Gigcreate = () => {
         locality: '',
         latitude: '',
         longitude: '',
-        holidays: ["01-01-2000"]
+        holidays: ["01-01-2000"],
+        rating: 0.0
     });
 
     const navigate = useNavigate();
@@ -122,6 +123,15 @@ const Gigcreate = () => {
                             <label htmlFor="title" className="block">Gig Title</label>
                             <input type="text" id="title" name="title" value={gigData.title} onChange={handleChange} placeholder="Enter your Gig title" className="w-full h-full border border-black rounded p-2 border-gray-400 rounded-l-md py-2 px-4 w-96 focus:outline-none focus:ring-1 focus:ring-slate-950" />
                         </div>
+                        <div className="giglocality mb-4">
+                            <label htmlFor="locality" className="block">Locality</label>
+                            <Autocomplete
+                                apiKey="AIzaSyDjLpn8fDYOJJ9Yj7PVsJzslIiVfk2iiHg"
+                                className="border border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-custom-green focus:border-transparent"
+                                options={{ componentRestrictions: { country: "in" } }}
+                                onPlaceSelected={handlePlaceSelected}
+                            />
+                        </div>
                         <div className="gigcat mb-4">
                             <label htmlFor="category" className="block">Gig Category</label>
                             <select id="category" name="category" value={gigData.category} onChange={handleChange} className="w-full h-full border border-black rounded p-2 border-gray-400 rounded-l-md py-2 px-4 w-96 focus:outline-none focus:ring-1 focus:ring-slate-950">
@@ -150,18 +160,9 @@ const Gigcreate = () => {
                             <label htmlFor="phoneNumber" className="block">Phone Number</label>
                             <input type="tel" id="phoneNumber" name="phoneNumber" value={gigData.phoneNumber} onChange={handleChange} placeholder="Enter Phone Number" className="w-full h-full border border-black rounded p-2 border-gray-400 rounded-l-md py-2 px-4 w-96 focus:outline-none focus:ring-1 focus:ring-slate-950" />
                         </div>
-                        <div className="gigtitle mb-4">
+                        <div className="gigaddress mb-4">
                             <label htmlFor="address" className="block">Address</label>
                             <input type="text" id="address" name="address" value={gigData.address} onChange={handleChange} placeholder="Enter your address" className="w-full h-full border border-black rounded p-2 border-gray-400 rounded-l-md py-2 px-4 w-96 focus:outline-none focus:ring-1 focus:ring-slate-950" />
-                        </div>
-                        <div className="gigaddress mb-4">
-                            <label htmlFor="address" className="block">Locality</label>
-                            <Autocomplete
-                                apiKey="AIzaSyDjLpn8fDYOJJ9Yj7PVsJzslIiVfk2iiHg"
-                                className="border border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-custom-green focus:border-transparent"
-                                options={{ componentRestrictions: { country: "in" } }}
-                                onPlaceSelected={handlePlaceSelected}
-                            />
                         </div>
                         <div className="gigperv mb-8">
                             <div className="">
