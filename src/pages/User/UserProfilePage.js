@@ -190,7 +190,7 @@ const UserProfilePage = () => {
         <div className="w-full md:w-1/2 lg:w-1/2 xl:w-1/2 p-4">
           <div className="bg-white shadow-md rounded-lg p-4 mb-4 flex flex-col items-center justify-center">
             <label htmlFor="profilePictureInput" className="cursor-pointer mb-4">
-              <img src={profilePicture} alt="Profile" className="w-24 h-24 rounded-full mb-4" />
+              <img src={profilePicture} alt="Profile" className="w-24 h-24 rounded-full mb-4 border-4 border-blue-500" />
               <div className="text-blue-500">Change Profile Picture</div>
             </label>
             <input
@@ -201,28 +201,96 @@ const UserProfilePage = () => {
               onChange={handleProfilePictureChange}
             />
             {editing ? (
-              <div className="flex flex-col">
-                <div className="flex flex-row mb-2">
-                  <label htmlFor="firstNameInput" className="w-36">First Name:</label>
-                  <input type="text" id="firstNameInput" value={formData.firstName || ''} name="firstName" onChange={handleInputChange} />
+              <>
+              {/* Profile editing fields */}
+              <div className="flex flex-col items-center">
+                <div className="mb-4 w-full px-2">
+                  <label
+                    htmlFor="firstNameInput"
+                    className="block text-gray-700 text-sm font-bold mb-2"
+                  >
+                    First Name:
+                  </label>
+                  <input
+                    type="text"
+                    id="firstNameInput"
+                    value={formData.firstName || ""}
+                    name="firstName"
+                    onChange={handleInputChange}
+                    className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  />
                 </div>
-                <div className="flex flex-row mb-2">
-                  <label htmlFor="lastNameInput" className="w-36">Last Name:</label>
-                  <input type="text" id="lastNameInput" value={formData.lastName || ''} name="lastName" onChange={handleInputChange} />
+                <div className="mb-4 w-full  px-2">
+                  <label
+                    htmlFor="lastNameInput"
+                    className="block text-gray-700 text-sm font-bold mb-2"
+                  >
+                    Last Name:
+                  </label>
+                  <input
+                    type="text"
+                    id="lastNameInput"
+                    value={formData.lastName || ""}
+                    name="lastName"
+                    onChange={handleInputChange}
+                    className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  />
                 </div>
-                <div className="flex flex-row mb-2">
-                  <label htmlFor="phoneNumberInput" className="w-36">Phone Number:</label>
-                  <input type="text" id="phoneNumberInput" value={formData.phoneNumber || ''} name="phoneNumber" onChange={handleInputChange} />
+                <div className="mb-4 w-full px-2">
+                  <label
+                    htmlFor="username"
+                    className="block text-gray-700 text-sm font-bold mb-2"
+                  >
+                    User Name:
+                  </label>
+                  <input
+                    type="text"
+                    id="username"
+                    value={formData.username || ""}
+                    name="username"
+                    onChange={handleInputChange}
+                    className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  />
                 </div>
-                <div className="flex flex-row mb-2">
-                  <label htmlFor="addressInput" className="w-36">Address:</label>
-                  <input type="text" id="addressInput" value={formData.address || ''} name="address" onChange={handleInputChange} />
+                <div className="mb-4 w-full  px-2">
+                  <label
+                    htmlFor="phoneNumberInput"
+                    className="block text-gray-700 text-sm font-bold mb-2"
+                  >
+                    Phone Number:
+                  </label>
+                  <input
+                    type="text"
+                    id="phoneNumberInput"
+                    value={formData.phoneNumber || ""}
+                    name="phoneNumber"
+                    onChange={handleInputChange}
+                    className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  />
                 </div>
-                <div className="flex flex-row space-x-4">
-                  <Button color="blue" size="sm" onClick={handleSaveClick}>Save</Button>
-                  <Button color="gray" size="sm" onClick={handleCancelClick}>Cancel</Button>
+                <div className="mb-4 w-full  px-2">
+                  <label
+                    htmlFor="addressInput"
+                    className="block text-gray-700 text-sm font-bold mb-2"
+                  >
+                    Address:
+                  </label>
+                  <input
+                    type="text"
+                    id="addressInput"
+                    value={formData.address || ""}
+                    name="address"
+                    onChange={handleInputChange}
+                    className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  />
                 </div>
               </div>
+              <div className="flex justify-center">
+                <Button color="blue" onClick={handleSaveClick}>
+                  Save
+                </Button>
+              </div>
+            </>
             ) : (
               <>
                 <p>Username: {userData.username}</p>
@@ -243,37 +311,39 @@ const UserProfilePage = () => {
               <ul>
                 {completedBookings.map((booking) => (
                   <li key={booking.id} className="mb-4">
-                    <p><strong>Booking ID:</strong> {booking.id}</p>
-                    <p><strong>Service Name:</strong> {booking.serviceName}</p>
-                    <p><strong>Base Payment:</strong> {booking.basePayment}</p>
-                    <p><strong>Extra Payment:</strong> {booking.extraPayment}</p>
-                    <p><strong>Date:</strong> {booking.date}</p>
-                    {booking.isReview && booking.review ? (
+                    <div className="flex justify-between items-center">
                       <div>
-                        <p><strong>Review:</strong> {booking.review.description}</p>
-                        <p><strong>Rating:</strong> {booking.review.rating}</p>
+                        <p><strong>Booking ID:</strong> {booking.id}</p>
+                        <p><strong>Service Name:</strong> {booking.serviceName}</p>
+                        <p><strong>Date:</strong> {booking.date}</p>
                       </div>
-                    ) : (
-                      <div>
-                        <h3 className="text-lg font-semibold mb-2">Add Review</h3>
-                        <textarea
-                          name="description"
-                          value={reviewForms[booking.id]?.description || ""}
-                          onChange={(e) => handleReviewInputChange(e, booking.id)}
-                          className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500 mb-2 resize-none"
-                          placeholder="Enter your review..."
-                        ></textarea>
-                        <input
-                          type="number"
-                          name="rating"
-                          value={reviewForms[booking.id]?.rating || ""}
-                          onChange={(e) => handleReviewInputChange(e, booking.id)}
-                          className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500 mb-2"
-                          placeholder="Enter rating (1-5)"
-                        />
-                        <Button color="blue" size="sm" onClick={() => handleReviewSubmit(booking)}>Submit Review</Button>
-                      </div>
-                    )}
+                      {booking.isReview && booking.review ? (
+                        <div>
+                          <p><strong>Review:</strong> {booking.review.description}</p>
+                          <p><strong>Rating:</strong> {booking.review.rating}</p>
+                        </div>
+                      ) : (
+                        <div>
+                          <h3 className="text-lg font-semibold mb-2">Add Review</h3>
+                          <textarea
+                            name="description"
+                            value={reviewForms[booking.id]?.description || ""}
+                            onChange={(e) => handleReviewInputChange(e, booking.id)}
+                            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500 mb-2 resize-none"
+                            placeholder="Enter your review..."
+                          ></textarea>
+                          <input
+                            type="number"
+                            name="rating"
+                            value={reviewForms[booking.id]?.rating || ""}
+                            onChange={(e) => handleReviewInputChange(e, booking.id)}
+                            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500 mb-2"
+                            placeholder="Enter rating (1-5)"
+                          />
+                          <Button color="blue" size="sm" onClick={() => handleReviewSubmit(booking)}>Submit Review</Button>
+                        </div>
+                      )}
+                    </div>
                   </li>
                 ))}
               </ul>
