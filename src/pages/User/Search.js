@@ -154,7 +154,7 @@ const GigSearch = () => {
                             {filteredGigs.map(gig => (
                                 <li 
                                     key={gig.id} 
-                                    className="bg-white shadow-md rounded-lg p-6 cursor-pointer hover:bg-gray-100 transition" 
+                                    className="bg-white shadow-md rounded-lg p-6 cursor-pointer hover:bg-gray-100 mb-8 transition" 
                                     onClick={() => { 
                                         selectGig(gig); 
                                         navigate(`/Usergigsviews`);

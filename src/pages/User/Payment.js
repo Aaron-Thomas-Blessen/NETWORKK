@@ -58,34 +58,55 @@ const PaymentPage = () => {
   };
 
   return (
-    <div className="PaymentPage">
-      <Navbar />
-      <h2>Payment</h2>
-      <div>
-        <label>
-          UPI ID:
-          <input type="text" value={upi} onChange={(e) => setUpi(e.target.value)} />
-        </label>
-      </div>
-      <div>
-        <label>
-          Base Pay: {basePay}
-        </label>
-      </div>
-      <div>
-        <label>
-          Additional Payment:
+    <div>
+  <Navbar />
+    <div className="PaymentPage container mx-auto px-4 py-8">
+      
+      <div className="max-w-lg mx-auto">
+        <h2 className="text-3xl font-semibold mb-4">Payment</h2>
+        <div className="mb-4">
+          <label htmlFor="upi" className="block text-sm font-medium text-gray-700">
+            UPI ID:
+          </label>
           <input
+            id="upi"
+            type="text"
+            value={upi}
+            onChange={(e) => setUpi(e.target.value)}
+            className="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            placeholder="Enter your UPI ID"
+          />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="basePay" className="block text-sm font-medium text-gray-700">
+            Base Pay:
+          </label>
+          <p id="basePay" className="mt-1 block text-lg font-semibold">{basePay}</p>
+        </div>
+        <div className="mb-4">
+          <label htmlFor="additionalPay" className="block text-sm font-medium text-gray-700">
+            Additional Payment:
+          </label>
+          <input
+            id="additionalPay"
             type="number"
             value={additionalPay}
             onChange={(e) => setAdditionalPay(e.target.value)}
-            placeholder="Enter additional payment"
+            className="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            placeholder="Enter additional payment amount"
           />
-        </label>
+        </div>
+        <button
+          onClick={handlePayment}
+          className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        >
+          Pay Now
+        </button>
       </div>
-      <button onClick={handlePayment}>Pay</button>
+    </div>
     </div>
   );
+  
 };
 
 export default PaymentPage;
