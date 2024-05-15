@@ -183,12 +183,13 @@ const UserProfilePage = () => {
     return <ClipLoader color="#00BFFF" loading={loading} size={150} />;
   }
 
+  
   return (
     <div>
       <Navbar currentPage="userProfilePage" />
       <div className="container mx-auto mt-8 flex flex-wrap">
         <div className="w-full md:w-1/2 lg:w-1/2 xl:w-1/2 p-4">
-          <div className="bg-white shadow-md rounded-lg p-4 mb-4 flex flex-col items-center justify-center">
+        <div className="bg-white shadow-md rounded-lg p-4 mb-4 flex flex-col items-center justify-center">
             <label htmlFor="profilePictureInput" className="cursor-pointer mb-4">
               <img src={profilePicture} alt="Profile" className="w-24 h-24 rounded-full mb-4 border-4 border-blue-500" />
               <div className="text-blue-500">Change Profile Picture</div>
@@ -308,10 +309,10 @@ const UserProfilePage = () => {
           <div className="bg-white shadow-md rounded-lg p-4 mb-4">
             <h2 className="text-xl font-bold mb-4">Completed Bookings</h2>
             {completedBookings.length > 0 ? (
-              <ul>
+              <div>
                 {completedBookings.map((booking) => (
-                  <li key={booking.id} className="mb-4">
-                    <div className="flex justify-between items-center">
+                  <div key={booking.id} className="border border-gray-200 rounded-lg p-4 mb-4">
+                    <div className="flex justify-between items-center mb-2">
                       <div>
                         <p><strong>Booking ID:</strong> {booking.id}</p>
                         <p><strong>Service Name:</strong> {booking.serviceName}</p>
@@ -344,9 +345,9 @@ const UserProfilePage = () => {
                         </div>
                       )}
                     </div>
-                  </li>
+                  </div>
                 ))}
-              </ul>
+              </div>
             ) : (
               <p>No completed bookings found.</p>
             )}
