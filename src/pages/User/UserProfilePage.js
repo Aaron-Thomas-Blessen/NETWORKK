@@ -195,63 +195,153 @@ const UserProfilePage = () => {
     <div>
       <Navbar currentPage="userProfilePage" />
       <div className="container mx-auto mt-8 flex flex-wrap">
-        <div className="w-full md:w-1/2 lg:w-1/2 xl:w-1/2 p-4">
-          <div className="bg-white shadow-md rounded-lg p-4 mb-4 flex flex-col items-center justify-center">
-            <label htmlFor="profilePictureInput" className="cursor-pointer mb-4">
-              <img src={profilePicture} alt="Profile" className="w-24 h-24 rounded-full mb-4" />
-              <div className="text-blue-500">Change Profile Picture</div>
-            </label>
-            <input
-              id="profilePictureInput"
-              type="file"
-              accept="image/*"
-              className="hidden"
-              onChange={handleProfilePictureChange}
-            />
-            {editing ? (
-              <div className="flex flex-col">
-                <div className="flex flex-row mb-2">
-                  <label htmlFor="firstNameInput" className="w-36">First Name:</label>
-                  <input type="text" id="firstNameInput" value={formData.firstName || ''} name="firstName" onChange={handleInputChange} />
-                </div>
-                <div className="flex flex-row mb-2">
-                  <label htmlFor="lastNameInput" className="w-36">Last Name:</label>
-                  <input type="text" id="lastNameInput" value={formData.lastName || ''} name="lastName" onChange={handleInputChange} />
-                </div>
-                <div className="flex flex-row mb-2">
-                  <label htmlFor="phoneNumberInput" className="w-36">Phone Number:</label>
-                  <input type="text" id="phoneNumberInput" value={formData.phoneNumber || ''} name="phoneNumber" onChange={handleInputChange} />
-                </div>
-                <div className="flex flex-row mb-2">
-                  <label htmlFor="addressInput" className="w-36">Address:</label>
-                  <input type="text" id="addressInput" value={formData.address || ''} name="address" onChange={handleInputChange} />
-                </div>
-                <div className="flex flex-row mb-2">
-                  <label htmlFor="localityInput" className="w-36">Locality:</label>
-                  <Autocomplete
-                    apiKey="AIzaSyDjLpn8fDYOJJ9Yj7PVsJzslIiVfk2iiHg"
-                    className="border border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-custom-green focus:border-transparent"
-                    options={{ componentRestrictions: { country: "in" } }}
-                    onPlaceSelected={handlePlaceSelected}
+        <div className="w-1/2 pr-4 container">
+          <div className="bg-white shadow-md container flex justify-center rounded-lg p-4 mb-4">
+            <div className="">
+              <div className="flex justify-center container">
+                <div className="flex justify-center"></div>
+                <label
+                  htmlFor="profilePictureInput"
+                  className="cursor-pointer mb-4"
+                >
+                  <div className="container mx-auto">
+                  <img
+                    src={profilePicture}
+                    alt="Profile"
+                    className="container mx-auto justify-center w-24 h-24 rounded-full mb-4"
                   />
-                </div>
-                <div className="flex flex-row space-x-4">
-                  <Button color="blue" size="sm" onClick={handleSaveClick}>Save</Button>
-                  <Button color="gray" size="sm" onClick={handleCancelClick}>Cancel</Button>
-                </div>
+                  </div>
+                  <div className="text-blue-500">Change Profile Picture</div>
+                </label>
+                <input
+                  id="profilePictureInput"
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={handleProfilePictureChange}
+                />
               </div>
-            ) : (
-              <>
-                <p>Username: {userData.username}</p>
-                <p>Email: {userData.email}</p>
-                <p>First Name: {userData.firstName}</p>
-                <p>Last Name: {userData.lastName}</p>
-                <p>Phone Number: {userData.phoneNumber}</p>
-                <p>Address: {userData.address}</p>
-                <p>Locality: {userData.locality}</p>
-                <Button color="blue" onClick={handleEditClick}>Edit</Button>
-              </>
-            )}
+              {editing ? (
+                <>
+                  {/* Profile editing fields */}
+                  <div className="flex flex-col items-center">
+                    <div className="mb-4 w-full px-2">
+                      <label
+                        htmlFor="firstNameInput"
+                        className="block text-gray-700 text-sm font-bold mb-2"
+                      >
+                        First Name:
+                      </label>
+                      <input
+                        type="text"
+                        id="firstNameInput"
+                        value={formData.firstName || ""}
+                        name="firstName"
+                        onChange={handleInputChange}
+                        className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                      />
+                    </div>
+                    <div className="mb-4 w-full px-2">
+                      <label
+                        htmlFor="lastNameInput"
+                        className="block text-gray-700 text-sm font-bold mb-2"
+                      >
+                        Last Name:
+                      </label>
+                      <input
+                        type="text"
+                        id="lastNameInput"
+                        value={formData.lastName || ""}
+                        name="lastName"
+                        onChange={handleInputChange}
+                        className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                      />
+                    </div>
+                    <div className="mb-4 w-full px-2">
+                      <label
+                        htmlFor="username"
+                        className="block text-gray-700 text-sm font-bold mb-2"
+                      >
+                        User Name:
+                      </label>
+                      <input
+                        type="text"
+                        id="username"
+                        value={formData.username || ""}
+                        name="username"
+                        onChange={handleInputChange}
+                        className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                      />
+                    </div>
+                    <div className="mb-4 w-full px-2">
+                      <label
+                        htmlFor="phoneNumberInput"
+                        className="block text-gray-700 text-sm font-bold mb-2"
+                      >
+                        Phone Number:
+                      </label>
+                      <input
+                        type="text"
+                        id="phoneNumberInput"
+                        value={formData.phoneNumber || ""}
+                        name="phoneNumber"
+                        onChange={handleInputChange}
+                        className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                      />
+                    </div>
+                    <div className="mb-4 w-full px-2">
+                      <label
+                        htmlFor="addressInput"
+                        className="block text-gray-700 text-sm font-bold mb-2"
+                      >
+                        Address:
+                      </label>
+                      <input
+                        type="text"
+                        id="addressInput"
+                        value={formData.address || ""}
+                        name="address"
+                        onChange={handleInputChange}
+                        className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                      />
+                    </div>
+                    <div className="mb-4 w-full px-2">
+                      <label
+                        htmlFor="localityInput"
+                        className="block text-gray-700 text-sm font-bold mb-2"
+                      >
+                        Locality:
+                      </label>
+                      <Autocomplete
+                        apiKey="AIzaSyDjLpn8fDYOJJ9Yj7PVsJzslIiVfk2iiHg"
+                        className="border border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-custom-green focus:border-transparent"
+                        options={{ componentRestrictions: { country: "in" } }}
+                        onPlaceSelected={handlePlaceSelected}
+                      />
+                    </div>
+                  </div>
+                  <div className="flex justify-center">
+                    <Button color="blue" onClick={handleSaveClick}>
+                      Save
+                    </Button>
+                  </div>
+                </>
+              ) : (
+                <>
+                  {/* Profile information */}
+                  <p>Username: {userData.username}</p>
+                  <p>Email: {userData.email}</p>
+                  <p>First Name: {userData.firstName}</p>
+                  <p>Last Name: {userData.lastName}</p>
+                  <p>Phone Number: {userData.phoneNumber}</p>
+                  <p>Address: {userData.address}</p>
+                  <p>Locality: {userData.locality}</p>
+                  <Button color="blue" onClick={handleEditClick}>
+                    Edit
+                  </Button>
+                </>
+              )}
+            </div>
           </div>
         </div>
         <div className="w-full md:w-1/2 lg:w-1/2 xl:w-1/2 p-4">

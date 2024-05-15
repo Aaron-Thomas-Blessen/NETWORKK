@@ -18,6 +18,7 @@ import SearchBar from "./pages/User/Search";
 import BookingsPage from "./pages/User/ShowBookings";
 import SellerBookingsPage from "./pages/Seller/ShowGigBookings";
 import PaymentPage from "./pages/User/Payment";
+import History from "./pages/Seller/History";
 
 const App = () => {
 
@@ -30,9 +31,10 @@ const App = () => {
           <Route path="/signin" element={<SignIn />}></Route>
           <Route path="/Adminlog" element={<Adminlog />}></Route>
           <Route path="/Admingigs" element={<AdminProtected> <AdminGigs /> </AdminProtected>}></Route>
-          <Route path="/Booking" element={<Booking />}></Route>
-          <Route path="/showBookings" element={<BookingsPage />}></Route>
-          <Route path="/showSellerBookings" element={<SellerBookingsPage />}></Route>
+          <Route path="/Booking" element={<Protected> <Booking /> </Protected>}></Route>
+          <Route path="/History" element={<Protected> <History /> </Protected>}></Route>
+          <Route path="/showBookings" element={<Protected> <BookingsPage /> </Protected>}></Route>
+          <Route path="/showSellerBookings" element={<Protected> <SellerBookingsPage /> </Protected>}></Route>
           <Route path="/UserProfilePage" element={<Protected> <UserProfilePage /> </Protected>}></Route>
           <Route path="/search" element={<Protected> <SearchBar /> </Protected>}></Route>
           <Route path="/SellerProfilePage" element={<Protected> <SellerProfilePage /> </Protected>}></Route>

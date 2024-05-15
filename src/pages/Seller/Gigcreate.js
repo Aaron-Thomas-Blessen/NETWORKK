@@ -176,7 +176,7 @@ const Gigcreate = () => {
                             </div>
                         </div>
                         <div className="gigsubmit flex justify-center">
-                            <input type="submit" value="Publish Gig" className="bg-black text-white px-6 py-3 rounded-lg hover:bg-gray-800 cursor-pointer text-lg" />
+                        <input type="submit" value="Publish Gig" className="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-700 cursor-pointer text-lg" />
                         </div>
                     </form>
                 </div>

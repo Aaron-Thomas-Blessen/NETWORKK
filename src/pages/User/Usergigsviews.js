@@ -3,39 +3,62 @@ import { useGig } from "../../Context/GigContext";
 import { useNavigate } from "react-router-dom";
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import Navbar from "../../components/nav";
-import Image from "../../images/carpenter.jpg";
-import { collection, query, where, getDocs } from "firebase/firestore";
-import { db } from "../../Firebase/Firebase";
+import Slider from "react-slick";
+import { collection, doc, getDoc } from "firebase/firestore";
+import { db,storage } from "../../Firebase/Firebase";
 
 const UsergigsViews = () => {
   const { selectedGig } = useGig();
   const [gigPdfUrl, setGigPdfUrl] = useState("");
+  const [reviews, setReviews] = useState([]);
+  const [demoPicsUrls, setDemoPicsUrls] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchUrls = async () => {
-      const storage = getStorage();
+    const fetchUrlsAndReviews = async () => {
+
       if (!selectedGig) {
         console.log("Selected gig not set.");
         return;
       }
 
       console.log("Selected gig:", selectedGig);
-      const userRef = collection(db, "users");
-      const q = query(userRef, where("uid", "==", selectedGig.serviceProviderId));
-      const querySnapshot = await getDocs(q);
-      console.log(querySnapshot);
-      const gigs = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      console.log(gigs);
 
       // Fetch gig PDF URL
       const gigPdfRef = ref(storage, `${selectedGig.gigPdf}`);
       const gigPdfUrl = await getDownloadURL(gigPdfRef);
       console.log("Gig PDF URL:", gigPdfUrl);
       setGigPdfUrl(gigPdfUrl);
-    };
 
-    fetchUrls();
+      // Fetch demo pics URLs
+      const demoPicsUrlsPromises = selectedGig.demoPics.map(async (pic) => {
+        const picRef = ref(storage, pic);
+        const picUrl = await getDownloadURL(picRef);
+        return picUrl;
+      });
+
+      const fetchedDemoPicsUrls = await Promise.all(demoPicsUrlsPromises);
+      setDemoPicsUrls(fetchedDemoPicsUrls);
+
+      // Fetch reviews and usernames
+      const fetchedReviews = await Promise.all(
+        selectedGig.reviews.map(async (reviewId) => {
+          const reviewRef = doc(db, "reviews", reviewId);
+          const reviewSnapshot = await getDoc(reviewRef);
+          const reviewData = reviewSnapshot.data();
+
+          // Fetch username
+          const userRef = doc(db, "users", reviewData.userId);
+          const userSnapshot = await getDoc(userRef);
+          const username = userSnapshot.exists() ? userSnapshot.data().username : "Unknown User";
+
+          return { id: reviewSnapshot.id, ...reviewData, username };
+        })
+      );
+  setReviews(fetchedReviews);
+};
+
+  fetchUrlsAndReviews();
   }, [selectedGig]);
 
   const handleBookNow = () => {
@@ -47,35 +70,64 @@ const UsergigsViews = () => {
     return <div>Loading...</div>;
   }
 
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+  };
+
   return (
     <div className="min-h-screen bg-gray-100">
       <Navbar />
-      <div className="container mx-auto p-8 flex  ">
+      <div className="container mx-auto p-8 flex">
         {/* Left Side - 3/5th space */}
         <div className="md:w-3/5">
-          <div className="w-full  p-6">
+          <div className="w-full p-6">
             {/* Gig Details Section */}
             <div className="mb-8">
-              <br></br>
               <h1 className="text-2xl font-bold mb-4">{selectedGig.title}</h1>
               <p className="text-gray-600 mb-2">
                 Category: {selectedGig.category}
               </p>
-              <p className="text-gray-600 mb-2 ">
+              <p className="text-gray-600 mb-2">
                 Description: {selectedGig.description}
               </p>
             </div>
-            {/* Display Carpenter Image */}
-            <img
-              src={Image}
-              alt="Carpenter"
-              className="w-full mb-4 rounded-lg"
-            />
+            {/* Display Carousel */}
+            <Slider {...settings}>
+              {demoPicsUrls.map((url, index) => (
+                <div key={index} className="relative w-full h-64">
+                  <img
+                    src={url}
+                    alt={`Demo ${index + 1}`}
+                    className="absolute top-0 left-0 w-full h-full object-cover rounded-lg"
+                  />
+                </div>
+              ))}
+            </Slider>
+
+            {/* Reviews Section */}
+            <div className="mt-8">
+              <h2 className="text-xl font-bold mb-4">Reviews</h2>
+              {reviews.length > 0 ? (
+                reviews.map((review) => (
+                  <div key={review.id} className="mb-4 p-4 bg-white rounded-lg shadow-md">
+                    <p className="text-gray-800 font-semibold">{review.description}</p>
+                    <p className="text-gray-600">Rating: {review.rating}</p>
+                    <p className="text-gray-600">Username: {review.username}</p>
+                  </div>
+                ))
+              ) : (
+                  <p className="text-gray-600">No reviews available.</p>
+                )}
+              </div>
           </div>
         </div>
 
         {/* Right Side - 2/5th space */}
-        <div className="w-full md:w-2/5 ">
+        <div className="w-full md:w-2/5">
           <div className="max-w-md w-full p-6">
             {/* Gig Price Section */}
             <div className="text-xl bg-white rounded-lg shadow-md font-semibold mb-6 text-center py-8">
@@ -93,24 +145,16 @@ const UsergigsViews = () => {
 
             {/* Gig Contact Section */}
             <div className="bg-white rounded-lg shadow-md py-4">
-              <div className=" py-5 text-center">
+              <div className="py-5 text-center">
                 <h1 className="mb-8 font-bold">Contact Me</h1>
-                {/* <p>First Name: {userData.firstName}</p> */}
-                <p className="text-gray-600 mb-4">
-                  Address: {selectedGig.address}
-                </p>
-                <p className="text-gray-600 mb-4">
-                  Phone Number: {selectedGig.phoneNumber}
-                </p>
-                <p className="text-gray-600 ">Email: {selectedGig.email}</p>
+                <p className="text-gray-600 mb-4">Address: {selectedGig.address}</p>
+                <p className="text-gray-600 mb-4">Phone Number: {selectedGig.phoneNumber}</p>
+                <p className="text-gray-600">Email: {selectedGig.email}</p>
               </div>
 
               {/* Gig PDF Section */}
-
-              <div className=" text-center mb-4">
-                <h2 className="text-xl font-semibold mb-4">
-                  Police Clearance Certificate
-                </h2>
+              <div className="text-center mb-4">
+                <h2 className="text-xl font-semibold mb-4">Police Clearance Certificate</h2>
                 <a
                   href={gigPdfUrl}
                   target="_blank"
@@ -121,7 +165,6 @@ const UsergigsViews = () => {
                   Download PCC PDF
                 </a>
               </div>
-              <div></div>
             </div>
           </div>
         </div>

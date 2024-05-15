@@ -137,11 +137,13 @@ const SellerProfilePage = () => {
                   htmlFor="profilePictureInput"
                   className="cursor-pointer mb-4"
                 >
+                  <div className="container mx-auto">
                   <img
                     src={profilePicture}
                     alt="Profile"
-                    className="justify-center w-24 h-24 rounded-full mb-4"
+                    className="container mx-auto justify-center w-24 h-24 rounded-full mb-4"
                   />
+                  </div>
                   <div className="text-blue-500">Change Profile Picture</div>
                 </label>
                 <input
