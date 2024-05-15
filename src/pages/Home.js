@@ -4,7 +4,7 @@ import Navbar from "../components/nav";
 import HeroSection from "../components/hero-section";
 import React, { useState } from 'react';
 import { SiAntdesign, SiLinkedin } from "react-icons/si";
-import { BsFacebook, BsGlobe, BsInstagram, BsTwitterX, BsYoutube } from "react-icons/bs";
+import { BsFacebook, BsGithub, BsGlobe, BsInstagram, BsTwitterX, BsYoutube } from "react-icons/bs";
 import { SlArrowDown  } from "react-icons/sl";
 
 
@@ -41,7 +41,7 @@ const Home = () => {
                 <SiAntdesign className="mt-1 mr-6" />
                 <h2 className="text-lg font-bold mb-2">Step 1</h2>
               </div>
-              <p className="ml-10">Create an account using your Mail Id.</p>
+              <p className="ml-10">Search for skilled workers in your area using our map-based technology.</p>
             </li>
 
             <li className="mb-4">
@@ -49,7 +49,7 @@ const Home = () => {
                 <SiAntdesign className="mt-1 mr-6" />
                 <h2 className="text-lg font-bold mb-2">Step 2</h2>
               </div>
-              <p className="ml-10">Search for skilled workers in your area.</p>
+              <p className="ml-10">Signup and choose the skilled person you want to hire.</p>
             </li>
 
             <li className="mb-4">
@@ -57,14 +57,14 @@ const Home = () => {
                 <SiAntdesign className="mt-1 mr-6" />
                 <h2 className="text-lg font-bold mb-2">Step 3</h2>
               </div>
-              <p className="ml-10">Book your appointment.</p>
+              <p className="ml-10">Connect with skilled workers and discuss your work.</p>
             </li>
             <li className="mb-4">
               <div className="flex ">
                 <SiAntdesign className="mt-1 mr-6" />
                 <h2 className="text-lg font-bold mb-2">Step 4</h2>
               </div>
-              <p className="ml-10">Make the payment ones your job is done.</p>
+              <p className="ml-10">Get the job done an dleave a review for the skilled worker.</p>
             </li>
           </ul>
         </div>
@@ -248,14 +248,14 @@ const Home = () => {
               </div>
             </div>
             <div className="button-container1 flex justify-center py-8">
-              <div className="mx-4">
+              {/* <div className="mx-4">
                 <button className="explore px-6 py-3 bg-black text-white rounded-lg hover:bg-gray-800 hover:text-white">
                   Explore
                 </button>
-              </div>
+              </div> */}
               <div className="mx-4">
                 <button className="signup px-6 py-3 bg-white border-solid border-2 border-blue-gray-700 text-black rounded-lg hover:bg-gray-200 hover:text-black">
-                  Sign Up
+                  Explore
                 </button>
               </div>
             </div>
@@ -274,14 +274,14 @@ const Home = () => {
                 </p>
               </div>
               <div className="button-container2 flex justify-center lg:justify-center lg:justify-start">
-                <div className="mx-4">
+                {/* <div className="mx-4">
                   <button className="signup1 px-6 py-3 bg-black text-white rounded-lg hover:bg-gray-800 hover:text-white">
                     Sign Up
                   </button>
-                </div>
+                </div> */}
                 <div className="mx-4">
                   <button className="login1 px-6 py-3 bg-white border-solid border-2 border-blue-gray-700 text-black rounded-lg hover:bg-gray-200 hover:text-black">
-                    Log In
+                    Learn More
                   </button>
                 </div>
               </div>
@@ -352,19 +352,19 @@ const Home = () => {
 
           <div className="freqques w-1/2 mr-12">
             <hr className="my-4 border-t-2 border-gray-300" />
-            <FAQToggle question={"How are you"} answer={"All good!"}/>
+            <FAQToggle question={"How does it work ?"} answer={"All good!"}/>
             <hr className="my-4 border-t-2 border-gray-300" />
             
-            <FAQToggle question={"How are you"} answer={"All good!"}/>
+            <FAQToggle question={"Is it safe ?"} answer={"All good!"}/>
             <hr className="my-4 border-t-2 border-gray-300" />
 
-            <FAQToggle question={"How are you"} answer={"All good!"}/>
+            <FAQToggle question={"How do I sign up ?"} answer={"All good!"}/>
             <hr className="my-4 border-t-2 border-gray-300" />
 
-            <FAQToggle question={"How are you"} answer={"All good!"}/>
+            <FAQToggle question={"Can I offer my service ?"} answer={"All good!"}/>
             <hr className="my-4 border-t-2 border-gray-300" />
 
-            <FAQToggle question={"How are you"} answer={"All good!"}/>
+            <FAQToggle question={"How can I get paid ?"} answer={"All good!"}/>
             <hr className="my-4 border-t-2 border-gray-300" />
           </div>
         </div>
@@ -391,7 +391,7 @@ const Home = () => {
                 <BsTwitterX className="text-black-500 text-2xl" />
               </a>
               <a href="https://www.example.com" target="_blank" rel="noopener noreferrer">
-                <BsGlobe className="text-black-500 text-2xl" />
+                <BsGithub className="text-black-500 text-2xl" />
               </a>
               </div>
             </div>
@@ -410,7 +410,7 @@ const Home = () => {
                 <BsTwitterX className="text-black-500 text-2xl" />
               </a>
               <a href="https://www.example.com" target="_blank" rel="noopener noreferrer">
-                <BsGlobe className="text-black-500 text-2xl" />
+                <BsGithub className="text-black-500 text-2xl" />
               </a>
               </div>
             </div>
@@ -429,7 +429,7 @@ const Home = () => {
                 <BsTwitterX className="text-black-500 text-2xl" />
               </a>
               <a href="https://www.example.com" target="_blank" rel="noopener noreferrer">
-                <BsGlobe className="text-black-500 text-2xl" />
+                <BsGithub className="text-black-500 text-2xl" />
               </a>
               </div>
             </div>
@@ -448,7 +448,7 @@ const Home = () => {
                 <BsTwitterX className="text-black-500 text-2xl" />
               </a>
               <a href="https://www.example.com" target="_blank" rel="noopener noreferrer">
-                <BsGlobe className="text-black-500 text-2xl" />
+                <BsGithub className="text-black-500 text-2xl" />
               </a>
               </div>
             </div>
