@@ -33,11 +33,8 @@ const Gigcomp = () => {
         
         <div className="grid grid-cols-3 gap-4">
           {userGigs.map(gig => (
-            <div key={gig.id} className="bg-white p-4 shadow-md rounded-md">
-              <h2 className="text-xl font-semibold">{gig.title}</h2>
-              <Link to={`/ProfileDashboard`} onClick={() => selectGig(gig)} className="text-blue-500 hover:underline mt-2 block">
-                View Details
-              </Link>
+            <div key={gig.id} className="p-4 border border-gray-300 rounded-lg mb-4 hover:shadow-lg hover:bg-gray-100 transition duration-300 cursor-pointer">
+              <h2 className="text-xl font-semibold" onClick={() => selectGig(gig)}>{gig.title}</h2>
             </div>
           ))}
         </div>

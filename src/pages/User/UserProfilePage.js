@@ -1,12 +1,33 @@
 import React, { useState, useEffect } from "react";
-import { db, storage } from "../../Firebase/Firebase";
-import { doc, getDoc, updateDoc, collection, query, where, getDocs, addDoc, arrayUnion, increment } from "firebase/firestore";
+import {
+  db,
+  storage,
+} from "../../Firebase/Firebase";
+import {
+  doc,
+  getDoc,
+  updateDoc,
+  collection,
+  query,
+  where,
+  getDocs,
+  addDoc,
+  arrayUnion,
+  increment,
+} from "firebase/firestore";
 import { getAuth } from "firebase/auth";
-import { ref as storageRef, uploadBytes, getDownloadURL, deleteObject } from "firebase/storage";
+import {
+  ref as storageRef,
+  uploadBytes,
+  getDownloadURL,
+  deleteObject,
+} from "firebase/storage";
 import { Button } from "@material-tailwind/react";
 import { ClipLoader } from "react-spinners";
 import Navbar from "../../components/nav";
 import Autocomplete from "react-google-autocomplete";
+import { useSpring, animated, useTransition } from "@react-spring/web";
+import { AiOutlineEdit } from "react-icons/ai";
 
 const UserProfilePage = () => {
   const [loading, setLoading] = useState(true);
@@ -17,6 +38,19 @@ const UserProfilePage = () => {
   const [completedBookings, setCompletedBookings] = useState([]);
   const [reviewForms, setReviewForms] = useState({});
   const auth = getAuth();
+
+  const fadeIn = useSpring({
+    opacity: loading ? 0 : 1,
+    transform: loading ? "translateY(-20px)" : "translateY(0)",
+    config: { duration: 500 },
+  });
+
+  const transitions = useTransition(editing, {
+    from: { opacity: 0, transform: "translateY(-20px)" },
+    enter: { opacity: 1, transform: "translateY(0)" },
+    leave: { opacity: 0, transform: "translateY(-20px)" },
+    config: { duration: 300 },
+  });
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -29,28 +63,36 @@ const UserProfilePage = () => {
           const userData = docSnap.data();
           setUserData(userData);
           setFormData(userData);
-          setProfilePicture(userData.profilePicture || "default_profile_picture_url");
+          setProfilePicture(
+            userData.profilePicture || "default_profile_picture_url"
+          );
         }
 
         // Fetch completed bookings
         const bookingsRef = collection(db, "bookings");
-        const q = query(bookingsRef, where("userId", "==", currentUser.uid), where("bookingStatus", "==", "Completed"));
+        const q = query(
+          bookingsRef,
+          where("userId", "==", currentUser.uid),
+          where("bookingStatus", "==", "Completed")
+        );
         const querySnapshot = await getDocs(q);
-        const bookingsData = await Promise.all(querySnapshot.docs.map(async (bookingDoc) => {
-          const booking = bookingDoc.data();
-          const serviceDoc = await getDoc(doc(db, "services", booking.serviceId));
-          if (serviceDoc.exists()) {
-            booking.serviceName = serviceDoc.data().title;
-          }
-          // Fetch review details if reviewId exists
-          if (booking.isReview && booking.reviewId) {
-            const reviewDoc = await getDoc(doc(db, "reviews", booking.reviewId));
-            if (reviewDoc.exists()) {
-              booking.review = reviewDoc.data();
+        const bookingsData = await Promise.all(
+          querySnapshot.docs.map(async (bookingDoc) => {
+            const booking = bookingDoc.data();
+            const serviceDoc = await getDoc(doc(db, "services", booking.serviceId));
+            if (serviceDoc.exists()) {
+              booking.serviceName = serviceDoc.data().title;
             }
-          }
-          return { id: bookingDoc.id, ...booking };
-        }));
+            // Fetch review details if reviewId exists
+            if (booking.isReview && booking.reviewId) {
+              const reviewDoc = await getDoc(doc(db, "reviews", booking.reviewId));
+              if (reviewDoc.exists()) {
+                booking.review = reviewDoc.data();
+              }
+            }
+            return { id: bookingDoc.id, ...booking };
+          })
+        );
 
         setCompletedBookings(bookingsData);
         setLoading(false);
@@ -91,7 +133,10 @@ const UserProfilePage = () => {
       const currentUser = auth.currentUser;
       const oldProfilePicture = userData.profilePicture;
 
-      const fileReference = storageRef(storage, `profilePicture/${currentUser.uid}/${file.name}`);
+      const fileReference = storageRef(
+        storage,
+        `profilePicture/${currentUser.uid}/${file.name}`
+      );
       setLoading(true);
       try {
         await uploadBytes(fileReference, file);
@@ -119,7 +164,6 @@ const UserProfilePage = () => {
           ...prevUserData,
           profilePicture: url,
         }));
-        
       } catch (error) {
         console.error("Error uploading file:", error);
       } finally {
@@ -207,84 +251,32 @@ const UserProfilePage = () => {
   };
 
   if (loading) {
-    return <ClipLoader color="#00BFFF" loading={loading} size={150} />;
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <ClipLoader color="#00BFFF" loading={loading} size={150} />
+      </div>
+    );
   }
 
   return (
     <div>
       <Navbar currentPage="userProfilePage" />
-      <div className="container mx-auto mt-8 flex flex-col">
-        <div className="w-full p-4">
-          <div className="bg-white shadow-md rounded-lg p-4 mb-4 flex flex-col items-center justify-center">
-            <label htmlFor="profilePictureInput" className="cursor-pointer mb-4">
-              <img src={profilePicture} alt="Profile" className="w-24 h-24 rounded-full mb-4" />
-              <div className="text-blue-500">Change Profile Picture</div>
-            </label>
-            <input
-              id="profilePictureInput"
-              type="file"
-              accept="image/*"
-              className="hidden"
-              onChange={handleProfilePictureChange}
-            />
-            {editing ? (
-              <div className="flex flex-col">
-                <div className="flex flex-row mb-2">
-                  <label htmlFor="firstNameInput" className="w-36">First Name:</label>
-                  <input type="text" id="firstNameInput" value={formData.firstName || ''} name="firstName" onChange={handleInputChange} />
-                </div>
-                <div className="flex flex-row mb-2">
-                  <label htmlFor="lastNameInput" className="w-36">Last Name:</label>
-                  <input type="text" id="lastNameInput" value={formData.lastName || ''} name="lastName" onChange={handleInputChange} />
-                </div>
-                <div className="flex flex-row mb-2">
-                  <label htmlFor="phoneNumberInput" className="w-36">Phone Number:</label>
-                  <input type="text" id="phoneNumberInput" value={formData.phoneNumber || ''} name="phoneNumber" onChange={handleInputChange} />
-                </div>
-                <div className="flex flex-row mb-2">
-                  <label htmlFor="addressInput" className="w-36">Address:</label>
-                  <input type="text" id="addressInput" value={formData.address || ''} name="address" onChange={handleInputChange} />
-                </div>
-                <div className="flex flex-row space-x-4">
-                  <Button color="blue" size="sm" onClick={handleSaveClick}>Save</Button>
-                  <Button color="gray" size="sm" onClick={handleCancelClick}>Cancel</Button>
-                </div>
-              </div>
-            ) : (
-              <>
-
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-
-                <p className="" >Username: {userData.username}</p>
-                <p className="font-bold">Username: {userData.username}</p>
-                <p>Email: {userData.email}</p>
-                <p>First Name: {userData.firstName}</p>
-                <p>Last Name: {userData.lastName}</p>
-                <p>Phone Number: {userData.phoneNumber}</p>
-                <p>Address: {userData.address}</p>
-                <Button color="blue" onClick={handleEditClick}>Edit</Button>
-              </>
-            )}
-
-      <div className="container mx-auto mt-8 flex flex-wrap">
-        <div className="w-1/2 pr-4 container">
-          <div className="bg-white shadow-md container flex justify-center rounded-lg p-4 mb-4">
+      <animated.div style={fadeIn} className="container mx-auto mt-8 flex flex-wrap">
+        <div className="w-full md:w-1/2 lg:w-1/2 xl:w-1/2 p-4">
+          <animated.div
+            className="bg-white shadow-md container flex justify-center rounded-lg p-4 mb-4 hover:shadow-lg transition-shadow duration-300"
+            style={fadeIn}
+          >
             <div className="">
               <div className="flex justify-center container">
                 <div className="flex justify-center"></div>
-                <label
-                  htmlFor="profilePictureInput"
-                  className="cursor-pointer mb-4"
-                >
+                <label htmlFor="profilePictureInput" className="cursor-pointer mb-4">
                   <div className="container mx-auto">
-                  <img
-                    src={profilePicture}
-                    alt="Profile"
-                    className="container mx-auto justify-center w-24 h-24 rounded-full mb-4"
-                  />
+                    <img
+                      src={profilePicture}
+                      alt="Profile"
+                      className="container mx-auto justify-center w-24 h-24 rounded-full mb-4"
+                    />
                   </div>
                   <div className="text-blue-500">Change Profile Picture</div>
                 </label>
@@ -296,132 +288,153 @@ const UserProfilePage = () => {
                   onChange={handleProfilePictureChange}
                 />
               </div>
-              {editing ? (
-                <>
-                  {/* Profile editing fields */}
-                  <div className="flex flex-col items-center">
-                    <div className="mb-4 w-full px-2">
-                      <label
-                        htmlFor="firstNameInput"
-                        className="block text-gray-700 text-sm font-bold mb-2"
-                      >
-                        First Name:
-                      </label>
-                      <input
-                        type="text"
-                        id="firstNameInput"
-                        value={formData.firstName || ""}
-                        name="firstName"
-                        onChange={handleInputChange}
-                        className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                      />
+              {transitions((style, item) =>
+                item ? (
+                  <animated.div style={style}>
+                    {/* Profile editing fields */}
+                    <div className="flex flex-col items-center">
+                      <div className="mb-4 w-full px-2">
+                        <label
+                          htmlFor="firstNameInput"
+                          className="block text-gray-700 text-sm font-bold mb-2"
+                        >
+                          First Name:
+                        </label>
+                        <input
+                          type="text"
+                          id="firstNameInput"
+                          value={formData.firstName || ""}
+                          name="firstName"
+                          onChange={handleInputChange}
+                          className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        />
+                      </div>
+                      <div className="mb-4 w-full px-2">
+                        <label
+                          htmlFor="lastNameInput"
+                          className="block text-gray-700 text-sm font-bold mb-2"
+                        >
+                          Last Name:
+                        </label>
+                        <input
+                          type="text"
+                          id="lastNameInput"
+                          value={formData.lastName || ""}
+                          name="lastName"
+                          onChange={handleInputChange}
+                          className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        />
+                      </div>
+                      <div className="mb-4 w-full px-2">
+                        <label
+                          htmlFor="username"
+                          className="block text-gray-700 text-sm font-bold mb-2"
+                        >
+                          User Name:
+                        </label>
+                        <input
+                          type="text"
+                          id="username"
+                          value={formData.username || ""}
+                          name="username"
+                          onChange={handleInputChange}
+                          className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        />
+                      </div>
+                      <div className="mb-4 w-full px-2">
+                        <label
+                          htmlFor="phoneNumberInput"
+                          className="block text-gray-700 text-sm font-bold mb-2"
+                        >
+                          Phone Number:
+                        </label>
+                        <input
+                          type="text"
+                          id="phoneNumberInput"
+                          value={formData.phoneNumber || ""}
+                          name="phoneNumber"
+                          onChange={handleInputChange}
+                          className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        />
+                      </div>
+                      <div className="mb-4 w-full px-2">
+                        <label
+                          htmlFor="addressInput"
+                          className="block text-gray-700 text-sm font-bold mb-2"
+                        >
+                          Address:
+                        </label>
+                        <input
+                          type="text"
+                          id="addressInput"
+                          value={formData.address || ""}
+                          name="address"
+                          onChange={handleInputChange}
+                          className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        />
+                      </div>
+                      <div className="mb-4 w-full px-2">
+                        <label
+                          htmlFor="localityInput"
+                          className="block text-gray-700 text-sm font-bold mb-2"
+                        >
+                          Locality:
+                        </label>
+                        <Autocomplete
+                          apiKey="AIzaSyDjLpn8fDYOJJ9Yj7PVsJzslIiVfk2iiHg"
+                          className="border border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-custom-green focus:border-transparent"
+                          options={{ componentRestrictions: { country: "in" } }}
+                          onPlaceSelected={handlePlaceSelected}
+                        />
+                      </div>
                     </div>
-                    <div className="mb-4 w-full px-2">
-                      <label
-                        htmlFor="lastNameInput"
-                        className="block text-gray-700 text-sm font-bold mb-2"
-                      >
-                        Last Name:
-                      </label>
-                      <input
-                        type="text"
-                        id="lastNameInput"
-                        value={formData.lastName || ""}
-                        name="lastName"
-                        onChange={handleInputChange}
-                        className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                      />
+                    <div className="flex justify-center">
+                      <Button color="blue" onClick={handleSaveClick}>
+                        Save
+                      </Button>
+                      <Button color="red" onClick={handleCancelClick} className="ml-2">
+                        Cancel
+                      </Button>
                     </div>
-                    <div className="mb-4 w-full px-2">
-                      <label
-                        htmlFor="username"
-                        className="block text-gray-700 text-sm font-bold mb-2"
-                      >
-                        User Name:
-                      </label>
-                      <input
-                        type="text"
-                        id="username"
-                        value={formData.username || ""}
-                        name="username"
-                        onChange={handleInputChange}
-                        className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                      />
-                    </div>
-                    <div className="mb-4 w-full px-2">
-                      <label
-                        htmlFor="phoneNumberInput"
-                        className="block text-gray-700 text-sm font-bold mb-2"
-                      >
-                        Phone Number:
-                      </label>
-                      <input
-                        type="text"
-                        id="phoneNumberInput"
-                        value={formData.phoneNumber || ""}
-                        name="phoneNumber"
-                        onChange={handleInputChange}
-                        className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                      />
-                    </div>
-                    <div className="mb-4 w-full px-2">
-                      <label
-                        htmlFor="addressInput"
-                        className="block text-gray-700 text-sm font-bold mb-2"
-                      >
-                        Address:
-                      </label>
-                      <input
-                        type="text"
-                        id="addressInput"
-                        value={formData.address || ""}
-                        name="address"
-                        onChange={handleInputChange}
-                        className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                      />
-                    </div>
-                    <div className="mb-4 w-full px-2">
-                      <label
-                        htmlFor="localityInput"
-                        className="block text-gray-700 text-sm font-bold mb-2"
-                      >
-                        Locality:
-                      </label>
-                      <Autocomplete
-                        apiKey="AIzaSyDjLpn8fDYOJJ9Yj7PVsJzslIiVfk2iiHg"
-                        className="border border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-custom-green focus:border-transparent"
-                        options={{ componentRestrictions: { country: "in" } }}
-                        onPlaceSelected={handlePlaceSelected}
-                      />
-                    </div>
-                  </div>
-                  <div className="flex justify-center">
-                    <Button color="blue" onClick={handleSaveClick}>
-                      Save
+                  </animated.div>
+                ) : (
+                  <animated.div style={style}>
+                    {/* Profile information */}
+                    <p className="text-gray-700 text-lg">
+                      <span className="font-bold">Username:</span> {userData.username}
+                    </p>
+                    <p className="text-gray-700 text-lg">
+                      <span className="font-bold">Email:</span> {userData.email}
+                    </p>
+                    <p className="text-gray-700 text-lg">
+                      <span className="font-bold">First Name:</span> {userData.firstName}
+                    </p>
+                    <p className="text-gray-700 text-lg">
+                      <span className="font-bold">Last Name:</span> {userData.lastName}
+                    </p>
+                    <p className="text-gray-700 text-lg">
+                      <span className="font-bold">Phone Number:</span> {userData.phoneNumber}
+                    </p>
+                    <p className="text-gray-700 text-lg">
+                      <span className="font-bold">Address:</span> {userData.address}
+                    </p>
+                    <p className="text-gray-700 text-lg">
+                      <span className="font-bold">Locality:</span> {userData.locality}
+                    </p>
+                    <Button color="blue" onClick={handleEditClick}>
+                      Edit
                     </Button>
-                  </div>
-                </>
-              ) : (
-                <>
-                  {/* Profile information */}
-                  <p>Username: {userData.username}</p>
-                  <p>Email: {userData.email}</p>
-                  <p>First Name: {userData.firstName}</p>
-                  <p>Last Name: {userData.lastName}</p>
-                  <p>Phone Number: {userData.phoneNumber}</p>
-                  <p>Address: {userData.address}</p>
-                  <p>Locality: {userData.locality}</p>
-                  <Button color="blue" onClick={handleEditClick}>
-                    Edit
-                  </Button>
-                </>
+                  </animated.div>
+                )
               )}
             </div>
-
-          </div>
+          </animated.div>
         </div>
         <div className="w-full md:w-1/2 lg:w-1/2 xl:w-1/2 p-4">
-          <div className="bg-white shadow-md rounded-lg p-4 mb-4">
+          <animated.div
+            className="bg-white shadow-md rounded-lg p-4 mb-4 hover:shadow-lg hover:bg-gray-35 transition duration-300"
+            style={fadeIn}
+          >
             <h2 className="text-xl font-bold mb-4">Completed Bookings</h2>
             {completedBookings.length > 0 ? (
               <ul>
@@ -464,13 +477,11 @@ const UserProfilePage = () => {
             ) : (
               <p>No completed bookings found.</p>
             )}
-          </div>
+          </animated.div>
         </div>
-      </div>
-    </div>
-    </div>
-    </div>
+      </animated.div>
     </div>
   );
-}
+};
+
 export default UserProfilePage;
