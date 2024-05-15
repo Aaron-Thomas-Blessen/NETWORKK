@@ -5,11 +5,13 @@ import Navbar from '../../components/nav';
 import { useUser } from '../../Context/Context';
 import { db } from '../../Firebase/Firebase';
 import { useGig } from '../../Context/GigContext';
+import { useNavigate } from 'react-router-dom';
 
 const MyGigs = () => {
   const { user } = useUser();
   const [userGigs, setUserGigs] = useState([]);
-  const { selectGig } = useGig(); // Use the useGig hook to select gig
+  const { selectGig } = useGig();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUserGigs = async () => {
@@ -35,12 +37,9 @@ const MyGigs = () => {
         
         <div className="grid grid-cols-3 gap-4">
           {userGigs.map(gig => (
-            <div key={gig.id} className="bg-white p-4 shadow-md rounded-md">
+            <div key={gig.id} onClick={() => {selectGig(gig); navigate(`/ProfileDashboard`)}} className="bg-white p-4 shadow-md rounded-md">
               <h2 className="text-xl font-semibold">{gig.title}</h2>
               <p className="text-gray-500">{gig.description}</p>
-              <Link to={`/ProfileDashboard`} onClick={() => selectGig(gig)} className="text-blue-500 hover:underline mt-2 block">
-                View Details
-              </Link>
             </div>
           ))}
         </div>

@@ -8,7 +8,6 @@ import UserProfilePage from "./pages/User/UserProfilePage";
 import SellerProfilePage from "./pages/Seller/SellerProfilePage";
 import Gigs from "./pages/Seller/Gigs";
 import Gigcreate from "./pages/Seller/Gigcreate";
-import Gigssearch from "./pages/User/Gigssearch";
 import Usergigsviews from "./pages/User/Usergigsviews";
 import ProfileDashboardPage from './pages/Seller/ProfileDashboardPage';
 import { Protected } from "./components/Protected";
@@ -41,7 +40,6 @@ const App = () => {
           <Route path="/Gigs" element={<Protected> <Gigs /> </Protected>}></Route>
           <Route path="/Payments" element={<Protected> <PaymentPage /> </Protected>}></Route>
           <Route path="/Gigcreate" element={<Protected> <Gigcreate /> </Protected>}></Route>
-          <Route path="/Gigssearch" element={<Protected>  <Gigssearch /> </Protected>}></Route>
           <Route path="/Usergigsviews" element={<Protected> <Usergigsviews /> </Protected>}></Route>
           <Route path="/ProfileDashboard" element={<Protected> <ProfileDashboardPage /> </Protected>}></Route>
         </Routes>
