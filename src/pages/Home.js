@@ -465,22 +465,22 @@ const Home = () => {
             <div class="contactdet flex flex-row ">
               <div className="mt-4 w-1/3 text-center">
                 <h3 class="font-bold text-lg">Email</h3>
-                <h6 class="text-md">hello@relume.io</h6>
+                <h6 class="text-md">contact@networkk.com</h6>
               </div>
               <div class="mt-4 w-1/3 text-center">
                 <h3 class="font-bold text-lg">Phone</h3>
-                <h6 class="text-md">+1 (555) 000-0000</h6>
+                <h6 class="text-md">+1 (555) 090-1356</h6>
               </div>
               <div class="mt-4 w-1/3 text-center">
                 <h3 class="font-bold text-lg">Office</h3>
-                <h6 class="text-md">123 Sample St, Sydney NSW 2000 AU</h6>
+                <h6 class="text-md">Kottayam, Kerala, India</h6>
               </div>
             </div>
           </div>
         </div>
         <div class="news flex flex-row justify-center py-8">
           <div class="newshead pr-8 w-3/5 ml-5 lg:ml-10">
-            <h2 class="text-3xl font-bold">LOGO</h2>
+            <img src="https://firebasestorage.googleapis.com/v0/b/network-c70d4.appspot.com/o/login%2Flogo-text1__1_-removebg-preview.png?alt=media&token=ff8304f7-1b98-4d3d-92dc-af6d60f928dc" className="w-44"/>
             <h5 class="text-base">
               Stay up to date on features and releases by joining our
               newsletter.
