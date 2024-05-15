@@ -1,9 +1,9 @@
 import React from "react";
 import Navbarsign from "../../components/navsign";
 
-const Admin = () => {
+const Adminlog = () => {
     return <Navbarsign />
   };
   
-export default Admin;
+export default Adminlog;
   

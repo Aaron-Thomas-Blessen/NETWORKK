@@ -2,11 +2,15 @@ import React, { useState, useEffect } from 'react';
 import Navbar from "../../components/nav";
 import { getFirestore, collection, getDocs } from 'firebase/firestore';
 import { useUser } from '../../Context/Context';
+import { useGig } from '../../Context/GigContext'; // Import the useGig context
 import { haversineDistance } from '../../components/Haversine';
 import { format, isToday, parseISO } from 'date-fns';
+import { useNavigate } from 'react-router-dom';
 
 const GigSearch = () => {
     const { user } = useUser();
+    const { selectGig } = useGig(); 
+    const navigate = useNavigate();
     const [gigs, setGigs] = useState([]);
     const [filteredGigs, setFilteredGigs] = useState([]);
     const [searchParams, setSearchParams] = useState({
@@ -95,49 +99,79 @@ const GigSearch = () => {
     return (
         <div className="GigSearch">
             <Navbar />
-            <div className="flex flex-col items-center justify-center mt-8">
-                <div className="gig-container rounded-lg p-8 mb-8 w-96 border border-gray-400 rounded-l-md">
-                    <div className="gigsearch">
-                        <h1 className="text-3xl text-center mb-4">Search for Gigs</h1>
-                    </div>
+            <div className="flex flex-col items-center justify-center mt-8 px-4 md:px-8">
+                <div className="w-full max-w-lg bg-white shadow-md rounded-lg p-6">
+                    <h1 className="text-3xl text-center mb-6 font-semibold text-gray-700">Search for Gigs</h1>
                     <form onSubmit={(e) => { e.preventDefault(); handleSearch(); }}>
-                        <div className="gigdate mb-4">
-                            <label htmlFor="date" className="block">Date</label>
-                            <input type="date" id="date" name="date" value={searchParams.date} onChange={handleChange} className="w-full h-full border border-black rounded p-2 border-gray-400 rounded-l-md py-2 px-4 w-96 focus:outline-none focus:ring-1 focus:ring-slate-950" />
+                        <div className="mb-4">
+                            <label htmlFor="date" className="block text-sm font-medium text-gray-700">Date</label>
+                            <input 
+                                type="date" 
+                                id="date" 
+                                name="date" 
+                                value={searchParams.date} 
+                                onChange={handleChange} 
+                                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                            />
                         </div>
-                        <div className="gigsearchtext mb-4">
-                            <label htmlFor="searchText" className="block">Search Text</label>
-                            <input type="text" id="searchText" name="searchText" value={searchParams.searchText} onChange={handleChange} placeholder="Enter search text" className="w-full h-full border border-black rounded p-2 border-gray-400 rounded-l-md py-2 px-4 w-96 focus:outline-none focus:ring-1 focus:ring-slate-950" />
+                        <div className="mb-4">
+                            <label htmlFor="searchText" className="block text-sm font-medium text-gray-700">Search Text</label>
+                            <input 
+                                type="text" 
+                                id="searchText" 
+                                name="searchText" 
+                                value={searchParams.searchText} 
+                                onChange={handleChange} 
+                                placeholder="Enter search text" 
+                                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                            />
                         </div>
-                        <div className="gigsort mb-4">
-                            <label htmlFor="sortPrice" className="block">Sort by Price</label>
-                            <select id="sortPrice" name="sortPrice" value={searchParams.sortPrice} onChange={handleChange} className="w-full h-full border border-black rounded p-2 border-gray-400 rounded-l-md py-2 px-4 w-96 focus:outline-none focus:ring-1 focus:ring-slate-950">
+                        <div className="mb-4">
+                            <label htmlFor="sortPrice" className="block text-sm font-medium text-gray-700">Sort by Price</label>
+                            <select 
+                                id="sortPrice" 
+                                name="sortPrice" 
+                                value={searchParams.sortPrice} 
+                                onChange={handleChange} 
+                                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                            >
                                 <option value="asc">Ascending</option>
                                 <option value="desc">Descending</option>
                             </select>
                         </div>
-                        <div className="gigsubmit flex justify-center">
-                            <input type="submit" value="Search" className="bg-black text-white px-6 py-3 rounded-lg hover:bg-gray-800 cursor-pointer text-lg" />
+                        <div className="flex justify-center">
+                            <input 
+                                type="submit" 
+                                value="Search" 
+                                className="bg-blue-600 text-white px-6 py-2 rounded-md shadow hover:bg-blue-700 cursor-pointer text-lg"
+                            />
                         </div>
                     </form>
                 </div>
-                <div className="results-container mt-8 w-full">
+                <div className="results-container mt-8 w-full max-w-2xl">
                     {filteredGigs.length > 0 ? (
-                        <ul>
+                        <ul className="space-y-4">
                             {filteredGigs.map(gig => (
-                                <li key={gig.id} className="mb-4 p-4 border border-gray-400 rounded-lg">
-                                    <h2 className="text-xl font-bold">{gig.title}</h2>
-                                    <p>Category: {gig.category}</p>
-                                    <p>Base Price: ${gig.basePrice}</p>
-                                    <p>Description: {gig.description}</p>
-                                    <p>Email: {gig.email}</p>
-                                    <p>Phone Number: {gig.phoneNumber}</p>
-                                    <p>Address: {gig.address}</p>
+                                <li 
+                                    key={gig.id} 
+                                    className="bg-white shadow-md rounded-lg p-6 cursor-pointer hover:bg-gray-100 transition" 
+                                    onClick={() => { 
+                                        selectGig(gig); 
+                                        navigate(`/Usergigsviews`);
+                                    }}
+                                >
+                                    <h2 className="text-xl font-bold text-gray-800">{gig.title}</h2>
+                                    <p className="text-gray-600"><strong>Category:</strong> {gig.category}</p>
+                                    <p className="text-gray-600"><strong>Base Price:</strong> ${gig.basePrice}</p>
+                                    <p className="text-gray-600"><strong>Description:</strong> {gig.description}</p>
+                                    <p className="text-gray-600"><strong>Email:</strong> {gig.email}</p>
+                                    <p className="text-gray-600"><strong>Phone Number:</strong> {gig.phoneNumber}</p>
+                                    <p className="text-gray-600"><strong>Address:</strong> {gig.address}</p>
                                 </li>
                             ))}
                         </ul>
                     ) : (
-                        <p>No gigs found.</p>
+                        <p className="text-gray-600 text-center">No gigs found.</p>
                     )}
                 </div>
             </div>
@@ -146,5 +180,3 @@ const GigSearch = () => {
 };
 
 export default GigSearch;
-
-

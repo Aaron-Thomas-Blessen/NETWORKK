@@ -2,7 +2,7 @@ import Home from "./pages/Home";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
-import Admin from "./pages/Admin/Admin";
+import Adminlog from "./pages/Admin/Admin";
 import Booking from "./pages/User/Booking";
 import UserProfilePage from "./pages/User/UserProfilePage";
 import SellerProfilePage from "./pages/Seller/SellerProfilePage";
@@ -28,7 +28,7 @@ const App = () => {
           <Route path="/" element={<Home />}></Route>
           <Route path="/signup" element={<SignUp />}></Route>
           <Route path="/signin" element={<SignIn />}></Route>
-          <Route path="/Admin" element={<AdminProtected> <Admin /> </AdminProtected>}></Route>
+          <Route path="/Adminlog" element={<Adminlog />}></Route>
           <Route path="/Admingigs" element={<AdminProtected> <AdminGigs /> </AdminProtected>}></Route>
           <Route path="/Booking" element={<Booking />}></Route>
           <Route path="/showBookings" element={<BookingsPage />}></Route>
