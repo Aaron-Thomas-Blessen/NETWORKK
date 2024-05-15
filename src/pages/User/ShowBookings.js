@@ -85,8 +85,9 @@ const BookingsPage = () => {
                   <p>Address: {booking.address}</p>
                   <p>Date: {booking.date}</p>
                   <p>Description: {booking.description}</p>
-                  <p>Base Payment: {booking.basePayment}</p>
-                  <button onClick={() => handlePayment(booking)}>Pay</button>
+                  <p className='mb-2'>Base Payment: {booking.basePayment}</p>
+                  <button className='bg-blue-600' onClick={() => handlePayment(booking)} style={{ color: 'white', padding: '10px 20px', border: 'none', borderRadius: '5px', cursor: 'pointer' }}>Pay Now</button>
+
                 </li>
               ))}
             </ul>
