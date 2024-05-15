@@ -3,14 +3,13 @@ import GigCard from '../../components/GigCard';
 import Navbarsign from '../../components/navsign';
 import { collection, query, where, getDocs, doc, updateDoc } from 'firebase/firestore';
 import { db } from '../../Firebase/Firebase';
+import ClipLoader from 'react-spinners/ClipLoader';
 
 const AdminGigs = () => {
     const [pendingGigs, setPendingGigs] = useState([]);
     const [acceptedGigs, setAcceptedGigs] = useState([]);
     const [rejectedGigs, setRejectedGigs] = useState([]);
-    const [showPending, setShowPending] = useState(true);
-    const [showAccepted, setShowAccepted] = useState(false);
-    const [showRejected, setShowRejected] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchGigs = async () => {
@@ -34,6 +33,8 @@ const AdminGigs = () => {
                 setRejectedGigs(rejectedGigs);
             } catch (error) {
                 console.error('Error fetching gigs: ', error);
+            } finally {
+                setLoading(false);
             }
         };
 
@@ -44,8 +45,6 @@ const AdminGigs = () => {
         try {
             const gigRef = doc(db, 'services', gigId);
             await updateDoc(gigRef, { status: 'Accepted' });
-            setPendingGigs(prevGigs => prevGigs.filter(gig => gig.id !== gigId));
-            setAcceptedGigs(prevGigs => [...prevGigs, { id: gigId, status: 'Accepted' }]);
         } catch (error) {
             console.error('Error approving gig: ', error);
         }
@@ -55,8 +54,6 @@ const AdminGigs = () => {
         try {
             const gigRef = doc(db, 'services', gigId);
             await updateDoc(gigRef, { status: 'Rejected' });
-            setPendingGigs(prevGigs => prevGigs.filter(gig => gig.id !== gigId));
-            setRejectedGigs(prevGigs => [...prevGigs, { id: gigId, status: 'Rejected' }]);
         } catch (error) {
             console.error('Error rejecting gig: ', error);
         }
@@ -65,51 +62,54 @@ const AdminGigs = () => {
     const isAdminLoggedIn = localStorage.getItem('isAdmin') === 'true';
 
     if (!isAdminLoggedIn) {
-        return <div>Please sign in to access this page.</div>;
+        return <div className="text-center mt-10">Please sign in to access this page.</div>;
     }
 
     return (
         <div>
             <Navbarsign />
-            <div className="admin-page">
-                <h1 onClick={() => setShowPending(!showPending)}>Pending Gigs</h1>
-                {showPending && (
-                    <div className="gig-cards">
-                        {pendingGigs.map(gig => (
-                            <GigCard
-                                key={gig.id}
-                                gig={gig}
-                                onApprove={() => handleApprove(gig.id)}
-                                onReject={() => handleReject(gig.id)}
-                            />
-                        ))}
+            <div className="container mx-auto p-4">
+                {loading ? (
+                    <div className="flex justify-center items-center h-80">
+                        <ClipLoader size={50} color={"#123abc"} loading={loading} />
                     </div>
-                )}
-            </div>
-            <div className="admin-page">
-                <h1 onClick={() => setShowAccepted(!showAccepted)}>Accepted Gigs</h1>
-                {showAccepted && (
-                    <div className="gig-cards">
-                        {acceptedGigs.map(gig => (
-                            <GigCard
-                                key={gig.id}
-                                gig={gig}
-                            />
-                        ))}
-                    </div>
-                )}
-            </div>
-            <div className="admin-page">
-                <h1 onClick={() => setShowRejected(!showRejected)}>Rejected Gigs</h1>
-                {showRejected && (
-                    <div className="gig-cards">
-                        {rejectedGigs.map(gig => (
-                            <GigCard
-                                key={gig.id}
-                                gig={gig}
-                            />
-                        ))}
-                    </div>
+                ) : (
+                    <>
+                        <h1 className="text-2xl font-semibold mb-4">Pending Gigs</h1>
+                        <div className="flex flex-col gap-4">
+                            {pendingGigs.map(gig => (
+                                <GigCard
+                                    key={gig.id}
+                                    gig={gig}
+                                    onApprove={handleApprove}
+                                    onReject={handleReject}
+                                    className="shadow-lg transition-transform transform hover:scale-105"
+                                />
+                            ))}
+                        </div>
+
+                        <h1 className="text-2xl font-semibold mb-4 mt-8">Accepted Gigs</h1>
+                        <div className="flex flex-col gap-4">
+                            {acceptedGigs.map(gig => (
+                                <GigCard
+                                    key={gig.id}
+                                    gig={gig}
+                                    className="shadow-lg transition-transform transform hover:scale-105"
+                                />
+                            ))}
+                        </div>
+
+                        <h1 className="text-2xl font-semibold mb-4 mt-8">Rejected Gigs</h1>
+                        <div className="flex flex-col gap-4">
+                            {rejectedGigs.map(gig => (
+                                <GigCard
+                                    key={gig.id}
+                                    gig={gig}
+                                    className="shadow-lg transition-transform transform hover:scale-105"
+                                />
+                            ))}
+                        </div>
+                    </>
                 )}
             </div>
         </div>

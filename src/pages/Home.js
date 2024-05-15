@@ -27,7 +27,7 @@ const Home = () => {
           </h1>
           <div className="btn flex ">
             <button className="px-8 py-4 bg-black text-white rounded-lg mr-4 ">
-              Get Started
+              <a href="/signin">Get Started</a>
             </button>
             <button className="px-8 py-4  bg-white border-solid border-2 border-blue-gray-700  text-black rounded-lg hover:bg-gray-200 hover:text-black ml-4">
               Learn more
@@ -384,13 +384,13 @@ const Home = () => {
                 Experienced strategist with a passion for innovation and growth.
               </h4>
               <div className="flex justify-center mt-4 space-x-8">
-              <a href="https://www.example.com" target="_blank" rel="noopener noreferrer">
+              <a href="https://www.linkedin.com/in/aaron-thomas-blessen-390200214/" target="_blank" rel="noopener noreferrer">
                 <SiLinkedin className="text-black-500 text-2xl" />
               </a>
-              <a href="https://www.example.com" target="_blank" rel="noopener noreferrer">
+              <a href="https://twitter.com/aaron_blessen" target="_blank" rel="noopener noreferrer">
                 <BsTwitterX className="text-black-500 text-2xl" />
               </a>
-              <a href="https://www.example.com" target="_blank" rel="noopener noreferrer">
+              <a href="https://github.com/Aaron-Thomas-Blessen" target="_blank" rel="noopener noreferrer">
                 <BsGithub className="text-black-500 text-2xl" />
               </a>
               </div>
@@ -441,13 +441,13 @@ const Home = () => {
                 acquisition.
               </h4>
               <div className="flex justify-center mt-4 space-x-8">
-              <a href="https://www.example.com" target="_blank" rel="noopener noreferrer">
+              <a href="https://www.linkedin.com/in/chandrasekharca" target="_blank" rel="noopener noreferrer">
                 <SiLinkedin className="text-black-500 text-2xl" />
               </a>
-              <a href="https://www.example.com" target="_blank" rel="noopener noreferrer">
+              <a href="https://x.com/ChanduTumba?t=lsvX1R7kTQk41BZk4VKWgQ&s=08" target="_blank" rel="noopener noreferrer">
                 <BsTwitterX className="text-black-500 text-2xl" />
               </a>
-              <a href="https://www.example.com" target="_blank" rel="noopener noreferrer">
+              <a href="https://github.com/ChanduTumba" target="_blank" rel="noopener noreferrer">
                 <BsGithub className="text-black-500 text-2xl" />
               </a>
               </div>

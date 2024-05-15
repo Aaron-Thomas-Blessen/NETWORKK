@@ -2,7 +2,6 @@ import Home from "./pages/Home";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
-import Adminlog from "./pages/Admin/Admin";
 import Booking from "./pages/User/Booking";
 import UserProfilePage from "./pages/User/UserProfilePage";
 import SellerProfilePage from "./pages/Seller/SellerProfilePage";
@@ -18,6 +17,8 @@ import BookingsPage from "./pages/User/ShowBookings";
 import SellerBookingsPage from "./pages/Seller/ShowGigBookings";
 import PaymentPage from "./pages/User/Payment";
 import History from "./pages/Seller/History";
+import AdminBookings from "./pages/Admin/AdminBookings";
+import AdminPaymentDetails from "./pages/Admin/AdminPayments";
 
 const App = () => {
 
@@ -28,8 +29,9 @@ const App = () => {
           <Route path="/" element={<Home />}></Route>
           <Route path="/signup" element={<SignUp />}></Route>
           <Route path="/signin" element={<SignIn />}></Route>
-          <Route path="/Adminlog" element={<Adminlog />}></Route>
           <Route path="/Admingigs" element={<AdminProtected> <AdminGigs /> </AdminProtected>}></Route>
+          <Route path="/Adminbookings" element={<AdminProtected> <AdminBookings /> </AdminProtected>}></Route>
+          <Route path="/Adminpayments" element={<AdminProtected> <AdminPaymentDetails /> </AdminProtected>}></Route>
           <Route path="/Booking" element={<Protected> <Booking /> </Protected>}></Route>
           <Route path="/History" element={<Protected> <History /> </Protected>}></Route>
           <Route path="/showBookings" element={<Protected> <BookingsPage /> </Protected>}></Route>
