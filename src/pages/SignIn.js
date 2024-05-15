@@ -1,10 +1,7 @@
 import React, { useState } from "react";
 import { auth } from "../Firebase/Firebase";
-import { NavLink, useNavigate } from "react-router-dom";
-import {
-  signInWithEmailAndPassword,
-  sendPasswordResetEmail,
-} from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+import { signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
 import Navbar from "../components/nav";
 
 const SignIn = () => {
@@ -17,8 +14,6 @@ const SignIn = () => {
   const reset = (e) => {
     sendPasswordResetEmail(auth, email)
       .then(() => {
-        // Password reset email sent!
-        // ..
         setMessage(
           "If your email is registered with us, you will receive a password reset email shortly."
         );
@@ -29,14 +24,12 @@ const SignIn = () => {
         const errorMessage = error.message;
         setMessage(errorCode.substr(5, errorCode.length - 1));
         console.log(errorCode, errorMessage);
-        // ..
       });
   };
   const onLogin = (e) => {
     e.preventDefault();
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        // Signed in
         const user = userCredential.user;
 
         console.log("user" + user);
@@ -49,12 +42,6 @@ const SignIn = () => {
         console.log(errorCode, errorMessage);
         setError(errorCode);
       });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle the sign in logic here
-    console.log(email, password);
   };
 
   return (

@@ -1,4 +1,3 @@
-
 import Carousel from "../components/carousel";
 import Navbar from "../components/nav";
 import HeroSection from "../components/hero-section";

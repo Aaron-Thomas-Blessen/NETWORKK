@@ -16,14 +16,12 @@ const SignUp = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setError(""); // Clear previous errors
+    setError("");
 
     try {
-      // Create user with email and password
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
       
-      // Add username and email to Firestore
       await setDoc(doc(db, "users", user.uid), {
         username: name,
         email: email,
@@ -31,10 +29,10 @@ const SignUp = () => {
       });
 
       console.log("User created and data stored in Firestore!");
-      navigate('/', { replace: true } ); // Navigate to signin page after successful signup
+      navigate('/', { replace: true } );
     } catch (error) {
       console.error("Error signing up:", error.message);
-      setError(error.message); // Set error message to display to the user
+      setError(error.message); 
     }
   };
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { db, storage } from "../../Firebase/Firebase";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { doc, collection, getDocs, getDoc, updateDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { ref as storageRef, uploadBytes, getDownloadURL, deleteObject } from "firebase/storage";
 import { Button } from "@material-tailwind/react";
@@ -17,6 +17,7 @@ const SellerProfilePage = () => {
   const [formData, setFormData] = useState({});
   const [editing, setEditing] = useState(false);
   const [profilePicture, setProfilePicture] = useState(null);
+  const [gigs, setGigs] = useState([]);
   const auth = getAuth();
   const navigate = useNavigate();
 
@@ -52,7 +53,22 @@ const SellerProfilePage = () => {
       }
     };
 
+    const fetchGigs = async () => {
+      const currentUser = auth.currentUser;
+      if (currentUser) {
+        // Fetch gigs data here
+        const gigsRef = collection(db, "gigs");
+        const gigsSnap = await getDocs(gigsRef);
+        const gigsData = gigsSnap.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setGigs(gigsData);
+      }
+    };
+
     fetchUserData();
+    fetchGigs();
   }, [auth]);
 
   const handleInputChange = (e) => {
@@ -94,7 +110,6 @@ const SellerProfilePage = () => {
           profilePicture: url,
         });
 
-        // Delete the old profile picture from storage if it exists and is not the default picture
         if (
           oldProfilePicture &&
           oldProfilePicture !== "default_profile_picture_url"
@@ -108,7 +123,6 @@ const SellerProfilePage = () => {
           }
         }
 
-        // Update userData state
         setUserData((prevUserData) => ({
           ...prevUserData,
           profilePicture: url,
@@ -141,205 +155,202 @@ const SellerProfilePage = () => {
       <Navbar currentPage="sellerProfilePage" />
       {loading ? (
         <div className="flex justify-center items-center h-screen">
-          <ClipLoader size={150} color="#123abc" />
+          <ClipLoader size={100} color="#123abc" />
         </div>
       ) : (
-      <animated.div style={fadeIn} className="container mx-auto mt-8 flex">
-        <div className="w-1/2 pr-4 container">
-          <animated.div
-            className="bg-white shadow-md container flex justify-center rounded-lg p-4 mb-4 hover:shadow-lg transition-shadow duration-300"
-            style={fadeIn}
-          >
-            <div className="">
-              <div className="flex justify-center container">
-                <div className="flex justify-center"></div>
-                <label
-                  htmlFor="profilePictureInput"
-                  className="cursor-pointer mb-4"
-                >
-                  <div className="container mx-auto">
-                    <img
-                      src={profilePicture}
-                      alt="Profile"
-                      className="container mx-auto justify-center w-24 h-24 rounded-full mb-4"
-                    />
-                  </div>
-                  <div className="text-blue-500">Change Profile Picture</div>
-                </label>
-                <input
-                  id="profilePictureInput"
-                  type="file"
-                  accept="image/*"
-                  className="hidden"
-                  onChange={handleProfilePictureChange}
-                />
-              </div>
-              {transitions((style, item) =>
-                item ? (
-                  <animated.div style={style}>
-                    {/* Profile editing fields */}
-                    <div className="flex flex-col items-center">
-                      <div className="mb-4 w-full px-2">
-                        <label
-                          htmlFor="localityInput"
-                          className="block text-gray-700 text-sm font-bold mb-2"
-                        >
-                          Locality:
-                        </label>
-                        <Autocomplete
-                          apiKey="YOUR_GOOGLE_API_KEY"
-                          className="border border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-custom-green focus:border-transparent"
-                          options={{ componentRestrictions: { country: "in" } }}
-                          onPlaceSelected={handlePlaceSelected}
-                        />
-                      </div>
-                      <div className="mb-4 w-full px-2">
-                        <label
-                          htmlFor="firstNameInput"
-                          className="block text-gray-700 text-sm font-bold mb-2"
-                        >
-                          First Name:
-                        </label>
-                        <input
-                          type="text"
-                          id="firstNameInput"
-                          value={formData.firstName || ""}
-                          name="firstName"
-                          onChange={handleInputChange}
-                          className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        />
-                      </div>
-                      <div className="mb-4 w-full px-2">
-                        <label
-                          htmlFor="lastNameInput"
-                          className="block text-gray-700 text-sm font-bold mb-2"
-                        >
-                          Last Name:
-                        </label>
-                        <input
-                          type="text"
-                          id="lastNameInput"
-                          value={formData.lastName || ""}
-                          name="lastName"
-                          onChange={handleInputChange}
-                          className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        />
-                      </div>
-                      <div className="mb-4 w-full px-2">
-                        <label
-                          htmlFor="username"
-                          className="block text-gray-700 text-sm font-bold mb-2"
-                        >
-                          User Name:
-                        </label>
-                        <input
-                          type="text"
-                          id="username"
-                          value={formData.username || ""}
-                          name="username"
-                          onChange={handleInputChange}
-                          className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        />
-                      </div>
-                      <div className="mb-4 w-full px-2">
-                        <label
-                          htmlFor="phoneNumberInput"
-                          className="block text-gray-700 text-sm font-bold mb-2"
-                        >
-                          Phone Number:
-                        </label>
-                        <input
-                          type="text"
-                          id="phoneNumberInput"
-                          value={formData.phoneNumber || ""}
-                          name="phoneNumber"
-                          onChange={handleInputChange}
-                          className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        />
-                      </div>
-                      <div className="mb-4 w-full px-2">
-                        <label
-                          htmlFor="addressInput"
-                          className="block text-gray-700 text-sm font-bold mb-2"
-                        >
-                          Address:
-                        </label>
-                        <input
-                          type="text"
-                          id="addressInput"
-                          value={formData.address || ""}
-                          name="address"
-                          onChange={handleInputChange}
-                          className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        />
-                      </div>
+        <animated.div style={fadeIn} className="container mx-auto mt-8 flex">
+          <div className="w-1/2 pr-4 container">
+            <animated.div
+              className="bg-white shadow-md container flex justify-center rounded-lg p-4 mb-4 hover:shadow-lg transition-shadow duration-300"
+              style={fadeIn}
+            >
+              <div className="">
+                <div className="flex justify-center container">
+                  <div className="flex justify-center"></div>
+                  <label
+                    htmlFor="profilePictureInput"
+                    className="cursor-pointer mb-4"
+                  >
+                    <div className="container mx-auto">
+                      <img
+                        src={profilePicture}
+                        alt="Profile"
+                        className="container mx-auto justify-center w-24 h-24 rounded-full mb-4"
+                      />
                     </div>
-                    <div className="flex justify-center">
-                      <Button color="blue" onClick={handleSaveClick}>
-                        Save
+                    <div className="text-blue-500">Change Profile Picture</div>
+                  </label>
+                  <input
+                    id="profilePictureInput"
+                    type="file"
+                    accept="image/*"
+                    className="hidden"
+                    onChange={handleProfilePictureChange}
+                  />
+                </div>
+                {transitions((style, item) =>
+                  item ? (
+                    <animated.div style={style}>
+                      <div className="flex flex-col items-center">
+                        <div className="mb-4 w-full px-2">
+                          <label
+                            htmlFor="localityInput"
+                            className="block text-gray-700 text-sm font-bold mb-2"
+                          >
+                            Locality:
+                          </label>
+                          <Autocomplete
+                            apiKey="YOUR_GOOGLE_API_KEY"
+                            className="border border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-custom-green focus:border-transparent"
+                            options={{ componentRestrictions: { country: "in" } }}
+                            onPlaceSelected={handlePlaceSelected}
+                          />
+                        </div>
+                        <div className="mb-4 w-full px-2">
+                          <label
+                            htmlFor="firstNameInput"
+                            className="block text-gray-700 text-sm font-bold mb-2"
+                          >
+                            First Name:
+                          </label>
+                          <input
+                            type="text"
+                            id="firstNameInput"
+                            value={formData.firstName || ""}
+                            name="firstName"
+                            onChange={handleInputChange}
+                            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                          />
+                        </div>
+                        <div className="mb-4 w-full px-2">
+                          <label
+                            htmlFor="lastNameInput"
+                            className="block text-gray-700 text-sm font-bold mb-2"
+                          >
+                            Last Name:
+                          </label>
+                          <input
+                            type="text"
+                            id="lastNameInput"
+                            value={formData.lastName || ""}
+                            name="lastName"
+                            onChange={handleInputChange}
+                            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                          />
+                        </div>
+                        <div className="mb-4 w-full px-2">
+                          <label
+                            htmlFor="username"
+                            className="block text-gray-700 text-sm font-bold mb-2"
+                          >
+                            User Name:
+                          </label>
+                          <input
+                            type="text"
+                            id="username"
+                            value={formData.username || ""}
+                            name="username"
+                            onChange={handleInputChange}
+                            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                          />
+                        </div>
+                        <div className="mb-4 w-full px-2">
+                          <label
+                            htmlFor="phoneNumberInput"
+                            className="block text-gray-700 text-sm font-bold mb-2"
+                          >
+                            Phone Number:
+                          </label>
+                          <input
+                            type="text"
+                            id="phoneNumberInput"
+                            value={formData.phoneNumber || ""}
+                            name="phoneNumber"
+                            onChange={handleInputChange}
+                            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                          />
+                        </div>
+                        <div className="mb-4 w-full px-2">
+                          <label
+                            htmlFor="addressInput"
+                            className="block text-gray-700 text-sm font-bold mb-2"
+                          >
+                            Address:
+                          </label>
+                          <input
+                            type="text"
+                            id="addressInput"
+                            value={formData.address || ""}
+                            name="address"
+                            onChange={handleInputChange}
+                            className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                          />
+                        </div>
+                      </div>
+                      <div className="flex justify-center">
+                        <Button color="blue" onClick={handleSaveClick}>
+                          Save
+                        </Button>
+                      </div>
+                    </animated.div>
+                  ) : (
+                    <animated.div style={style}>
+                      <p className="text-gray-700 text-lg">
+                        <span className="font-bold">Username:</span>{" "}
+                        {userData.username}
+                      </p>
+                      <p className="text-gray-700 text-lg">
+                        <span className="font-bold">Email:</span> {userData.email}
+                      </p>
+                      <p className="text-gray-700 text-lg">
+                        <span className="font-bold">First Name:</span>{" "}
+                        {userData.firstName}
+                      </p>
+                      <p className="text-gray-700 text-lg">
+                        <span className="font-bold">Last Name:</span>{" "}
+                        {userData.lastName}
+                      </p>
+                      <p className="text-gray-700 text-lg">
+                        <span className="font-bold">Phone Number:</span>{" "}
+                        {userData.phoneNumber}
+                      </p>
+                      <p className="text-gray-700 text-lg">
+                        <span className="font-bold">Address:</span>{" "}
+                        {userData.address}
+                      </p>
+                      <p className="text-gray-700 text-lg">
+                        <span className="font-bold">Locality:</span>{" "}
+                        {userData.locality}
+                      </p>
+                      <Button color="blue" onClick={handleEditClick}>
+                        Edit
                       </Button>
-                    </div>
-                  </animated.div>
-                ) : (
-                  <animated.div style={style}>
-                    {/* Profile information */}
-                    <p className="text-gray-700 text-lg">
-                      <span className="font-bold">Username:</span>{" "}
-                      {userData.username}
-                    </p>
-                    <p className="text-gray-700 text-lg">
-                      <span className="font-bold">Email:</span> {userData.email}
-                    </p>
-                    <p className="text-gray-700 text-lg">
-                      <span className="font-bold">First Name:</span>{" "}
-                      {userData.firstName}
-                    </p>
-                    <p className="text-gray-700 text-lg">
-                      <span className="font-bold">Last Name:</span>{" "}
-                      {userData.lastName}
-                    </p>
-                    <p className="text-gray-700 text-lg">
-                      <span className="font-bold">Phone Number:</span>{" "}
-                      {userData.phoneNumber}
-                    </p>
-                    <p className="text-gray-700 text-lg">
-                      <span className="font-bold">Address:</span>{" "}
-                      {userData.address}
-                    </p>
-                    <p className="text-gray-700 text-lg">
-                      <span className="font-bold">Locality:</span>{" "}
-                      {userData.locality}
-                    </p>
-                    <Button color="blue" onClick={handleEditClick}>
-                      Edit
-                    </Button>
-                  </animated.div>
-                )
-              )}
-            </div>
-          </animated.div>
-        </div>
-        <div className="container w-1/2 pl-4">
-          <animated.div
-            className="bg-white shadow-md rounded-lg p-4 mb-4 hover:shadow-lg hover:bg-gray-100 transition duration-300"
-            style={fadeIn}
-          >
-            <div className="flex justify-end flex justify-center mb-4">
-              <Link
-                to="/Gigcreate"
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-              >
-                Add Gig
-              </Link>
-            </div>
-            <div>
-              {/* Render the Gigscomp component */}
-              <Gigscomp onGigClick={handleGigClick} />
-            </div>
-          </animated.div>
-        </div>
-      </animated.div>
-    )}
+                    </animated.div>
+                  )
+                )}
+              </div>
+            </animated.div>
+          </div>
+          <div className="container w-1/2 pl-4">
+            <animated.div
+              className="bg-white shadow-md rounded-lg p-4 mb-4 hover:shadow-lg hover:bg-gray-100 transition duration-300"
+              style={fadeIn}
+            >
+              <div className="flex justify-end flex justify-center mb-4">
+                <Link
+                  to="/Gigcreate"
+                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                >
+                  Add Gig
+                </Link>
+              </div>
+              <div>
+                <Gigscomp gigs={gigs} onGigClick={handleGigClick} />
+              </div>
+            </animated.div>
+          </div>
+        </animated.div>
+      )}
     </div>
   );
 };
