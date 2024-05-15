@@ -79,9 +79,9 @@ const Navbar = () => {
     if (!user) {
       return (
         <>
-          <li><Link to="/" className="hover:text-gray-300">Home</Link></li>
-          <li><Link to="/signup" className="hover:text-gray-300">SignUp</Link></li>
-          <li><Link to="/signin" className="hover:text-gray-300">SignIn</Link></li>
+          <li><Link to="/" className="hover:text-gray-800">Home</Link></li>
+          <li><Link to="/signup" className="hover:text-gray-800">SignUp</Link></li>
+          <li><Link to="/signin" className="hover:text-gray-800">SignIn</Link></li>
         </>
       );
     } else {
@@ -91,7 +91,7 @@ const Navbar = () => {
 
   return (
     <nav className="bg-gray-400  text-gray-900 flex justify-between items-center p-4">
-      <div className="navbar-logo h-full w-20">
+      <div className="navbar-logo h-full ">
         <img src="https://firebasestorage.googleapis.com/v0/b/network-c70d4.appspot.com/o/login%2Flogo-text1__1_-removebg-preview.png?alt=media&token=ff8304f7-1b98-4d3d-92dc-af6d60f928dc" alt="Logo" className='w-full'  />
       </div>
       <ul className="flex gap-4">
