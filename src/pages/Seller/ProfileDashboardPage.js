@@ -129,12 +129,16 @@ const ProfileDashboard = () => {
               </div>
               {/* Display Carousel */}
               <Slider {...settings}>
-                {demoPicsUrls.map((url, index) => (
-                  <div key={index}>
-                    <img src={url} alt={`Demo ${index + 1}`} className="w-full mb-4 rounded-lg" />
-                  </div>
-                ))}
-              </Slider>
+              {demoPicsUrls.map((url, index) => (
+                <div key={index} className="relative w-full h-80">
+                  <img
+                    src={url}
+                    alt={`Demo ${index + 1}`}
+                    className="absolute top-0 left-0 w-full h-full object-cover rounded-lg"
+                  />
+                </div>
+              ))}
+            </Slider>
               {/* Reviews Section */}
               <div className="mt-8">
                 <h2 className="text-xl font-bold mb-4">Reviews</h2>

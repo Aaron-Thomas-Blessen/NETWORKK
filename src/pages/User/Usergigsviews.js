@@ -103,7 +103,7 @@ const UsergigsViews = () => {
             {/* Display Carousel */}
             <Slider {...settings}>
               {demoPicsUrls.map((url, index) => (
-                <div key={index} className="relative w-full h-64">
+                <div key={index} className="relative w-full h-80">
                   <img
                     src={url}
                     alt={`Demo ${index + 1}`}
