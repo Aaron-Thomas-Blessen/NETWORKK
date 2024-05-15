@@ -105,41 +105,44 @@ const History = () => {
 
   return (
     <div>
-        <Navbar />
-    <div className="w-full px-4 pt-16">
-      {Object.keys(groupedBookings).map(serviceId => (
-        <div key={serviceId} className="w-full max-w-md p-2 mx-auto bg-white rounded-2xl mb-4">
-          <Collapsible
-            open header = { serviceTitles[serviceId] }
-          >
-            <div className="px-4 pt-4 pb-2 text-sm text-gray-500">
-              {groupedBookings[serviceId].map(booking => (
-                <div key={booking.reviewId} className="mb-4">
-                  <p><strong>Address:</strong> {booking.address}</p>
-                  <p><strong>Date:</strong> {booking.date}</p>
-                  <p><strong>Base Payment:</strong> ${booking.basePayment}</p>
-                  <p><strong>Extra Payment:</strong> ${booking.extraPayment}</p>
-                  <p><strong>Payment Status:</strong> {booking.paymentStatus}</p>
-                  <p><strong>Service Provider ID:</strong> {booking.serviceProviderId}</p>
-                  {booking.isReview ? (
+      <Navbar />
+      <div className="w-full px-4 pt-16">
+        {Object.keys(groupedBookings).map(serviceId => (
+          <div key={serviceId} className="p-2 bg-white rounded-2xl mb-4">
+            <Collapsible open header={serviceTitles[serviceId]}>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 px-4 pt-4 pb-2 text-sm text-gray-500">
+                {groupedBookings[serviceId].map(booking => (
+                  <div key={booking.reviewId} className="bg-white p-4 shadow-md rounded-md mb-4">
                     <div>
-                      <p><strong>Review:</strong> {booking.description}</p>
-                      <p><strong>Review ID:</strong> {booking.reviewId}</p>
+                      <p><strong>Address:</strong> {booking.address}</p>
+                      <p><strong>Date:</strong> {booking.date}</p>
+                      <p><strong>Base Payment:</strong> ${booking.basePayment}</p>
+                      <p><strong>Extra Payment:</strong> ${booking.extraPayment}</p>
+                      <p><strong>Payment Status:</strong> {booking.paymentStatus}</p>
+                      <p><strong>Service Provider ID:</strong> {booking.serviceProviderId}</p>
                     </div>
-                  ) : (
-                    <p>No review available</p>
-                  )}
-                  <p><strong>User Name:</strong> {userDetails[booking.userId]?.username || 'Unknown'}</p>
-                  <p><strong>Phone Number:</strong> {userDetails[booking.userId]?.phoneNumber || 'Unknown'}</p>
-                </div>
-              ))}
-            </div>
-          </Collapsible>
-        </div>
-      ))}
-    </div>
+                    {booking.isReview ? (
+                      <div>
+                        <p><strong>Review:</strong> {booking.description}</p>
+                        <p><strong>Review ID:</strong> {booking.reviewId}</p>
+                      </div>
+                    ) : (
+                      <p>No review available</p>
+                    )}
+                    <div>
+                      <p><strong>User Name:</strong> {userDetails[booking.userId]?.username || 'Unknown'}</p>
+                      <p><strong>Phone Number:</strong> {userDetails[booking.userId]?.phoneNumber || 'Unknown'}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </Collapsible>
+          </div>
+        ))}
+      </div>
     </div>
   );
+  
 };
 
 export default History;
