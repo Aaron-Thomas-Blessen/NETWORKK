@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { useFirestore } from '../../Context/Context';
 import GigCard from '../../components/GigCard';
 import Navbarsign from '../../components/navsign';
 import { collection, query, where, getDocs, doc, updateDoc } from 'firebase/firestore';
 import { db } from '../../Firebase/Firebase';
 
 const AdminGigs = () => {
-    const firestore = useFirestore();
     const [pendingGigs, setPendingGigs] = useState([]);
     const [acceptedGigs, setAcceptedGigs] = useState([]);
     const [rejectedGigs, setRejectedGigs] = useState([]);
@@ -15,52 +13,39 @@ const AdminGigs = () => {
     const [showRejected, setShowRejected] = useState(false);
 
     useEffect(() => {
-        const fetchPendingGigs = async () => {
+        const fetchGigs = async () => {
             try {
-                const collectionRef = collection(db, 'services');
-                const q = query(collectionRef, where('status', '==', 'Pending'));
-                const querySnapshot = await getDocs(q);
-                const gigs = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-                setPendingGigs(gigs);
+                const pendingCollectionRef = collection(db, 'services');
+                const pendingQuery = query(pendingCollectionRef, where('status', '==', 'Pending'));
+                const pendingQuerySnapshot = await getDocs(pendingQuery);
+                const pendingGigs = pendingQuerySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                setPendingGigs(pendingGigs);
+
+                const acceptedCollectionRef = collection(db, 'services');
+                const acceptedQuery = query(acceptedCollectionRef, where('status', '==', 'Accepted'));
+                const acceptedQuerySnapshot = await getDocs(acceptedQuery);
+                const acceptedGigs = acceptedQuerySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                setAcceptedGigs(acceptedGigs);
+
+                const rejectedCollectionRef = collection(db, 'services');
+                const rejectedQuery = query(rejectedCollectionRef, where('status', '==', 'Rejected'));
+                const rejectedQuerySnapshot = await getDocs(rejectedQuery);
+                const rejectedGigs = rejectedQuerySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                setRejectedGigs(rejectedGigs);
             } catch (error) {
-                console.error('Error fetching pending gigs: ', error);
+                console.error('Error fetching gigs: ', error);
             }
         };
 
-        const fetchAcceptedGigs = async () => {
-            try {
-                const collectionRef = collection(db, 'services');
-                const q = query(collectionRef, where('status', '==', 'Accepted'));
-                const querySnapshot = await getDocs(q);
-                const gigs = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-                setAcceptedGigs(gigs);
-            } catch (error) {
-                console.error('Error fetching accepted gigs: ', error);
-            }
-        };
-
-        const fetchRejectedGigs = async () => {
-            try {
-                const collectionRef = collection(db, 'services');
-                const q = query(collectionRef, where('status', '==', 'Rejected'));
-                const querySnapshot = await getDocs(q);
-                const gigs = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-                setRejectedGigs(gigs);
-            } catch (error) {
-                console.error('Error fetching rejected gigs: ', error);
-            }
-        };
-
-        fetchPendingGigs();
-        fetchAcceptedGigs();
-        fetchRejectedGigs();
-    }, [firestore]);
+        fetchGigs();
+    }, []);
 
     const handleApprove = async (gigId) => {
         try {
-            const gigRef = doc(firestore, 'services', gigId);
+            const gigRef = doc(db, 'services', gigId);
             await updateDoc(gigRef, { status: 'Accepted' });
             setPendingGigs(prevGigs => prevGigs.filter(gig => gig.id !== gigId));
+            setAcceptedGigs(prevGigs => [...prevGigs, { id: gigId, status: 'Accepted' }]);
         } catch (error) {
             console.error('Error approving gig: ', error);
         }
@@ -68,13 +53,20 @@ const AdminGigs = () => {
 
     const handleReject = async (gigId) => {
         try {
-            const gigRef = doc(firestore, 'services', gigId);
+            const gigRef = doc(db, 'services', gigId);
             await updateDoc(gigRef, { status: 'Rejected' });
             setPendingGigs(prevGigs => prevGigs.filter(gig => gig.id !== gigId));
+            setRejectedGigs(prevGigs => [...prevGigs, { id: gigId, status: 'Rejected' }]);
         } catch (error) {
             console.error('Error rejecting gig: ', error);
         }
     };
+
+    const isAdminLoggedIn = localStorage.getItem('isAdmin') === 'true';
+
+    if (!isAdminLoggedIn) {
+        return <div>Please sign in to access this page.</div>;
+    }
 
     return (
         <div>

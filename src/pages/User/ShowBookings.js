@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useUser } from '../../Context/Context';
 import { db } from '../../Firebase/Firebase';
-import { collection, query, where, getDocs } from 'firebase/firestore';
+import { collection, query, where, onSnapshot } from 'firebase/firestore';
 import Collapsible from '@edonec/collapsible';
 import '@edonec/collapsible/build/index.css';
 import '@edonec/collapsible/build/icons.css';
@@ -19,34 +19,35 @@ const BookingsPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchBookings = async () => {
-      if (!user) return; // Ensure user is logged in
+    if (!user) return; // Ensure user is logged in
 
-      try {
-        const bookingsRef = collection(db, 'bookings');
-        const q = query(bookingsRef, where('userId', '==', user.uid));
-        const querySnapshot = await getDocs(q);
+    const bookingsRef = collection(db, 'bookings');
+    const q = query(bookingsRef, where('userId', '==', user.uid));
 
-        const bookingsData = querySnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      const bookingsData = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
 
-        const pending = bookingsData.filter((booking) => booking.bookingStatus === 'Pending');
-        const accepted = bookingsData.filter((booking) => booking.bookingStatus === 'Accepted');
-        const rejected = bookingsData.filter((booking) => booking.bookingStatus === 'Rejected');
+      const sortByDate = (bookings) => {
+        return bookings.sort((a, b) => new Date(a.date) - new Date(b.date));
+      };
 
-        setPendingBookings(pending);
-        setAcceptedBookings(accepted);
-        setRejectedBookings(rejected);
-      } catch (error) {
-        console.error('Error fetching bookings:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
+      const pending = sortByDate(bookingsData.filter((booking) => booking.bookingStatus === 'Pending'));
+      const accepted = sortByDate(bookingsData.filter((booking) => booking.bookingStatus === 'Accepted'));
+      const rejected = sortByDate(bookingsData.filter((booking) => booking.bookingStatus === 'Rejected'));
 
-    fetchBookings();
+      setPendingBookings(pending);
+      setAcceptedBookings(accepted);
+      setRejectedBookings(rejected);
+      setLoading(false);
+    }, (error) => {
+      console.error('Error fetching bookings:', error);
+      setLoading(false);
+    });
+
+    return () => unsubscribe();
   }, [user]);
 
   const handlePayment = (booking) => {
@@ -81,7 +82,7 @@ const BookingsPage = () => {
                   {pendingBookings.map((booking) => (
                     <li key={booking.id} className="mb-2">
                       <p>Address: {booking.address}</p>
-                      <p>Date: {booking.date}</p>
+                      <p>Date: {new Date(booking.date).toLocaleDateString()}</p>
                       <p>Description: {booking.description}</p>
                       <p>Base Payment: {booking.basePayment}</p>
                     </li>
@@ -99,7 +100,7 @@ const BookingsPage = () => {
                   {acceptedBookings.map((booking) => (
                     <li key={booking.id} className="mb-2">
                       <p>Address: {booking.address}</p>
-                      <p>Date: {booking.date}</p>
+                      <p>Date: {new Date(booking.date).toLocaleDateString()}</p>
                       <p>Description: {booking.description}</p>
                       <p className="mb-2">Base Payment: {booking.basePayment}</p>
                       <button 
@@ -123,7 +124,7 @@ const BookingsPage = () => {
                   {rejectedBookings.map((booking) => (
                     <li key={booking.id} className="mb-2">
                       <p>Address: {booking.address}</p>
-                      <p>Date: {booking.date}</p>
+                      <p>Date: {new Date(booking.date).toLocaleDateString()}</p>
                       <p>Description: {booking.description}</p>
                       <p>Base Payment: {booking.basePayment}</p>
                     </li>
@@ -141,4 +142,3 @@ const BookingsPage = () => {
 };
 
 export default BookingsPage;
-

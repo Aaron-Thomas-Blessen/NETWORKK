@@ -6,4 +6,3 @@ const Adminlog = () => {
   };
   
 export default Adminlog;
-  

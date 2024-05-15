@@ -3,6 +3,8 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { db } from '../../Firebase/Firebase';
 import { doc, getDoc, addDoc, collection, updateDoc } from 'firebase/firestore';
 import Navbar from '../../components/nav';
+import ClipLoader from 'react-spinners/ClipLoader';
+import { useSpring, animated } from 'react-spring';
 
 const PaymentPage = () => {
   const location = useLocation();
@@ -12,6 +14,7 @@ const PaymentPage = () => {
   const [upi, setUpi] = useState('');
   const [additionalPay, setAdditionalPay] = useState('');
   const [basePay, setBasePay] = useState(0);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchBasePay = async () => {
@@ -31,8 +34,8 @@ const PaymentPage = () => {
   }, [serviceId]);
 
   const handlePayment = async () => {
+    setLoading(true);
     try {
-      // Add payment document to the payments collection
       await addDoc(collection(db, 'payments'), {
         userId,
         serviceProviderId,
@@ -44,69 +47,79 @@ const PaymentPage = () => {
         timestamp: new Date(),
       });
 
-      // Update the booking status to 'Completed' and payment status to 'Completed'
       await updateDoc(doc(db, 'bookings', bookingId), {
         bookingStatus: 'Completed',
         paymentStatus: 'Completed',
       });
 
-      // Navigate back to home page
       navigate('/');
     } catch (error) {
       console.error('Error processing payment:', error);
+    } finally {
+      setLoading(false);
     }
   };
 
+  const fade = useSpring({ opacity: 1, from: { opacity: 0 }, delay: 200 });
+  const shadow = useSpring({
+    boxShadow: '0px 10px 30px rgba(0, 0, 0, 0.1)',
+    from: { boxShadow: '0px 0px 0px rgba(0, 0, 0, 0)' },
+  });
+
   return (
     <div>
-  <Navbar />
-    <div className="PaymentPage container mx-auto px-4 py-8">
-      
-      <div className="max-w-lg mx-auto">
-        <h2 className="text-3xl font-semibold mb-4">Payment</h2>
-        <div className="mb-4">
-          <label htmlFor="upi" className="block text-sm font-medium text-gray-700">
-            UPI ID:
-          </label>
-          <input
-            id="upi"
-            type="text"
-            value={upi}
-            onChange={(e) => setUpi(e.target.value)}
-            className="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-            placeholder="Enter your UPI ID"
-          />
+      <Navbar />
+      {loading ? (
+        <div className="flex justify-center items-center h-screen">
+          <ClipLoader size={150} color="#123abc" />
         </div>
-        <div className="mb-4">
-          <label htmlFor="basePay" className="block text-sm font-medium text-gray-700">
-            Base Pay:
-          </label>
-          <p id="basePay" className="mt-1 block text-lg font-semibold">{basePay}</p>
-        </div>
-        <div className="mb-4">
-          <label htmlFor="additionalPay" className="block text-sm font-medium text-gray-700">
-            Additional Payment:
-          </label>
-          <input
-            id="additionalPay"
-            type="number"
-            value={additionalPay}
-            onChange={(e) => setAdditionalPay(e.target.value)}
-            className="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-            placeholder="Enter additional payment amount"
-          />
-        </div>
-        <button
-          onClick={handlePayment}
-          className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-        >
-          Pay Now
-        </button>
-      </div>
-    </div>
+      ) : (
+      <animated.div style={fade} className="PaymentPage container mx-auto px-4 py-8">
+        <animated.div style={shadow} className="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-lg">
+          <h2 className="text-3xl font-semibold mb-4">Payment</h2>
+          <div className="mb-4">
+            <label htmlFor="upi" className="block text-sm font-medium text-gray-700">
+              UPI ID:
+            </label>
+            <input
+              id="upi"
+              type="text"
+              value={upi}
+              onChange={(e) => setUpi(e.target.value)}
+              className="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              placeholder="Enter your UPI ID"
+            />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="basePay" className="block text-sm font-medium text-gray-700">
+              Base Pay:
+            </label>
+            <p id="basePay" className="mt-1 block text-lg font-semibold">{basePay}</p>
+          </div>
+          <div className="mb-4">
+            <label htmlFor="additionalPay" className="block text-sm font-medium text-gray-700">
+              Additional Payment:
+            </label>
+            <input
+              id="additionalPay"
+              type="number"
+              value={additionalPay}
+              onChange={(e) => setAdditionalPay(e.target.value)}
+              className="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              placeholder="Enter additional payment amount"
+            />
+          </div>
+            <button
+              onClick={handlePayment}
+              className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            >
+              Pay Now
+            </button> 
+        </animated.div>
+      </animated.div>
+      )}
     </div>
   );
-  
 };
 
 export default PaymentPage;

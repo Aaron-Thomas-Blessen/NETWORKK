@@ -2,32 +2,42 @@ import React, { useState, useEffect } from 'react';
 import Navbar from "../../components/nav";
 import { getFirestore, collection, getDocs } from 'firebase/firestore';
 import { useUser } from '../../Context/Context';
-import { useGig } from '../../Context/GigContext'; // Import the useGig context
+import { useGig } from '../../Context/GigContext';
 import { haversineDistance } from '../../components/Haversine';
 import { format, isToday, parseISO } from 'date-fns';
 import { useNavigate } from 'react-router-dom';
+import { ClipLoader } from "react-spinners/ClipLoader";
+import { useSpring, animated, config } from 'react-spring';
 
 const GigSearch = () => {
     const { user } = useUser();
-    const { selectGig } = useGig(); 
+    const { selectGig } = useGig();
     const navigate = useNavigate();
     const [gigs, setGigs] = useState([]);
     const [filteredGigs, setFilteredGigs] = useState([]);
+    const [categories, setCategories] = useState([]);
     const [searchParams, setSearchParams] = useState({
         date: '',
         searchText: '',
-        sortPrice: 'asc'
+        sortPrice: 'asc',
+        category: ''
     });
+    const [loading, setLoading] = useState(false);
+    const [showDropdown, setShowDropdown] = useState(false);
+
+    const fetchGigs = async () => {
+        const db = getFirestore();
+        const gigsCollection = collection(db, 'services');
+        const gigsSnapshot = await getDocs(gigsCollection);
+        const gigsData = gigsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        setGigs(gigsData);
+
+        // Extract unique categories from gigs data
+        const uniqueCategories = [...new Set(gigsData.map(gig => gig.category))];
+        setCategories(uniqueCategories);
+    };
 
     useEffect(() => {
-        const fetchGigs = async () => {
-            const db = getFirestore();
-            const gigsCollection = collection(db, 'services');
-            const gigsSnapshot = await getDocs(gigsCollection);
-            const gigsData = gigsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-            setGigs(gigsData);
-        };
-
         fetchGigs();
     }, []);
 
@@ -37,6 +47,18 @@ const GigSearch = () => {
             ...prevState,
             [name]: value
         }));
+        if (name === 'searchText') {
+            setShowDropdown(true);
+        }
+    };
+
+    const handleCategorySelect = (category) => {
+        setSearchParams(prevState => ({
+            ...prevState,
+            searchText: category,
+            category: category
+        }));
+        setShowDropdown(false);
     };
 
     const handleSearch = () => {
@@ -44,6 +66,8 @@ const GigSearch = () => {
             setFilteredGigs([]);
             return;
         }
+
+        setLoading(true);
 
         const userLat = parseFloat(user.latitude);
         const userLng = parseFloat(user.longitude);
@@ -69,6 +93,10 @@ const GigSearch = () => {
         console.log("Distances:", distances);
 
         const filtered = distances.filter(({ distance, gig }) => {
+            if (gig.status !== "Accepted") {
+                return false;
+            }
+
             const gigCategoryPart = gig.category.slice(1, 5);
             const isCategoryMatch = gigCategoryPart.toLowerCase() === searchTextPart.toLowerCase();
 
@@ -94,13 +122,26 @@ const GigSearch = () => {
         });
 
         setFilteredGigs(sorted.map(item => item.gig));
+        setLoading(false);
     };
+
+    const formAnimation = useSpring({
+        from: { opacity: 0, transform: 'translateY(-20px)' },
+        to: { opacity: 1, transform: 'translateY(0px)' },
+        config: config.gentle,
+    });
+
+    const resultsAnimation = useSpring({
+        from: { opacity: 0 },
+        to: { opacity: filteredGigs.length > 0 ? 1 : 0 },
+        delay: 200,
+    });
 
     return (
         <div className="GigSearch">
             <Navbar />
             <div className="flex flex-col items-center justify-center mt-8 px-4 md:px-8">
-                <div className="w-full max-w-lg bg-white shadow-md rounded-lg p-6">
+                <animated.div style={formAnimation} className="w-full max-w-lg bg-white shadow-md rounded-lg p-6">
                     <h1 className="text-3xl text-center mb-6 font-semibold text-gray-700">Search for Gigs</h1>
                     <form onSubmit={(e) => { e.preventDefault(); handleSearch(); }}>
                         <div className="mb-4">
@@ -111,6 +152,7 @@ const GigSearch = () => {
                                 name="date" 
                                 value={searchParams.date} 
                                 onChange={handleChange} 
+                                min={format(new Date(), 'yyyy-MM-dd')}
                                 className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                             />
                         </div>
@@ -124,7 +166,24 @@ const GigSearch = () => {
                                 onChange={handleChange} 
                                 placeholder="Enter search text" 
                                 className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                                onFocus={() => setShowDropdown(true)}
                             />
+                            {showDropdown && (
+                                <ul className="bg-white border border-gray-300 rounded-md shadow-lg mt-1 max-h-40 overflow-auto">
+                                    {categories
+                                        .filter(category => category.toLowerCase().includes(searchParams.searchText.toLowerCase()))
+                                        .map((category, index) => (
+                                            <li 
+                                                key={index} 
+                                                className="cursor-pointer px-4 py-2 hover:bg-gray-100"
+                                                onClick={() => handleCategorySelect(category)}
+                                            >
+                                                {category}
+                                            </li>
+                                        ))
+                                    }
+                                </ul>
+                            )}
                         </div>
                         <div className="mb-4">
                             <label htmlFor="sortPrice" className="block text-sm font-medium text-gray-700">Sort by Price</label>
@@ -147,10 +206,14 @@ const GigSearch = () => {
                             />
                         </div>
                     </form>
-                </div>
+                </animated.div>
                 <div className="results-container mt-8 w-full max-w-2xl">
-                    {filteredGigs.length > 0 ? (
-                        <ul className="space-y-4">
+                    {loading ? (
+                        <div className="flex justify-center items-center">
+                            <ClipLoader size={50} color={"#123abc"} loading={loading} />
+                        </div>
+                    ) : filteredGigs.length > 0 ? (
+                        <animated.ul style={resultsAnimation} className="space-y-4">
                             {filteredGigs.map(gig => (
                                 <li 
                                     key={gig.id} 
@@ -169,7 +232,7 @@ const GigSearch = () => {
                                     <p className="text-gray-600"><strong>Address:</strong> {gig.address}</p>
                                 </li>
                             ))}
-                        </ul>
+                        </animated.ul>
                     ) : (
                         <p className="text-gray-600 text-center">No gigs found.</p>
                     )}

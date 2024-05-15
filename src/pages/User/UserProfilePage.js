@@ -1,33 +1,13 @@
 import React, { useState, useEffect } from "react";
-import {
-  db,
-  storage,
-} from "../../Firebase/Firebase";
-import {
-  doc,
-  getDoc,
-  updateDoc,
-  collection,
-  query,
-  where,
-  getDocs,
-  addDoc,
-  arrayUnion,
-  increment,
-} from "firebase/firestore";
+import { db, storage } from "../../Firebase/Firebase";
+import { doc, getDoc, updateDoc, collection, query, where, getDocs, addDoc, arrayUnion, increment } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
-import {
-  ref as storageRef,
-  uploadBytes,
-  getDownloadURL,
-  deleteObject,
-} from "firebase/storage";
+import { ref as storageRef, uploadBytes, getDownloadURL, deleteObject } from "firebase/storage";
 import { Button } from "@material-tailwind/react";
 import { ClipLoader } from "react-spinners";
 import Navbar from "../../components/nav";
 import Autocomplete from "react-google-autocomplete";
 import { useSpring, animated, useTransition } from "@react-spring/web";
-import { AiOutlineEdit } from "react-icons/ai";
 
 const UserProfilePage = () => {
   const [loading, setLoading] = useState(true);
@@ -250,17 +230,14 @@ const UserProfilePage = () => {
     setFormData({ ...formData, locality: address, latitude, longitude });
   };
 
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <ClipLoader color="#00BFFF" loading={loading} size={150} />
-      </div>
-    );
-  }
-
   return (
     <div>
       <Navbar currentPage="userProfilePage" />
+      {loading ? (
+        <div className="flex justify-center items-center h-screen">
+          <ClipLoader size={150} color="#123abc" />
+        </div>
+      ) : (
       <animated.div style={fadeIn} className="container mx-auto mt-8 flex flex-wrap">
         <div className="w-full md:w-1/2 lg:w-1/2 xl:w-1/2 p-4">
           <animated.div
@@ -480,6 +457,7 @@ const UserProfilePage = () => {
           </animated.div>
         </div>
       </animated.div>
+    )}
     </div>
   );
 };

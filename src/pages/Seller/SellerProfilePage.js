@@ -2,12 +2,7 @@ import React, { useState, useEffect } from "react";
 import { db, storage } from "../../Firebase/Firebase";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
-import {
-  ref as storageRef,
-  uploadBytes,
-  getDownloadURL,
-  deleteObject,
-} from "firebase/storage";
+import { ref as storageRef, uploadBytes, getDownloadURL, deleteObject } from "firebase/storage";
 import { Button } from "@material-tailwind/react";
 import { ClipLoader } from "react-spinners";
 import Navbar from "../../components/nav";
@@ -15,7 +10,6 @@ import { Link, useNavigate } from "react-router-dom";
 import Gigscomp from "../../components/Gigscomp";
 import Autocomplete from "react-google-autocomplete";
 import { useSpring, animated, useTransition } from "@react-spring/web";
-import { AiOutlineEdit } from "react-icons/ai";
 
 const SellerProfilePage = () => {
   const [loading, setLoading] = useState(true);
@@ -142,17 +136,14 @@ const SellerProfilePage = () => {
     navigate(`/GigDetails/${gigId}`);
   };
 
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <ClipLoader color="#00BFFF" loading={loading} size={150} />
-      </div>
-    );
-  }
-
   return (
     <div>
       <Navbar currentPage="sellerProfilePage" />
+      {loading ? (
+        <div className="flex justify-center items-center h-screen">
+          <ClipLoader size={150} color="#123abc" />
+        </div>
+      ) : (
       <animated.div style={fadeIn} className="container mx-auto mt-8 flex">
         <div className="w-1/2 pr-4 container">
           <animated.div
@@ -348,6 +339,7 @@ const SellerProfilePage = () => {
           </animated.div>
         </div>
       </animated.div>
+    )}
     </div>
   );
 };
