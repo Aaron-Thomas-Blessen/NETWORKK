@@ -59,7 +59,7 @@ const BookingsPage = () => {
     <div className="BookingsPage">
       <Navbar />
       <Collapsible open header="Pending Bookings">
-        <div className="section">
+        <div className="section bg-white p-4 shadow-md rounded-md mb-4">
           {pendingBookings.length > 0 ? (
             <ul>
               {pendingBookings.map((booking) => (
@@ -77,7 +77,7 @@ const BookingsPage = () => {
         </div>
       </Collapsible>
       <Collapsible open header="Accepted Bookings">
-        <div className='section'>
+        <div className='section bg-white p-4 shadow-md rounded-md mb-4'>
           {acceptedBookings.length > 0 ? (
             <ul>
               {acceptedBookings.map((booking) => (
@@ -97,7 +97,7 @@ const BookingsPage = () => {
         </div>
       </Collapsible>
       <Collapsible open header="Rejected Bookings">
-        <div className='section'>
+        <div className='section bg-white p-4 shadow-md rounded-md mb-4'>
           {rejectedBookings.length > 0 ? (
             <ul>
               {rejectedBookings.map((booking) => (
