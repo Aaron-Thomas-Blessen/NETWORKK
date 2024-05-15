@@ -1,6 +1,3 @@
-import Navbar from "./nav";
-
-
 
 const HeroSection = () => {
   return (
@@ -29,10 +26,6 @@ const HeroSection = () => {
         
       </div>
 
-      {/* Nav */}
-      
-
-      
     </div>
     </>
   );
