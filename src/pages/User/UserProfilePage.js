@@ -225,12 +225,16 @@ const UserProfilePage = () => {
               </div>
             ) : (
               <>
+<<<<<<< Updated upstream
                 <div></div>
                 <div></div>
                 <div></div>
                 <div></div>
 
                 <p className="" >Username: {userData.username}</p>
+=======
+                <p className="font-bold">Username: {userData.username}</p>
+>>>>>>> Stashed changes
                 <p>Email: {userData.email}</p>
                 <p>First Name: {userData.firstName}</p>
                 <p>Last Name: {userData.lastName}</p>
