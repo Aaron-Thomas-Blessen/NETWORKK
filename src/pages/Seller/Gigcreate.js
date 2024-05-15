@@ -22,7 +22,8 @@ const Gigcreate = () => {
         latitude: '',
         longitude: '',
         holidays: ["01-01-2000"],
-        rating: 0.0
+        rating: 0.0,
+        isOpen: false
     });
 
     const navigate = useNavigate();

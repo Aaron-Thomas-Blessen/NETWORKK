@@ -79,6 +79,8 @@ const ProfileDashboard = () => {
               {/* Gig Details Section */}
               <div className="mb-8">
                 <h1 className="text-2xl font-bold mb-4">{selectedGig.title}</h1>
+                <p className="text-gray-600 mb-2">Rating: {selectedGig.avgRat}</p>
+                <p className="text-gray-600 mb-2">Number of Reviews: {selectedGig.count}</p>
                 <p className="text-gray-600 mb-2">Validation Status: {selectedGig.status}</p>
                 <p className="text-gray-600 mb-2">Category: {selectedGig.category}</p>
                 <p className="text-gray-600 mb-2">Description: {selectedGig.description}</p>
