@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import Navbar from './nav';
 
+import Navbar from "../components/nav";
 
 
 const Carousel = ({ images }) => {
@@ -30,6 +30,8 @@ const Carousel = ({ images }) => {
   
 
   return (
+    <div>
+      <Navbar/>
     <div className="carousel-container">
       {/* <div  className="absolute top-0 w-full overflow-hidden ">
            <Navbar />
@@ -40,6 +42,9 @@ const Carousel = ({ images }) => {
           style={{ transform: `translateX(-${currentIndex * 100}%)` }}
         >
           
+          <div  className="absolute top-0 w-full overflow-hidden ">
+           
+          </div>
           {images.map((image, index) => (
             <div key={index} className="carousel-slide">
               <img src={image} alt={`Slide ${index + 1}`} />
@@ -48,6 +53,7 @@ const Carousel = ({ images }) => {
         </div>
         
       </div>
+    </div>
     </div>
   );
 };

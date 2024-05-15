@@ -13,6 +13,7 @@ import { ClipLoader } from "react-spinners";
 import Navbar from "../../components/nav";
 import { Link } from "react-router-dom";
 import Gigscomp from "../../components/Gigscomp";
+import Autocomplete from "react-google-autocomplete";
 
 const SellerProfilePage = () => {
   const [loading, setLoading] = useState(true);
@@ -112,6 +113,13 @@ const SellerProfilePage = () => {
     setEditing(true);
   };
 
+  const handlePlaceSelected = (place) => {
+    const address = place.formatted_address;
+    const latitude = place.geometry.location.lat();
+    const longitude = place.geometry.location.lng();
+    setFormData({ ...formData, locality: address, latitude, longitude });
+  };
+
   if (loading) {
     return <ClipLoader color="#00BFFF" loading={loading} size={150} />;
   }
@@ -120,34 +128,50 @@ const SellerProfilePage = () => {
     <div>
       <Navbar currentPage="sellerProfilePage" />
       <div className="container mx-auto mt-8 flex">
-        <div className="w-1/2 pr-4 container ">
-          <div className=" bg-white shadow-md container flex justify-center  rounded-lg p-4 mb-4 ">
-            <div className=" ">
+        <div className="w-1/2 pr-4 container">
+          <div className="bg-white shadow-md container flex justify-center rounded-lg p-4 mb-4">
+            <div className="">
               <div className="flex justify-center container">
                 <div className="flex justify-center"></div>
-              <label
-                htmlFor="profilePictureInput"
-                className=" cursor-pointer mb-4"
-              >
-                <img
-                  src={profilePicture}
-                  alt="Profile"
-                  className="justify-center w-24 h-24 rounded-full mb-4"
+                <label
+                  htmlFor="profilePictureInput"
+                  className="cursor-pointer mb-4"
+                >
+                  <div className="container mx-auto">
+                  <img
+                    src={profilePicture}
+                    alt="Profile"
+                    className="container mx-auto justify-center w-24 h-24 rounded-full mb-4"
+                  />
+                  </div>
+                  <div className="text-blue-500">Change Profile Picture</div>
+                </label>
+                <input
+                  id="profilePictureInput"
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={handleProfilePictureChange}
                 />
-                <div className="text-blue-500">Change Profile Picture</div>
-              </label>
-              <input
-                id="profilePictureInput"
-                type="file"
-                accept="image/*"
-                className="hidden"
-                onChange={handleProfilePictureChange}
-              />
               </div>
               {editing ? (
                 <>
                   {/* Profile editing fields */}
                   <div className="flex flex-col items-center">
+                    <div className="mb-4 w-full px-2">
+                      <label
+                        htmlFor="localityInput"
+                        className="block text-gray-700 text-sm font-bold mb-2"
+                      >
+                        Locality:
+                      </label>
+                      <Autocomplete
+                        apiKey="AIzaSyDjLpn8fDYOJJ9Yj7PVsJzslIiVfk2iiHg"
+                        className="border border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-custom-green focus:border-transparent"
+                        options={{ componentRestrictions: { country: "in" } }}
+                        onPlaceSelected={handlePlaceSelected}
+                      />
+                    </div>
                     <div className="mb-4 w-full px-2">
                       <label
                         htmlFor="firstNameInput"
@@ -164,7 +188,7 @@ const SellerProfilePage = () => {
                         className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                       />
                     </div>
-                    <div className="mb-4 w-full  px-2">
+                    <div className="mb-4 w-full px-2">
                       <label
                         htmlFor="lastNameInput"
                         className="block text-gray-700 text-sm font-bold mb-2"
@@ -196,7 +220,7 @@ const SellerProfilePage = () => {
                         className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                       />
                     </div>
-                    <div className="mb-4 w-full  px-2">
+                    <div className="mb-4 w-full px-2">
                       <label
                         htmlFor="phoneNumberInput"
                         className="block text-gray-700 text-sm font-bold mb-2"
@@ -212,7 +236,7 @@ const SellerProfilePage = () => {
                         className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                       />
                     </div>
-                    <div className="mb-4 w-full  px-2">
+                    <div className="mb-4 w-full px-2">
                       <label
                         htmlFor="addressInput"
                         className="block text-gray-700 text-sm font-bold mb-2"
@@ -244,6 +268,7 @@ const SellerProfilePage = () => {
                   <p>Last Name: {userData.lastName}</p>
                   <p>Phone Number: {userData.phoneNumber}</p>
                   <p>Address: {userData.address}</p>
+                  <p>Locality: {userData.locality}</p>
                   <Button color="blue" onClick={handleEditClick}>
                     Edit
                   </Button>
@@ -252,9 +277,9 @@ const SellerProfilePage = () => {
             </div>
           </div>
         </div>
-        <div className=" container w-1/2 pl-4">
+        <div className="container w-1/2 pl-4">
           <div className="bg-white shadow-md rounded-lg p-4 mb-4">
-            <div className="flex justify-end flex justify-center  mb-4">
+            <div className="flex justify-end flex justify-center mb-4">
               <Link
                 to="/Gigcreate"
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"

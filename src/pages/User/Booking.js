@@ -62,7 +62,7 @@ const Booking = () => {
               />
             </div>
             <div className="w-1/2 mb-4 ">
-              <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} placeholder="Input the Google Map Location" className="mb-4 border border-black rounded p-2 w-full border border-gray-400 rounded-l-md py-2 px-4 w-96 focus:outline-none focus:ring-1 focus:ring-slate-950"></input>
+              <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} placeholder="Input the Exact Address" className="mb-4 border border-black rounded p-2 w-full border border-gray-400 rounded-l-md py-2 px-4 w-96 focus:outline-none focus:ring-1 focus:ring-slate-950"></input>
             </div>
             <div className="w-1/2 h-48 mb-4">
               <textarea value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Work Description" className="mb-4 w-full h-full mb-4 border border-black rounded p-2 w-full border border-gray-400 rounded-l-md py-2 px-4 w-96 focus:outline-none focus:ring-1 focus:ring-slate-950"></textarea>

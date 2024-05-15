@@ -1,5 +1,6 @@
-import Navbar from "../components/nav";
+
 import Carousel from "../components/carousel";
+import Navbar from "../components/nav";
 import React, { useState } from 'react';
 import { SiAntdesign, SiLinkedin } from "react-icons/si";
 import { BsFacebook, BsGlobe, BsInstagram, BsTwitterX, BsYoutube } from "react-icons/bs";
@@ -39,7 +40,7 @@ const Home = () => {
                 <SiAntdesign className="mt-1 mr-6" />
                 <h2 className="text-lg font-bold mb-2">Step 1</h2>
               </div>
-              <p className="ml-10">Create an account using your mailid.</p>
+              <p className="ml-10">Create an account using your Mail Id.</p>
             </li>
 
             <li className="mb-4">
@@ -62,7 +63,7 @@ const Home = () => {
                 <SiAntdesign className="mt-1 mr-6" />
                 <h2 className="text-lg font-bold mb-2">Step 4</h2>
               </div>
-              <p className="ml-10">Make the payment ones your job id done.</p>
+              <p className="ml-10">Make the payment ones your job is done.</p>
             </li>
           </ul>
         </div>
@@ -108,6 +109,7 @@ const Home = () => {
   const Two = () => {
     return (
       <div className="home">
+        
         <div className="flex flex-col lg:flex-row items-center justify-center mb-16">
           <div className="lg:w-1/2 lg:pl-4 p-10 ml-6">
             <div className="flex flex-col items-center">
@@ -534,7 +536,8 @@ const Home = () => {
 
   return (
     <div className="home bg-offwhite">
-      <Navbar /> 
+      {/* <Navbar />  */}
+      
       <Carousel images={images} />
       <TwoColumnSection />
       <Two />

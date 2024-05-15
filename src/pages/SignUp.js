@@ -41,7 +41,7 @@ const SignUp = () => {
   return (
     
     <div className="min-h-screen bg-cover bg-center bg-no-repeat" style={{ backgroundImage: 'url("https://firebasestorage.googleapis.com/v0/b/network-c70d4.appspot.com/o/login%2Floginpic2.jpg?alt=media&token=d21b673e-cb2f-4a4a-9a90-7dfbc7a13925")' }}>
-        {/* <Navbar currentPage="signup"/> */}
+      <Navbar currentPage="signup"/> 
     <div className="min-h-90vh  flex items-center justify-center"  >
        
       <div className="max-w-md w-1/3 mt-16 bg-gray-100 p-5 pb-8 rounded-lg drop-shadow-lg">

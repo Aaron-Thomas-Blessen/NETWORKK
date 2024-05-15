@@ -49,31 +49,28 @@ const Navbar = () => {
 
   const userLinks = () => (
     <>
+    <li><a href="/" className="hover:text-gray-300">Home</a></li>
       <li><a href="/search" className="hover:text-gray-300">Search</a></li>
       <li><a href="/showBookings" className="hover:text-gray-300">Bookings</a></li>
       <li>
         <Link to="/userProfilePage" className="hover:text-gray-300">
-          {user.username}
-          <img src={profilePicUrl} alt="Profile" className="h-8 inline"/>
+          Profile
         </Link>
       </li>
-      <li><a href="/notifications" className="hover:text-gray-300"><i className="icon-notification"></i></a></li>
       <li><a onClick={handleLogout} className="cursor-pointer hover:text-gray-300">Logout</a></li>
     </>
   );
 
   const serviceProviderLinks = () => (
     <>
-      <li><a href="/Gigs" className="hover:text-gray-300">Gigs</a></li>
+    <li><a href="/" className="hover:text-gray-300">Home</a></li>
       <li><a href="/showSellerBookings" className="hover:text-gray-300">Bookings</a></li>
       <li><a href="/history" className="hover:text-gray-300">History</a></li>
       <li>
         <Link to="/SellerProfilePage" className="hover:text-gray-300">
-          {user.username}
-          <img src={profilePicUrl} alt="Profile" className="h-8 inline"/>
+          Profile
         </Link>
       </li>
-      <li><a href="/notifications" className="hover:text-gray-300"><i className="icon-notification"></i></a></li>
       <li><a onClick={handleLogout} className="cursor-pointer hover:text-gray-300">Logout</a></li>
     </>
   );

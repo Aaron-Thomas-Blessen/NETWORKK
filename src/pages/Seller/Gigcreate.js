@@ -4,6 +4,7 @@ import { useUser } from '../../Context/Context';
 import { getFirestore, collection, addDoc } from 'firebase/firestore';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { useNavigate } from 'react-router-dom';
+import Autocomplete from "react-google-autocomplete";
 
 const Gigcreate = () => {
     const { user } = useUser();
@@ -17,7 +18,12 @@ const Gigcreate = () => {
         address: '',
         demoPics: [],
         gigPdf: null,
-        holidays: ["01-01-2000"]
+        locality: '',
+        latitude: '',
+        longitude: '',
+        holidays: ["01-01-2000"],
+        rating: 0.0,
+        isOpen: false
     });
 
     const navigate = useNavigate();
@@ -50,10 +56,25 @@ const Gigcreate = () => {
         }));
     };
 
+    const handlePlaceSelected = (place) => {
+        const locality = place.formatted_address;
+        const latitude = place.geometry.location.lat();
+        const longitude = place.geometry.location.lng();
+        console.log("Place selected:", { locality, latitude, longitude }); // Debugging log
+        setGigData(prevState => ({
+            ...prevState,
+            locality,
+            latitude,
+            longitude
+        }));
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         const db = getFirestore();
         const storage = getStorage();
+
+        console.log("Submitting gig with data:", gigData); // Debugging log
 
         try {
             // Upload demo pics to Cloud Storage
@@ -66,28 +87,21 @@ const Gigcreate = () => {
             }
 
             // Upload gig PDF to Cloud Storage
+            let gigPdfUrl = null;
             if (gigData.gigPdf) {
                 const pdfRef = ref(storage, `gigPdfs/${user.uid}/${gigData.gigPdf.name}`);
                 await uploadBytes(pdfRef, gigData.gigPdf);
-                const pdfUrl = await getDownloadURL(pdfRef);
-
-                // Add gig data to Firestore with PDF URL
-                await addDoc(collection(db, 'services'), {
-                    ...gigData,
-                    serviceProviderId: user.uid,
-                    status: "Pending",
-                    demoPics: demoPicsUrls,
-                    gigPdf: pdfUrl
-                });
-            } else {
-                // Add gig data to Firestore without PDF URL
-                await addDoc(collection(db, 'services'), {
-                    ...gigData,
-                    serviceProviderId: user.uid,
-                    status: false,
-                    demoPics: demoPicsUrls
-                });
+                gigPdfUrl = await getDownloadURL(pdfRef);
             }
+
+            // Add gig data to Firestore
+            await addDoc(collection(db, 'services'), {
+                ...gigData,
+                serviceProviderId: user.uid,
+                status: "Pending",
+                demoPics: demoPicsUrls,
+                gigPdf: gigPdfUrl,
+            });
 
             console.log('Gig created successfully');
             navigate(-1); // Redirect to home page after gig creation
@@ -110,6 +124,15 @@ const Gigcreate = () => {
                             <label htmlFor="title" className="block">Gig Title</label>
                             <input type="text" id="title" name="title" value={gigData.title} onChange={handleChange} placeholder="Enter your Gig title" className="w-full h-full border border-black rounded p-2 border-gray-400 rounded-l-md py-2 px-4 w-96 focus:outline-none focus:ring-1 focus:ring-slate-950" />
                         </div>
+                        <div className="giglocality mb-4">
+                            <label htmlFor="locality" className="block">Locality</label>
+                            <Autocomplete
+                                apiKey="AIzaSyDjLpn8fDYOJJ9Yj7PVsJzslIiVfk2iiHg"
+                                className="border border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-custom-green focus:border-transparent"
+                                options={{ componentRestrictions: { country: "in" } }}
+                                onPlaceSelected={handlePlaceSelected}
+                            />
+                        </div>
                         <div className="gigcat mb-4">
                             <label htmlFor="category" className="block">Gig Category</label>
                             <select id="category" name="category" value={gigData.category} onChange={handleChange} className="w-full h-full border border-black rounded p-2 border-gray-400 rounded-l-md py-2 px-4 w-96 focus:outline-none focus:ring-1 focus:ring-slate-950">
@@ -122,7 +145,6 @@ const Gigcreate = () => {
                                 <option value="Laundry">Laundry</option>
                             </select>
                         </div>
-                        {/* Add other input fields for basePrice, description, phoneNumber, address */}
                         <div className="gigbaseprice mb-4">
                             <label htmlFor="basePrice" className="block">Base Price</label>
                             <input type="number" id="basePrice" name="basePrice" value={gigData.basePrice} onChange={handleChange} placeholder="Enter Base Price" className="w-full h-full border border-black rounded p-2 border-gray-400 rounded-l-md py-2 px-4 w-96 focus:outline-none focus:ring-1 focus:ring-slate-950" />
@@ -141,7 +163,7 @@ const Gigcreate = () => {
                         </div>
                         <div className="gigaddress mb-4">
                             <label htmlFor="address" className="block">Address</label>
-                            <input type="text" id="address" name="address" value={gigData.address} onChange={handleChange} placeholder="Enter Address" className="w-full h-full border border-black rounded p-2 border-gray-400 rounded-l-md py-2 px-4 w-96 focus:outline-none focus:ring-1 focus:ring-slate-950" />
+                            <input type="text" id="address" name="address" value={gigData.address} onChange={handleChange} placeholder="Enter your address" className="w-full h-full border border-black rounded p-2 border-gray-400 rounded-l-md py-2 px-4 w-96 focus:outline-none focus:ring-1 focus:ring-slate-950" />
                         </div>
                         <div className="gigperv mb-8">
                             <div className="">
@@ -156,7 +178,7 @@ const Gigcreate = () => {
                             </div>
                         </div>
                         <div className="gigsubmit flex justify-center">
-                            <input type="submit" value="Publish Gig" className="bg-black text-white px-6 py-3 rounded-lg hover:bg-gray-800 cursor-pointer text-lg" />
+                        <input type="submit" value="Publish Gig" className="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-700 cursor-pointer text-lg" />
                         </div>
                     </form>
                 </div>
