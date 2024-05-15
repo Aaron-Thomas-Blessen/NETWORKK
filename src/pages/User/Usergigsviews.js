@@ -5,7 +5,7 @@ import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import Navbar from "../../components/nav";
 import Slider from "react-slick";
 import { collection, doc, getDoc } from "firebase/firestore";
-import { db,storage } from "../../Firebase/Firebase";
+import { db, storage } from "../../Firebase/Firebase";
 
 const UsergigsViews = () => {
   const { selectedGig } = useGig();
@@ -16,7 +16,6 @@ const UsergigsViews = () => {
 
   useEffect(() => {
     const fetchUrlsAndReviews = async () => {
-
       if (!selectedGig) {
         console.log("Selected gig not set.");
         return;
@@ -50,15 +49,17 @@ const UsergigsViews = () => {
           // Fetch username
           const userRef = doc(db, "users", reviewData.userId);
           const userSnapshot = await getDoc(userRef);
-          const username = userSnapshot.exists() ? userSnapshot.data().username : "Unknown User";
+          const username = userSnapshot.exists()
+            ? userSnapshot.data().username
+            : "Unknown User";
 
           return { id: reviewSnapshot.id, ...reviewData, username };
         })
       );
-  setReviews(fetchedReviews);
-};
+      setReviews(fetchedReviews);
+    };
 
-  fetchUrlsAndReviews();
+    fetchUrlsAndReviews();
   }, [selectedGig]);
 
   const handleBookNow = () => {
@@ -88,9 +89,7 @@ const UsergigsViews = () => {
             {/* Gig Details Section */}
             <div className="mb-8">
               <h1 className="text-2xl font-bold mb-4">{selectedGig.title}</h1>
-              <p className="text-gray-600 mb-2">
-                Rating: {selectedGig.avgRat}
-              </p>
+              <p className="text-gray-600 mb-2">Rating: {selectedGig.avgRat}</p>
               <p className="text-gray-600 mb-2">
                 Number of Reviews: {selectedGig.count}
               </p>
@@ -119,16 +118,21 @@ const UsergigsViews = () => {
               <h2 className="text-xl font-bold mb-4">Reviews</h2>
               {reviews.length > 0 ? (
                 reviews.map((review) => (
-                  <div key={review.id} className="mb-4 p-4 bg-white rounded-lg shadow-md">
-                    <p className="text-gray-800 font-semibold">{review.description}</p>
+                  <div
+                    key={review.id}
+                    className="mb-4 p-4 bg-white rounded-lg shadow-md"
+                  >
+                    <p className="text-gray-800 font-semibold">
+                      {review.description}
+                    </p>
                     <p className="text-gray-600">Rating: {review.rating}</p>
                     <p className="text-gray-600">Username: {review.username}</p>
                   </div>
                 ))
               ) : (
-                  <p className="text-gray-600">No reviews available.</p>
-                )}
-              </div>
+                <p className="text-gray-600">No reviews available.</p>
+              )}
+            </div>
           </div>
         </div>
 
@@ -153,14 +157,23 @@ const UsergigsViews = () => {
             <div className="bg-white rounded-lg shadow-md py-4">
               <div className="py-5 text-center">
                 <h1 className="mb-8 font-bold">Contact Me</h1>
-                <p className="text-gray-600 mb-4">Address: {selectedGig.address}</p>
-                <p className="text-gray-600 mb-4">Phone Number: {selectedGig.phoneNumber}</p>
+                <p className="text-gray-600 mb-4">
+                  Address: {selectedGig.address}
+                </p>
+                <p className="text-gray-600 mb-4">
+                  Locality: {selectedGig.locality}
+                </p>
+                <p className="text-gray-600 mb-4">
+                  Phone Number: {selectedGig.phoneNumber}
+                </p>
                 <p className="text-gray-600">Email: {selectedGig.email}</p>
               </div>
 
               {/* Gig PDF Section */}
               <div className="text-center mb-4">
-                <h2 className="text-xl font-semibold mb-4">Police Clearance Certificate</h2>
+                <h2 className="text-xl font-semibold mb-4">
+                  Police Clearance Certificate
+                </h2>
                 <a
                   href={gigPdfUrl}
                   target="_blank"
