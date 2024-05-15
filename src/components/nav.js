@@ -66,7 +66,6 @@ const Navbar = () => {
   const serviceProviderLinks = () => (
     <>
     <li><a href="/" className="hover:text-gray-300">Home</a></li>
-      <li><a href="/Gigs" className="hover:text-gray-300">Gigs</a></li>
       <li><a href="/showSellerBookings" className="hover:text-gray-300">Bookings</a></li>
       <li><a href="/history" className="hover:text-gray-300">History</a></li>
       <li>
