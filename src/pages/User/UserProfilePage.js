@@ -213,6 +213,62 @@ const UserProfilePage = () => {
   return (
     <div>
       <Navbar currentPage="userProfilePage" />
+      <div className="container mx-auto mt-8 flex flex-col">
+        <div className="w-full p-4">
+          <div className="bg-white shadow-md rounded-lg p-4 mb-4 flex flex-col items-center justify-center">
+            <label htmlFor="profilePictureInput" className="cursor-pointer mb-4">
+              <img src={profilePicture} alt="Profile" className="w-24 h-24 rounded-full mb-4" />
+              <div className="text-blue-500">Change Profile Picture</div>
+            </label>
+            <input
+              id="profilePictureInput"
+              type="file"
+              accept="image/*"
+              className="hidden"
+              onChange={handleProfilePictureChange}
+            />
+            {editing ? (
+              <div className="flex flex-col">
+                <div className="flex flex-row mb-2">
+                  <label htmlFor="firstNameInput" className="w-36">First Name:</label>
+                  <input type="text" id="firstNameInput" value={formData.firstName || ''} name="firstName" onChange={handleInputChange} />
+                </div>
+                <div className="flex flex-row mb-2">
+                  <label htmlFor="lastNameInput" className="w-36">Last Name:</label>
+                  <input type="text" id="lastNameInput" value={formData.lastName || ''} name="lastName" onChange={handleInputChange} />
+                </div>
+                <div className="flex flex-row mb-2">
+                  <label htmlFor="phoneNumberInput" className="w-36">Phone Number:</label>
+                  <input type="text" id="phoneNumberInput" value={formData.phoneNumber || ''} name="phoneNumber" onChange={handleInputChange} />
+                </div>
+                <div className="flex flex-row mb-2">
+                  <label htmlFor="addressInput" className="w-36">Address:</label>
+                  <input type="text" id="addressInput" value={formData.address || ''} name="address" onChange={handleInputChange} />
+                </div>
+                <div className="flex flex-row space-x-4">
+                  <Button color="blue" size="sm" onClick={handleSaveClick}>Save</Button>
+                  <Button color="gray" size="sm" onClick={handleCancelClick}>Cancel</Button>
+                </div>
+              </div>
+            ) : (
+              <>
+
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+
+                <p className="" >Username: {userData.username}</p>
+                <p className="font-bold">Username: {userData.username}</p>
+                <p>Email: {userData.email}</p>
+                <p>First Name: {userData.firstName}</p>
+                <p>Last Name: {userData.lastName}</p>
+                <p>Phone Number: {userData.phoneNumber}</p>
+                <p>Address: {userData.address}</p>
+                <Button color="blue" onClick={handleEditClick}>Edit</Button>
+              </>
+            )}
+
       <div className="container mx-auto mt-8 flex flex-wrap">
         <div className="w-1/2 pr-4 container">
           <div className="bg-white shadow-md container flex justify-center rounded-lg p-4 mb-4">
@@ -361,6 +417,7 @@ const UserProfilePage = () => {
                 </>
               )}
             </div>
+
           </div>
         </div>
         <div className="w-full md:w-1/2 lg:w-1/2 xl:w-1/2 p-4">
@@ -411,7 +468,9 @@ const UserProfilePage = () => {
         </div>
       </div>
     </div>
+    </div>
+    </div>
+    </div>
   );
-};
-
+}
 export default UserProfilePage;

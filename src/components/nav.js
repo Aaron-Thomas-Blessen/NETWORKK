@@ -90,9 +90,9 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-gray-600  text-white flex justify-between items-center p-4">
-      <div className="navbar-logo">
-        <img src="https://firebasestorage.googleapis.com/v0/b/network-c70d4.appspot.com/o/voltmeter.png?alt=media&token=cf4e11b6-7f76-42c1-85a9-ba2593e77238" alt="Logo" className="h-8" />
+    <nav className="bg-gray-400  text-gray-900 flex justify-between items-center p-4">
+      <div className="navbar-logo h-full w-20">
+        <img src="https://firebasestorage.googleapis.com/v0/b/network-c70d4.appspot.com/o/login%2Flogo-text1__1_-removebg-preview.png?alt=media&token=ff8304f7-1b98-4d3d-92dc-af6d60f928dc" alt="Logo" className='w-full'  />
       </div>
       <ul className="flex gap-4">
         {renderLinks()}

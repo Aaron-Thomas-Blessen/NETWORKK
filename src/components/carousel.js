@@ -22,7 +22,7 @@ const Carousel = ({ images }) => {
   useEffect(() => {
     const interval = setInterval(() => {
       nextSlide();
-    }, 2000);
+    }, 4000);
 
     return () => clearInterval(interval);
   }, [currentIndex]);
@@ -33,11 +33,15 @@ const Carousel = ({ images }) => {
     <div>
       <Navbar/>
     <div className="carousel-container">
-      <div className="carouselrelative h-auto">
+      {/* <div  className="absolute top-0 w-full overflow-hidden ">
+           <Navbar />
+          </div> */}
+      <div className="carousel relative ">
         <div
           className="carousel-inner"
           style={{ transform: `translateX(-${currentIndex * 100}%)` }}
         >
+          
           <div  className="absolute top-0 w-full overflow-hidden ">
            
           </div>

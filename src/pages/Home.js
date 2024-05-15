@@ -1,5 +1,7 @@
 
 import Carousel from "../components/carousel";
+import Navbar from "../components/nav";
+import HeroSection from "../components/hero-section";
 import React, { useState } from 'react';
 import { SiAntdesign, SiLinkedin } from "react-icons/si";
 import { BsFacebook, BsGlobe, BsInstagram, BsTwitterX, BsYoutube } from "react-icons/bs";
@@ -535,8 +537,9 @@ const Home = () => {
 
   return (
     <div className="home bg-offwhite">
-      
-      <Carousel images={images} />
+      <Navbar /> 
+      <HeroSection />
+      {/* <Carousel images={images} /> */}
       <TwoColumnSection />
       <Two />
     </div>
