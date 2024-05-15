@@ -534,7 +534,7 @@ const Home = () => {
 
   return (
     <div className="home bg-offwhite">
-      {/* <Navbar /> */}
+      <Navbar /> 
       <Carousel images={images} />
       <TwoColumnSection />
       <Two />
