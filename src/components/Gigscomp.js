@@ -4,11 +4,13 @@ import { collection, query, where, getDocs } from 'firebase/firestore';
 import { useUser } from '../Context/Context';
 import { db } from '../Firebase/Firebase';
 import { useGig } from '../Context/GigContext';
+import { useNavigate } from 'react-router-dom';
 
 const Gigcomp = () => {
   const { user } = useUser();
   const [userGigs, setUserGigs] = useState([]);
-  const { selectGig } = useGig(); // Use the useGig hook to select gig
+  const { selectGig } = useGig();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUserGigs = async () => {
@@ -33,8 +35,8 @@ const Gigcomp = () => {
         
         <div className="grid grid-cols-3 gap-4">
           {userGigs.map(gig => (
-            <div key={gig.id} className="p-4 border border-gray-300 rounded-lg mb-4 hover:shadow-lg hover:bg-gray-100 transition duration-300 cursor-pointer">
-              <h2 className="text-xl font-semibold" onClick={() => selectGig(gig)}>{gig.title}</h2>
+            <div key={gig.id} onClick={() => {selectGig(gig); navigate(`/Profiledashboard`);}} className="p-4 border border-gray-300 rounded-lg mb-4 hover:shadow-lg hover:bg-gray-100 transition duration-300 cursor-pointer">
+              <h2 className="text-xl font-semibold" >{gig.title}</h2>
             </div>
           ))}
         </div>
