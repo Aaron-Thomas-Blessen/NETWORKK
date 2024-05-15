@@ -60,7 +60,7 @@ const SignIn = () => {
   return (
     
     <div className="min-h-screen bg-cover bg-center bg-no-repeat" style={{ backgroundImage: 'url("https://firebasestorage.googleapis.com/v0/b/network-c70d4.appspot.com/o/login%2Floginpic1.jpg?alt=media&token=596be882-2300-4179-9dff-2426d227c71e")' }}>
-      {/* <Navbar currentPage="signin"></Navbar> */}
+      <Navbar currentPage="signin" />
     <div className="min-h-90vh  flex items-center justify-center">
       <div className="max-w-md w-1/3 mt-20 bg-gray-100 p-5 pb-8 rounded-lg drop-shadow-lg">
         <div>
