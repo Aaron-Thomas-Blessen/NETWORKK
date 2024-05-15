@@ -186,8 +186,8 @@ const UserProfilePage = () => {
   return (
     <div>
       <Navbar currentPage="userProfilePage" />
-      <div className="container mx-auto mt-8 flex flex-wrap">
-        <div className="w-full md:w-1/2 lg:w-1/2 xl:w-1/2 p-4">
+      <div className="container mx-auto mt-8 flex flex-col">
+        <div className="w-full p-4">
           <div className="bg-white shadow-md rounded-lg p-4 mb-4 flex flex-col items-center justify-center">
             <label htmlFor="profilePictureInput" className="cursor-pointer mb-4">
               <img src={profilePicture} alt="Profile" className="w-24 h-24 rounded-full mb-4" />
@@ -225,7 +225,12 @@ const UserProfilePage = () => {
               </div>
             ) : (
               <>
-                <p>Username: {userData.username}</p>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+
+                <p className="" >Username: {userData.username}</p>
                 <p>Email: {userData.email}</p>
                 <p>First Name: {userData.firstName}</p>
                 <p>Last Name: {userData.lastName}</p>
