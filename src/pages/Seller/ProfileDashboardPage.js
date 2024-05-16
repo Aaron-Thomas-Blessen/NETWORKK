@@ -18,6 +18,8 @@ const ProfileDashboard = () => {
   const [reviews, setReviews] = useState([]);
   const [holidays, setHolidays] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
+  const [serviceProviderNameFirst, setServiceProviderNameFirst] = useState("");
+  const [serviceProviderNameLast, setServiceProviderNameLast] = useState("");
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -61,6 +63,17 @@ const ProfileDashboard = () => {
 
       const fetchedReviews = await Promise.all(reviewsPromises);
       setReviews(fetchedReviews);
+
+      // Fetch service provider name
+      const serviceProviderRef = doc(db, "users", selectedGig.serviceProviderId);
+      const serviceProviderDoc = await getDoc(serviceProviderRef);
+      if (serviceProviderDoc.exists()) {
+        setServiceProviderNameFirst(serviceProviderDoc.data().firstName);
+        setServiceProviderNameLast(serviceProviderDoc.data().lastName);
+      } else {
+        setServiceProviderNameFirst("Unknown User");
+        setServiceProviderNameLast("Unknown User");
+      }
 
       // Set holidays and isOpen state
       setHolidays(selectedGig.holidays || []);
@@ -118,14 +131,6 @@ const ProfileDashboard = () => {
 
   const animatedProps = useSpring({ opacity: loading ? 0 : 1, from: { opacity: 0 } });
 
-  if (loading || !selectedGig) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <ClipLoader size={150} color={"#123abc"} loading={loading} />
-      </div>
-    );
-  }
-
   const settings = {
     dots: true,
     infinite: true,
@@ -135,8 +140,14 @@ const ProfileDashboard = () => {
   };
 
   return (
-    <animated.div style={animatedProps} className="min-h-screen bg-gray-100">
+    <div>
       <Navbar />
+      {loading ? (
+        <div className="flex justify-center items-center h-screen">
+          <ClipLoader size={100} color="#123abc" />
+        </div>
+      ) : (
+        <animated.div style={animatedProps} className="min-h-screen bg-gray-100">
       <div className="container mx-auto p-8">
         <div className="flex flex-col md:flex-row gap-8">
           {/* Left Side - 3/5th space */}
@@ -145,6 +156,8 @@ const ProfileDashboard = () => {
               {/* Gig Details Section */}
               <div className="mb-8">
                 <h1 className="text-2xl font-bold mb-4">{selectedGig.title}</h1>
+                <p className="text-gray-600 mb-2">Rating: {selectedGig.avgRat}</p>
+                <p className="text-gray-600 mb-2">Number Of Reviews: {selectedGig.count}</p>
                 <p className="text-gray-600 mb-2">Validation Status: {selectedGig.status}</p>
                 <p className="text-gray-600 mb-2">Category: {selectedGig.category}</p>
                 <p className="text-gray-600 mb-2">Description: {selectedGig.description}</p>
@@ -192,6 +205,8 @@ const ProfileDashboard = () => {
               <div className="bg-white rounded-lg shadow-md mb-8 py-4">
                 <div className="py-5 text-center">
                   <h1 className="mb-8 font-bold">Contact Me</h1>
+                  <p className="text-gray-600 mb-2">First Name: {serviceProviderNameFirst}</p>
+                  <p className="text-gray-600 mb-2">Last Name: {serviceProviderNameLast}</p>
                   <p className="text-gray-600 mb-4">Address: {selectedGig.address}</p>
                   <p className="text-gray-600 mb-4">Phone Number: {selectedGig.phoneNumber}</p>
                   <p className="text-gray-600">Email: {selectedGig.email}</p>
@@ -237,6 +252,8 @@ const ProfileDashboard = () => {
         </div>
       </div>
     </animated.div>
+      )}
+    </div>
   );
 };
 

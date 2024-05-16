@@ -22,6 +22,7 @@ const GigSearch = () => {
         sortPrice: 'asc',
         category: ''
     });
+    const [formattedDate, setFormattedDate] = useState('');
     const [loading, setLoading] = useState(false);
     const [showDropdown, setShowDropdown] = useState(false);
 
@@ -43,6 +44,9 @@ const GigSearch = () => {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
+        if (name === 'date') {
+            setFormattedDate(format(parseISO(value), 'dd-MM-yyyy'));
+        }
         setSearchParams(prevState => ({
             ...prevState,
             [name]: value
@@ -157,7 +161,7 @@ const GigSearch = () => {
                                 name="date" 
                                 value={searchParams.date} 
                                 onChange={handleChange} 
-                                min={format(new Date(), 'dd-MM-yyyy')}
+                                min={format(new Date(), 'yyyy-MM-dd')}
                                 className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                             />
                         </div>
