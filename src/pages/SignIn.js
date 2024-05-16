@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { auth, db } from "../Firebase/Firebase";
 import { useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
-import { doc, getDoc } from "firebase/firestore"; // Import Firestore methods
+import { doc, getDoc } from "firebase/firestore";
 import Navbar from "../components/nav";
 
 const SignIn = () => {
@@ -66,7 +66,7 @@ const SignIn = () => {
     >
       <Navbar currentPage="signin" />
       <div className="min-h-90vh flex items-center justify-center">
-        <div className="max-w-md w-1/3 mt-20 bg-gray-100 p-5 pb-8 rounded-lg drop-shadow-lg">
+        <div className="w-full max-w-md mt-20 bg-gray-100 p-5 pb-8 rounded-lg drop-shadow-lg mx-4 sm:mx-0">
           <div>
             <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
               Sign In
