@@ -49,7 +49,7 @@ const Navbar = () => {
 
   const userLinks = () => (
     <>
-    <li><a href="/" className="hover:text-gray-300">Home</a></li>
+      <li><a href="/" className="hover:text-gray-300">Home</a></li>
       <li><a href="/search" className="hover:text-gray-300">Search</a></li>
       <li><a href="/showBookings" className="hover:text-gray-300">Bookings</a></li>
       <li>

@@ -33,7 +33,7 @@ const SignIn = () => {
         const user = userCredential.user;
 
         console.log("user" + user);
-        navigate("/", { replace: true });
+        navigate("/search", { replace: true });
       })
       .catch((error) => {
         const errorCode = error.code;

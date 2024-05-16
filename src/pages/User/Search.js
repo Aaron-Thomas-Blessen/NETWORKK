@@ -6,7 +6,7 @@ import { useGig } from '../../Context/GigContext';
 import { haversineDistance } from '../../components/Haversine';
 import { format, isToday, parseISO } from 'date-fns';
 import { useNavigate } from 'react-router-dom';
-import { ClipLoader } from "react-spinners/ClipLoader";
+import ClipLoader from "react-spinners/ClipLoader";
 import { useSpring, animated, config } from 'react-spring';
 
 const GigSearch = () => {
@@ -125,6 +125,11 @@ const GigSearch = () => {
         setLoading(false);
     };
 
+    const handleBookNow = (gig) => {
+        selectGig(gig);
+        navigate('/booking', { state: { gig, date: searchParams.date } });
+    };
+
     const formAnimation = useSpring({
         from: { opacity: 0, transform: 'translateY(-20px)' },
         to: { opacity: 1, transform: 'translateY(0px)' },
@@ -142,7 +147,7 @@ const GigSearch = () => {
             <Navbar />
             <div className="flex flex-col items-center justify-center mt-8 px-4 md:px-8">
                 <animated.div style={formAnimation} className="w-full max-w-lg bg-white shadow-md rounded-lg p-6">
-                    <h1 className="text-3xl text-center mb-6 font-semibold text-gray-700">Search for Gigs</h1>
+                    <h1 className="text-3xl text-center mb-6 font-semibold text-gray-700">Search for Services</h1>
                     <form onSubmit={(e) => { e.preventDefault(); handleSearch(); }}>
                         <div className="mb-4">
                             <label htmlFor="date" className="block text-sm font-medium text-gray-700">Date</label>
@@ -218,14 +223,11 @@ const GigSearch = () => {
                                 <li 
                                     key={gig.id} 
                                     className="bg-white shadow-md rounded-lg p-6 cursor-pointer hover:bg-gray-100 mb-8 transition" 
-                                    onClick={() => { 
-                                        selectGig(gig); 
-                                        navigate(`/Usergigsviews`);
-                                    }}
+                                    onClick={() => handleBookNow(gig)}
                                 >
                                     <h2 className="text-xl font-bold text-gray-800">{gig.title}</h2>
                                     <p className="text-gray-600"><strong>Category:</strong> {gig.category}</p>
-                                    <p className="text-gray-600"><strong>Base Price:</strong> ${gig.basePrice}</p>
+                                    <p className="text-gray-600"><strong>Base Price:</strong> Rs {gig.basePrice}</p>
                                     <p className="text-gray-600"><strong>Description:</strong> {gig.description}</p>
                                     <p className="text-gray-600"><strong>Email:</strong> {gig.email}</p>
                                     <p className="text-gray-600"><strong>Phone Number:</strong> {gig.phoneNumber}</p>
@@ -234,7 +236,7 @@ const GigSearch = () => {
                             ))}
                         </animated.ul>
                     ) : (
-                        <p className="text-gray-600 text-center">No gigs found.</p>
+                        <p className="text-gray-600 text-center">No services found.</p>
                     )}
                 </div>
             </div>

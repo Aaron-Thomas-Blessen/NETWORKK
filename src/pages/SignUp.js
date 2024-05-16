@@ -29,7 +29,7 @@ const SignUp = () => {
       });
 
       console.log("User created and data stored in Firestore!");
-      navigate('/', { replace: true } );
+      navigate('/UserProfilePage', { replace: true } );
     } catch (error) {
       console.error("Error signing up:", error.message);
       setError(error.message); 
@@ -62,7 +62,7 @@ const SignUp = () => {
                 
                 required
                 className="appearance-none relative block w-full px-3 py-2 mb-4 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm font-bold font-jakarta-sans"
-                placeholder="Full name"
+                placeholder="User name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />

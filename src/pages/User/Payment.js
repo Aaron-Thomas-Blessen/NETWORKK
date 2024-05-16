@@ -117,7 +117,7 @@ const PaymentPage = () => {
                 Base Pay:
               </label>
               <p id="basePay" className="mt-1 block text-lg font-semibold">
-                {basePay}
+                Rs {basePay}
               </p>
             </div>
             <div className="mb-4">
@@ -127,7 +127,7 @@ const PaymentPage = () => {
               >
                 Additional Payment:
               </label>
-              <input
+                Rs <input
                 id="additionalPay"
                 type="number"
                 value={additionalPay}
