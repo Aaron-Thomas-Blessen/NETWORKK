@@ -405,16 +405,13 @@ const Home = () => {
             <FAQToggle question={"How does it work ?"} answer={" Signup with networkk. and use the search functionality to find the ideal skilled service provider near you for your needs within 10km radius of your location."}/>
             <hr className="my-4 border-t-2 border-gray-300" />
             
-            <FAQToggle question={"Is it safe ?"} answer={"All good!"}/>
+            <FAQToggle question={"Is it safe ?"} answer={"Networkk prioritizes customer safety and security by thoroughly screening each service provider for any criminal record. This screening process includes checking the Government-issued Police Clearance Certificate (PCC), which is updated every 6 months to ensure the genuineness and safety of the services offered on the platform."}/>
             <hr className="my-4 border-t-2 border-gray-300" />
 
-            <FAQToggle question={"Is it safe?"} answer={"All good!"} />
+            <FAQToggle question={"How do I sign up?"} answer={"Signing up is easy. Simply create an account either as a  user or as a service provider by entering your email address and creating a password. Once you've signed up, you can begin browsing for skilled services or complete the verification process to register as a verified service provider."} />
             <hr className="my-4 border-t-2 border-gray-300" />
 
-            <FAQToggle question={"How do I sign up?"} answer={"All good!"} />
-            <hr className="my-4 border-t-2 border-gray-300" />
-
-            <FAQToggle question={"Can I offer my service?"} answer={"All good!"} />
+            <FAQToggle question={"Can I offer my service?"} answer={"Certainly! You can offer your services on Networkk. Just sign up as a service provider, undergo verification by submitting your Government-issued Police Clearance Certificate, and then you're free to offer any skilled service you desire."} />
             <hr className="my-4 border-t-2 border-gray-300" />
 
             <FAQToggle question={"How can I get paid?"} answer={"All good!"} />
