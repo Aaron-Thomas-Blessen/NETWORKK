@@ -351,7 +351,7 @@ const Home = () => {
 
           <div className="freqques w-1/2 mr-12">
             <hr className="my-4 border-t-2 border-gray-300" />
-            <FAQToggle question={"How does it work ?"} answer={"All good!"}/>
+            <FAQToggle question={"How does it work ?"} answer={" Signup with networkk. and use the search functionality to find the ideal skilled service provider near you for your needs within 10km radius of your location."}/>
             <hr className="my-4 border-t-2 border-gray-300" />
             
             <FAQToggle question={"Is it safe ?"} answer={"All good!"}/>
