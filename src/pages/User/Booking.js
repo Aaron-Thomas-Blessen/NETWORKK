@@ -66,11 +66,11 @@ const Booking = () => {
   return (
     <div className="Booking min-h-screen bg-gray-100">
       <Navbar />
-      <div className="flex justify-center items-start mt-8">
-        <animated.div style={formAnimation} className="w-full max-w-4xl p-8 border rounded-lg shadow-lg bg-white mx-4">
+      <div className="flex flex-col md:flex-row justify-center items-start mt-8 mx-4">
+        <animated.div style={formAnimation} className="w-full max-w-4xl p-4 md:p-8 border rounded-lg shadow-lg bg-white mb-4 md:mb-0">
           <div className="Appointment">
             <div>
-              <h1 className="text-3xl font-bold mb-8 text-center">Book Appointment</h1>
+              <h1 className="text-3xl font-bold mb-4 md:mb-8 text-center">Book Appointment</h1>
             </div>
             <div className="mb-4">
               <label htmlFor="date" className="block text-sm font-medium text-gray-700 mb-2">Date</label>
@@ -106,15 +106,15 @@ const Booking = () => {
             </div>
           </div>
         </animated.div>
-        <div className="w-full max-w-xs p-8 bg-gray-200 rounded-lg shadow-lg mx-4">
+        <div className="w-full max-w-xs p-4 md:p-8 bg-gray-200 rounded-lg shadow-lg">
           <div className="confirm text-center">
-            <h1 className="text-2xl font-bold mb-8">Amount Details</h1>
-            <p className="text-3xl font-semibold text-gray-800 mb-8">Base Price: Rs.{basePrice}</p>
+            <h1 className="text-2xl font-bold mb-4 md:mb-8">Amount Details</h1>
+            <p className="text-3xl font-semibold text-gray-800 mb-4 md:mb-8">Base Price: Rs.{basePrice}</p>
             <animated.div style={confirmButtonAnimation}>
               <button 
                 onClick={handleConfirm} 
                 disabled={loading}
-                className="w-full bg-black text-white px-8 py-4 rounded hover:bg-gray-800 cursor-pointer"
+                className="w-full bg-black text-white px-4 py-2 md:px-8 md:py-4 rounded hover:bg-gray-800 cursor-pointer"
               >
                 {loading ? <ClipLoader size={20} color={"#fff"} loading={loading} /> : 'Confirm'}
               </button>
