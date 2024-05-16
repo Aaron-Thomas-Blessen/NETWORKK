@@ -59,7 +59,7 @@ const PaymentPage = () => {
 
       setTimeout(() => {
         navigate("/");
-      }, 6000);
+      }, 3000);
     } catch (error) {
       console.error("Error processing payment:", error);
       // Show error message

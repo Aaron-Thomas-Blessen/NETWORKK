@@ -154,14 +154,7 @@ const ProfileDashboard = () => {
                   <p className="text-gray-600">No reviews available.</p>
                 )}
                 </div>
-                {/* Calendar Section */}
-                <div className="mt-8">
-                  <h2 className="text-xl font-bold mb-4">Holidays</h2>
-                  <Calendar
-                    onClickDay={handleDateClick}
-                    tileClassName={tileClassName}
-                  />
-                </div>
+                
               </div>
             </div>
   
@@ -201,12 +194,22 @@ const ProfileDashboard = () => {
                 </div>
                 {/* Toggle Open/Close Button */}
                 <div className="mt-8 text-center">
+                  <p className="mb-2">The shop is {isOpen ? 'Open' : 'Closed'} Today</p>
                   <button
                     onClick={toggleOpenStatus}
                     className={`w-full py-2 px-4 rounded ${isOpen ? 'bg-red-500' : 'bg-green-500'} text-white font-bold`}
                   >
                     {isOpen ? 'Close' : 'Open'}
                   </button>
+                </div>
+                {/* Calendar Section */}
+                <div className="mt-8 text-center">
+                  <h2 className="text-xl font-bold mb-2">Calendar</h2>
+                  <p className="mb-2">Days in Green are marked as working days and Days in Red are marked as Holidays.</p>
+                  <Calendar
+                    onClickDay={handleDateClick}
+                    tileClassName={tileClassName}
+                  />
                 </div>
               </div>
             </div>
