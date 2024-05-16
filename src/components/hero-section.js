@@ -15,7 +15,7 @@ const HeroSection = () => {
           <div className="w-full flex flex-row " >
         <input
           type="text"
-          placeholder="What are you looking for..."
+          placeholder="What services are you looking for ?"
           className="w-8/12 h-16 mt-7 relative px-4 py-4 mb-4 border rounded-l-md"
         />
         <button class=" w-2/12 h-16  mt-7 align-middle relative bg-gray-900 text-white rounded-r-md border border-blue-gray-300">
