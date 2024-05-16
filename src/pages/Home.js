@@ -388,19 +388,19 @@ const Home = () => {
             </div>
           </div>
         </div>
-        <div className="mb-4 flex flex-wrap justify-between">
-          <div className="w-full lg:w-1/2 lg:ml-12 my-10">
+        <div className="mb-4 flex flex-col justify-center p-10">
+          <div className="w-full flex flex-col justify-center my-10">
             <h1 className="text-3xl font-bold mb-3">Frequently Asked Questions</h1>
             <h6 className="text-sm">
               Find answers to commonly asked questions about our platform and
               services.
             </h6>
-            <button className="px-4 py-2 mt-4 bg-black text-white rounded-lg">
+            {/* <button className="px-4 w- py-2 mt-4 bg-black text-white rounded-lg">
               Contact Us
-            </button>
+            </button> */}
           </div>
 
-          <div className="w-full lg:w-1/2 lg:mr-12">
+          <div className="w-full p-5">
             <hr className="my-4 border-t-2 border-gray-300" />
             <FAQToggle question={"How does it work ?"} answer={" Signup with networkk. and use the search functionality to find the ideal skilled service provider near you for your needs within 10km radius of your location."}/>
             <hr className="my-4 border-t-2 border-gray-300" />
