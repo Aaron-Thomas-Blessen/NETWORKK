@@ -318,7 +318,7 @@ const Home = () => {
         </section>
 
         <div className="flex flex-col lg:flex-row items-center justify-center lg:justify-start lg:mr-8 mb-8 lg:mb-0">
-          <div className="mid-page-signup py-8 lg:w-1/2 lg:pr-8">
+          <div className="mid-page-signup lg:ml-10 py-6 lg:w-1/2 lg:pr-8">
             <div className="text-container1 text-center lg:text-left">
               <h1 className="text-4xl font-bold mb-4">
                 Find Skilled Workers Near You
