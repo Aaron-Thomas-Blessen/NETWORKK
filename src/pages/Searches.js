@@ -4,6 +4,7 @@ import { getFirestore, collection, query, where, getDocs } from 'firebase/firest
 import { useUser } from '../Context/Context';
 import ClipLoader from "react-spinners/ClipLoader";
 import { toast } from 'react-toastify';
+import Navbar from '../components/nav';
 
 const Searches = () => {
   const { user } = useUser();
@@ -36,6 +37,7 @@ const Searches = () => {
 
   return (
     <div className="Searches">
+        <Navbar />
       <div className="flex flex-col items-center justify-center mt-8 px-4 md:px-8">
         <div className="w-full max-w-lg bg-white shadow-md rounded-lg p-6">
           <h1 className="text-3xl text-center mb-6 font-semibold text-gray-700">Search Results for "{category}"</h1>

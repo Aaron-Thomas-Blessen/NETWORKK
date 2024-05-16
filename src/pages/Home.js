@@ -14,7 +14,6 @@ const Home = () => {
   const { user } = useUser();
   const [categories, setCategories] = useState([]);
   const [searchText, setSearchText] = useState('');
-  const [showDropdown, setShowDropdown] = useState(false);
 
   const fetchCategories = async () => {
     try {
@@ -39,12 +38,10 @@ const Home = () => {
 
   const handleSearchChange = (e) => {
     setSearchText(e.target.value);
-    setShowDropdown(true);
   };
 
   const handleCategorySelect = (category) => {
     setSearchText(category);
-    setShowDropdown(false);
     navigate('/searches', { state: { category } });
   };
 
@@ -74,23 +71,7 @@ const Home = () => {
                 onChange={handleSearchChange}
                 placeholder="Search for services"
                 className="w-full px-4 py-2 border rounded-md"
-                onFocus={() => setShowDropdown(true)}
               />
-              {showDropdown && (
-                <ul className="absolute left-0 right-0 bg-white border rounded-md shadow-lg max-h-40 overflow-auto mt-1 z-10">
-                  {categories
-                    .filter(category => category.toLowerCase().includes(searchText.toLowerCase()))
-                    .map((category, index) => (
-                      <li
-                        key={index}
-                        className="cursor-pointer px-4 py-2 hover:bg-gray-100"
-                        onClick={() => handleCategorySelect(category)}
-                      >
-                        {category}
-                      </li>
-                    ))}
-                </ul>
-              )}
               <button type="submit" className="hidden">Search</button>
             </form>
           </div>
@@ -587,7 +568,13 @@ const Home = () => {
   return (
     <div className="home bg-offwhite">
       <Navbar />
-      <HeroSection />
+      <HeroSection
+        searchText={searchText}
+        handleSearchChange={handleSearchChange}
+        handleCategorySelect={handleCategorySelect}
+        handleSearch={handleSearch}
+        categories={categories}
+      />
       <TwoColumnSection />
       <Two />
     </div>
