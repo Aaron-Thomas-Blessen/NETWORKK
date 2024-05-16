@@ -167,13 +167,13 @@ const Gigcreate = () => {
                         </div>
                         <div className="gigperv mb-8">
                             <div className="">
-                                <label htmlFor="demoPics" className="block">Demo Pics</label>
+                                <label htmlFor="demoPics" className="block">Proof of Work</label>
                                 <input className="w-full h-full border border-black rounded p-2 border-gray-400 rounded-l-md py-2 px-4 w-96 focus:outline-none focus:ring-1 focus:ring-slate-950" type="file" id="demoPics" name="demoPics" accept="image/png, image/jpeg" multiple onChange={handleDemoPicsChange} />
                             </div>
                         </div>
                         <div className="gigperv mb-8">
                             <div className="">
-                                <label htmlFor="gigPdf" className="block">Gig PDF</label>
+                                <label htmlFor="gigPdf" className="block">PCC Certificate PDF</label>
                                 <input className="w-full h-full border border-black rounded p-2 border-gray-400 rounded-l-md py-2 px-4 w-96 focus:outline-none focus:ring-1 focus:ring-slate-950" type="file" id="gigPdf" name="gigPdf" accept=".pdf" onChange={handlePdfChange} />
                             </div>
                         </div>
