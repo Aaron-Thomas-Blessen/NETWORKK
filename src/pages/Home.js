@@ -395,9 +395,7 @@ const Home = () => {
               Find answers to commonly asked questions about our platform and
               services.
             </h6>
-            {/* <button className="px-4 w- py-2 mt-4 bg-black text-white rounded-lg">
-              Contact Us
-            </button> */}
+            
           </div>
 
           <div className="w-full p-5">
@@ -414,7 +412,7 @@ const Home = () => {
             <FAQToggle question={"Can I offer my service?"} answer={"Certainly! You can offer your services on Networkk. Just sign up as a service provider, undergo verification by submitting your Government-issued Police Clearance Certificate, and then you're free to offer any skilled service you desire."} />
             <hr className="my-4 border-t-2 border-gray-300" />
 
-            <FAQToggle question={"How can I get paid?"} answer={"All good!"} />
+            <FAQToggle question={"How can I get paid?"} answer={"You can work on a minimum charge set by yourself and get paid in real time"} />
             <hr className="my-4 border-t-2 border-gray-300" />
           </div>
         </div>
