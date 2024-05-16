@@ -5,6 +5,8 @@ import { getFirestore, collection, addDoc } from 'firebase/firestore';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { useNavigate } from 'react-router-dom';
 import Autocomplete from "react-google-autocomplete";
+import { ClipLoader } from "react-spinners";
+import { useSpring, animated } from 'react-spring';
 
 const Gigcreate = () => {
     const { user } = useUser();
@@ -26,6 +28,8 @@ const Gigcreate = () => {
         isOpen: false
     });
 
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
     const navigate = useNavigate();
 
     const handleChange = (e) => {
@@ -60,7 +64,7 @@ const Gigcreate = () => {
         const locality = place.formatted_address;
         const latitude = place.geometry.location.lat();
         const longitude = place.geometry.location.lng();
-        console.log("Place selected:", { locality, latitude, longitude }); // Debugging log
+        console.log("Place selected:", { locality, latitude, longitude });
         setGigData(prevState => ({
             ...prevState,
             locality,
@@ -69,12 +73,29 @@ const Gigcreate = () => {
         }));
     };
 
+    const handleAutocompleteKeyDown = (e) => {
+        if (e.key === "Enter") {
+            e.preventDefault();
+        }
+    };
+
+    const validateForm = () => {
+        const { title, category, basePrice, description, email, phoneNumber, address, locality } = gigData;
+        return title && category && basePrice && description && email && phoneNumber && address && locality;
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (!validateForm()) {
+            setError("Please fill out all fields before submitting.");
+            return;
+        }
+
+        setLoading(true);
         const db = getFirestore();
         const storage = getStorage();
 
-        console.log("Submitting gig with data:", gigData); // Debugging log
+        console.log("Submitting gig with data:", gigData);
 
         try {
             // Upload demo pics to Cloud Storage
@@ -108,21 +129,66 @@ const Gigcreate = () => {
         } catch (error) {
             console.error('Error creating gig: ', error);
             // Handle error
+        } finally {
+            setLoading(false);
         }
     };
+
+    // React Spring animations
+    const formAnimation = useSpring({
+        from: { opacity: 0, transform: 'translateY(20px)' },
+        to: { opacity: 1, transform: 'translateY(0)' },
+    });
+
+    const inputAnimation = useSpring({
+        from: { boxShadow: '0px 0px 0px 0px rgba(0,0,0,0)' },
+        to: { boxShadow: '0px 4px 8px 0px rgba(0,0,0,0.2)' },
+    });
 
     return (
         <div className="Gigcreate">
             <Navbar />
             <div className="flex flex-col items-center justify-center mt-8">
-                <div className="gig-container rounded-lg p-8 mb-8 w-96 border border-gray-400 rounded-l-md">
+                <animated.div style={formAnimation} className="gig-container rounded-lg p-8 mb-8 w-96 border border-gray-400 rounded-l-md">
                     <div className="gigcreate">
-                        <h1 className="text-3xl text-center mb-4">Create your Gig</h1>
+                        <h1 className="text-3xl text-center mb-4">Create your Service</h1>
                     </div>
                     <form onSubmit={handleSubmit}>
                         <div className="gigtitle mb-4">
-                            <label htmlFor="title" className="block">Gig Title</label>
-                            <input type="text" id="title" name="title" value={gigData.title} onChange={handleChange} placeholder="Enter your Gig title" className="w-full h-full border border-black rounded p-2 border-gray-400 rounded-l-md py-2 px-4 w-96 focus:outline-none focus:ring-1 focus:ring-slate-950" />
+                            <label htmlFor="title" className="block">Service Title</label>
+                            <animated.input type="text" id="title" name="title" value={gigData.title} onChange={handleChange} placeholder="Enter your Service Title" style={inputAnimation} className="w-full h-full border border-black rounded p-2 border-gray-400 rounded-l-md py-2 px-4 w-96 focus:outline-none focus:ring-1 focus:ring-slate-950" />
+                        </div>
+                        <div className="gigcat mb-4">
+                            <label htmlFor="category" className="block">Service Category</label>
+                            <animated.select id="category" name="category" value={gigData.category} onChange={handleChange} style={inputAnimation} className="w-full h-full border border-black rounded p-2 border-gray-400 rounded-l-md py-2 px-4 w-96 focus:outline-none focus:ring-1 focus:ring-slate-950">
+                                <option value="">Select Service Category</option>
+                                <option value="Carpenter">Carpenter</option>
+                                <option value="Plumber">Plumber</option>
+                                <option value="Electrician">Electrician</option>
+                                <option value="Mechanic">Mechanic</option>
+                                <option value="Mason">Mason</option>
+                                <option value="Laundry">Laundry</option>
+                            </animated.select>
+                        </div>
+                        <div className="gigbaseprice mb-4">
+                            <label htmlFor="basePrice" className="block">Base Price</label>
+                            <animated.input type="number" id="basePrice" name="basePrice" value={gigData.basePrice} onChange={handleChange} placeholder="Enter Base Price" style={inputAnimation} className="w-full h-full border border-black rounded p-2 border-gray-400 rounded-l-md py-2 px-4 w-96 focus:outline-none focus:ring-1 focus:ring-slate-950" />
+                        </div>
+                        <div className="gigdes mb-4">
+                            <label htmlFor="description" className="block">Description</label>
+                            <animated.textarea id="description" name="description" value={gigData.description} onChange={handleChange} placeholder="Enter Description" style={inputAnimation} className="w-full h-full border border-black rounded p-2 border-gray-400 rounded-l-md py-2 px-4 w-96 focus:outline-none focus:ring-1 focus:ring-slate-950"></animated.textarea>
+                        </div>
+                        <div className="gigemail mb-4">
+                            <label htmlFor="email" className="block">Email</label>
+                            <animated.input type="email" id="email" name="email" value={gigData.email} onChange={handleChange} placeholder="Enter your Service email" style={inputAnimation} className="w-full h-full border border-black rounded p-2 border-gray-400 rounded-l-md py-2 px-4 w-96 focus:outline-none focus:ring-1 focus:ring-slate-950" />
+                        </div>
+                        <div className="gigphone mb-4">
+                            <label htmlFor="phoneNumber" className="block">Phone Number</label>
+                            <animated.input type="tel" id="phoneNumber" name="phoneNumber" value={gigData.phoneNumber} onChange={handleChange} placeholder="Enter Phone Number" style={inputAnimation} className="w-full h-full border border-black rounded p-2 border-gray-400 rounded-l-md py-2 px-4 w-96 focus:outline-none focus:ring-1 focus:ring-slate-950" />
+                        </div>
+                        <div className="gigaddress mb-4">
+                            <label htmlFor="address" className="block">Address</label>
+                            <animated.input type="text" id="address" name="address" value={gigData.address} onChange={handleChange} placeholder="Enter your address" style={inputAnimation} className="w-full h-full border border-black rounded p-2 border-gray-400 rounded-l-md py-2 px-4 w-96 focus:outline-none focus:ring-1 focus:ring-slate-950" />
                         </div>
                         <div className="giglocality mb-4">
                             <label htmlFor="locality" className="block">Locality</label>
@@ -131,57 +197,31 @@ const Gigcreate = () => {
                                 className="border border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-custom-green focus:border-transparent"
                                 options={{ componentRestrictions: { country: "in" } }}
                                 onPlaceSelected={handlePlaceSelected}
+                                onKeyDown={handleAutocompleteKeyDown}
                             />
                         </div>
-                        <div className="gigcat mb-4">
-                            <label htmlFor="category" className="block">Gig Category</label>
-                            <select id="category" name="category" value={gigData.category} onChange={handleChange} className="w-full h-full border border-black rounded p-2 border-gray-400 rounded-l-md py-2 px-4 w-96 focus:outline-none focus:ring-1 focus:ring-slate-950">
-                                <option value="">Select Gig Category</option>
-                                <option value="Carpenter">Carpenter</option>
-                                <option value="Plumber">Plumber</option>
-                                <option value="Electrician">Electrician</option>
-                                <option value="Mechanic">Mechanic</option>
-                                <option value="Mason">Mason</option>
-                                <option value="Laundry">Laundry</option>
-                            </select>
-                        </div>
-                        <div className="gigbaseprice mb-4">
-                            <label htmlFor="basePrice" className="block">Base Price</label>
-                            <input type="number" id="basePrice" name="basePrice" value={gigData.basePrice} onChange={handleChange} placeholder="Enter Base Price" className="w-full h-full border border-black rounded p-2 border-gray-400 rounded-l-md py-2 px-4 w-96 focus:outline-none focus:ring-1 focus:ring-slate-950" />
-                        </div>
-                        <div className="gigdes mb-4">
-                            <label htmlFor="description" className="block">Description</label>
-                            <textarea id="description" name="description" value={gigData.description} onChange={handleChange} placeholder="Enter Description" className="w-full h-full border border-black rounded p-2 border-gray-400 rounded-l-md py-2 px-4 w-96 focus:outline-none focus:ring-1 focus:ring-slate-950"></textarea>
-                        </div>
-                        <div className="gigemail mb-4">
-                            <label htmlFor="email" className="block">Email</label>
-                            <input type="email" id="email" name="email" value={gigData.email} onChange={handleChange} placeholder="Enter your Gig email" className="w-full h-full border border-black rounded p-2 border-gray-400 rounded-l-md py-2 px-4 w-96 focus:outline-none focus:ring-1 focus:ring-slate-950" />
-                        </div>
-                        <div className="gigphone mb-4">
-                            <label htmlFor="phoneNumber" className="block">Phone Number</label>
-                            <input type="tel" id="phoneNumber" name="phoneNumber" value={gigData.phoneNumber} onChange={handleChange} placeholder="Enter Phone Number" className="w-full h-full border border-black rounded p-2 border-gray-400 rounded-l-md py-2 px-4 w-96 focus:outline-none focus:ring-1 focus:ring-slate-950" />
-                        </div>
-                        <div className="gigaddress mb-4">
-                            <label htmlFor="address" className="block">Address</label>
-                            <input type="text" id="address" name="address" value={gigData.address} onChange={handleChange} placeholder="Enter your address" className="w-full h-full border border-black rounded p-2 border-gray-400 rounded-l-md py-2 px-4 w-96 focus:outline-none focus:ring-1 focus:ring-slate-950" />
+                        <div className="gigperv mb-8">
+                            <label htmlFor="demoPics" className="block">Proof of Work</label>
+                            <animated.input type="file" id="demoPics" name="demoPics" accept="image/png, image/jpeg" multiple onChange={handleDemoPicsChange} style={inputAnimation} className="w-full h-full border border-black rounded p-2 border-gray-400 rounded-l-md py-2 px-4 w-96 focus:outline-none focus:ring-1 focus:ring-slate-950" />
                         </div>
                         <div className="gigperv mb-8">
-                            <div className="">
-                                <label htmlFor="demoPics" className="block">Proof of Work</label>
-                                <input className="w-full h-full border border-black rounded p-2 border-gray-400 rounded-l-md py-2 px-4 w-96 focus:outline-none focus:ring-1 focus:ring-slate-950" type="file" id="demoPics" name="demoPics" accept="image/png, image/jpeg" multiple onChange={handleDemoPicsChange} />
-                            </div>
-                        </div>
-                        <div className="gigperv mb-8">
-                            <div className="">
-                                <label htmlFor="gigPdf" className="block">PCC Certificate PDF</label>
-                                <input className="w-full h-full border border-black rounded p-2 border-gray-400 rounded-l-md py-2 px-4 w-96 focus:outline-none focus:ring-1 focus:ring-slate-950" type="file" id="gigPdf" name="gigPdf" accept=".pdf" onChange={handlePdfChange} />
-                            </div>
+                            <label htmlFor="gigPdf" className="block">PCC Certificate PDF</label>
+                            <animated.input type="file" id="gigPdf" name="gigPdf" accept=".pdf" onChange={handlePdfChange} style={inputAnimation} className="w-full h-full border border-black rounded p-2 border-gray-400 rounded-l-md py-2 px-4 w-96 focus:outline-none focus:ring-1 focus:ring-slate-950" />
                         </div>
                         <div className="gigsubmit flex justify-center">
-                        <input type="submit" value="Publish Gig" className="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-700 cursor-pointer text-lg" />
+                            {loading ? (
+                                <ClipLoader size={35} color={"#123abc"} loading={loading} />
+                            ) : (
+                                <input type="submit" value="Publish Gig" className="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-700 cursor-pointer text-lg" />
+                            )}
                         </div>
+                        {error && (
+                            <div className="error-message text-red-500 text-center mt-4">
+                                {error}
+                            </div>
+                        )}
                     </form>
-                </div>
+                </animated.div>
             </div>
         </div>
     );

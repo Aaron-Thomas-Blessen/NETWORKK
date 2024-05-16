@@ -104,7 +104,7 @@ const GigSearch = () => {
                 if (isToday(searchDate)) {
                     return gig.isOpen;
                 } else {
-                    const formattedDate = format(searchDate, 'MM-dd-yyyy');
+                    const formattedDate = format(searchDate, 'dd-MM-yyyy');
                     return !gig.holidays.includes(formattedDate);
                 }
             }
@@ -127,7 +127,7 @@ const GigSearch = () => {
 
     const handleBookNow = (gig) => {
         selectGig(gig);
-        navigate('/booking', { state: { gig, date: searchParams.date } });
+        navigate('/usergigsviews', { state: { gig, date: searchParams.date } });
     };
 
     const formAnimation = useSpring({
@@ -157,7 +157,7 @@ const GigSearch = () => {
                                 name="date" 
                                 value={searchParams.date} 
                                 onChange={handleChange} 
-                                min={format(new Date(), 'yyyy-MM-dd')}
+                                min={format(new Date(), 'dd-MM-yyyy')}
                                 className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                             />
                         </div>
