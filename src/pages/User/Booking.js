@@ -4,7 +4,7 @@ import { db } from '../../Firebase/Firebase';
 import { collection, addDoc } from 'firebase/firestore';
 import Navbar from '../../components/nav';
 import { useUser } from '../../Context/Context';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useSpring, animated, config } from 'react-spring';
 import ClipLoader from 'react-spinners/ClipLoader';
 

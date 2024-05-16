@@ -1,17 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { useGig } from "../../Context/GigContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import Navbar from "../../components/nav";
 import Slider from "react-slick";
-import { collection, doc, getDoc } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import { db, storage } from "../../Firebase/Firebase";
+import { ClipLoader } from "react-spinners";
+import { useSpring, animated } from "react-spring";
 
 const UsergigsViews = () => {
   const { selectedGig } = useGig();
   const [gigPdfUrl, setGigPdfUrl] = useState("");
   const [reviews, setReviews] = useState([]);
   const [demoPicsUrls, setDemoPicsUrls] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const location = useLocation();
+  const [date, setDate] = useState(location.state?.date || '');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -23,6 +28,8 @@ const UsergigsViews = () => {
 
       console.log("Selected gig:", selectedGig);
 
+      setLoading(true);
+
       // Fetch gig PDF URL
       const gigPdfRef = ref(storage, `${selectedGig.gigPdf}`);
       const gigPdfUrl = await getDownloadURL(gigPdfRef);
@@ -30,7 +37,7 @@ const UsergigsViews = () => {
       setGigPdfUrl(gigPdfUrl);
 
       // Fetch demo pics URLs
-      const demoPicsUrlsPromises = selectedGig.demoPics.map(async (pic) => {
+      const demoPicsUrlsPromises = (selectedGig.demoPics || []).map(async (pic) => {
         const picRef = ref(storage, pic);
         const picUrl = await getDownloadURL(picRef);
         return picUrl;
@@ -41,7 +48,7 @@ const UsergigsViews = () => {
 
       // Fetch reviews and usernames
       const fetchedReviews = await Promise.all(
-        selectedGig.reviews.map(async (reviewId) => {
+        (selectedGig.reviews || []).map(async (reviewId) => {
           const reviewRef = doc(db, "reviews", reviewId);
           const reviewSnapshot = await getDoc(reviewRef);
           const reviewData = reviewSnapshot.data();
@@ -57,6 +64,8 @@ const UsergigsViews = () => {
         })
       );
       setReviews(fetchedReviews);
+
+      setLoading(false);
     };
 
     fetchUrlsAndReviews();
@@ -64,11 +73,17 @@ const UsergigsViews = () => {
 
   const handleBookNow = () => {
     // Navigate to the booking page with service details
-    navigate("/booking", { state: selectedGig });
+    navigate("/booking", { state: { selectedGig, date } });
   };
 
-  if (!selectedGig) {
-    return <div>Loading...</div>;
+  const animatedProps = useSpring({ opacity: loading ? 0 : 1, from: { opacity: 0 } });
+
+  if (loading || !selectedGig) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <ClipLoader size={100} color={"#123abc"} loading={loading} />
+      </div>
+    );
   }
 
   const settings = {
@@ -80,9 +95,9 @@ const UsergigsViews = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <animated.div style={animatedProps} className="min-h-screen bg-gray-100">
       <Navbar />
-      <div className="container mx-auto p-8 flex">
+      <div className="container mx-auto p-8 flex flex-col md:flex-row gap-8">
         {/* Left Side - 3/5th space */}
         <div className="md:w-3/5">
           <div className="w-full p-6">
@@ -90,15 +105,9 @@ const UsergigsViews = () => {
             <div className="mb-8">
               <h1 className="text-2xl font-bold mb-4">{selectedGig.title}</h1>
               <p className="text-gray-600 mb-2">Rating: {selectedGig.avgRat}</p>
-              <p className="text-gray-600 mb-2">
-                Number of Reviews: {selectedGig.count}
-              </p>
-              <p className="text-gray-600 mb-2">
-                Category: {selectedGig.category}
-              </p>
-              <p className="text-gray-600 mb-2">
-                Description: {selectedGig.description}
-              </p>
+              <p className="text-gray-600 mb-2">Number of Reviews: {selectedGig.count}</p>
+              <p className="text-gray-600 mb-2">Category: {selectedGig.category}</p>
+              <p className="text-gray-600 mb-2">Description: {selectedGig.description}</p>
             </div>
             {/* Display Carousel */}
             <Slider {...settings}>
@@ -107,7 +116,7 @@ const UsergigsViews = () => {
                   <img
                     src={url}
                     alt={`Demo ${index + 1}`}
-                    className="absolute top-0 left-0 w-full h-full object-cover rounded-lg"
+                    className="absolute top-0 left-0 w-full h-full object-cover rounded-lg shadow-lg"
                   />
                 </div>
               ))}
@@ -118,13 +127,8 @@ const UsergigsViews = () => {
               <h2 className="text-xl font-bold mb-4">Reviews</h2>
               {reviews.length > 0 ? (
                 reviews.map((review) => (
-                  <div
-                    key={review.id}
-                    className="mb-4 p-4 bg-white rounded-lg shadow-md"
-                  >
-                    <p className="text-gray-800 font-semibold">
-                      {review.description}
-                    </p>
+                  <div key={review.id} className="mb-4 p-4 bg-white rounded-lg shadow-md">
+                    <p className="text-gray-800 font-semibold">{review.description}</p>
                     <p className="text-gray-600">Rating: {review.rating}</p>
                     <p className="text-gray-600">Username: {review.username}</p>
                   </div>
@@ -148,7 +152,7 @@ const UsergigsViews = () => {
             {/* Button to book now */}
             <button
               onClick={handleBookNow}
-              className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mb-6 rounded"
+              className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mb-6 rounded shadow-lg transition-all duration-300 transform hover:scale-105"
             >
               Book Now
             </button>
@@ -157,23 +161,15 @@ const UsergigsViews = () => {
             <div className="bg-white rounded-lg shadow-md py-4">
               <div className="py-5 text-center">
                 <h1 className="mb-8 font-bold">Contact Me</h1>
-                <p className="text-gray-600 mb-4">
-                  Address: {selectedGig.address}
-                </p>
-                <p className="text-gray-600 mb-4">
-                  Locality: {selectedGig.locality}
-                </p>
-                <p className="text-gray-600 mb-4">
-                  Phone Number: {selectedGig.phoneNumber}
-                </p>
+                <p className="text-gray-600 mb-4">Address: {selectedGig.address}</p>
+                <p className="text-gray-600 mb-4">Locality: {selectedGig.locality}</p>
+                <p className="text-gray-600 mb-4">Phone Number: {selectedGig.phoneNumber}</p>
                 <p className="text-gray-600">Email: {selectedGig.email}</p>
               </div>
 
               {/* Gig PDF Section */}
               <div className="text-center mb-4">
-                <h2 className="text-xl font-semibold mb-4">
-                  Police Clearance Certificate
-                </h2>
+                <h2 className="text-xl font-semibold mb-4">Police Clearance Certificate</h2>
                 <a
                   href={gigPdfUrl}
                   target="_blank"
@@ -188,7 +184,7 @@ const UsergigsViews = () => {
           </div>
         </div>
       </div>
-    </div>
+    </animated.div>
   );
 };
 

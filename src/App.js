@@ -1,10 +1,13 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Protected } from "./components/Protected";
 import { AdminProtected } from "./components/AdminProtected";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import Home from "./pages/Home";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
+import Searches from "./pages/Searches";
 
 import Booking from "./pages/User/Booking";
 import UserProfilePage from "./pages/User/UserProfilePage";
@@ -28,10 +31,12 @@ const App = () => {
 
   return (
     <BrowserRouter>
+      <ToastContainer />
         <Routes>
           <Route path="/" element={<Home />}></Route>
           <Route path="/signup" element={<SignUp />}></Route>
           <Route path="/signin" element={<SignIn />}></Route>
+          <Route path="/searches" element={<Searches />}></Route>
 
           <Route path="/Admingigs" element={<AdminProtected> <AdminGigs /> </AdminProtected>}></Route>
           <Route path="/Adminbookings" element={<AdminProtected> <AdminBookings /> </AdminProtected>}></Route>

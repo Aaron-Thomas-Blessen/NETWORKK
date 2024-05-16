@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { auth } from "../Firebase/Firebase";
+import { auth, db } from "../Firebase/Firebase";
 import { useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
 import Navbar from "../components/nav";
 
 const SignIn = () => {
@@ -12,6 +13,7 @@ const SignIn = () => {
   const [password, setPassword] = useState("");
 
   const reset = (e) => {
+    e.preventDefault();
     sendPasswordResetEmail(auth, email)
       .then(() => {
         setMessage(
@@ -26,35 +28,50 @@ const SignIn = () => {
         console.log(errorCode, errorMessage);
       });
   };
-  const onLogin = (e) => {
+
+  const onLogin = async (e) => {
     e.preventDefault();
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
 
-        console.log("user" + user);
-        navigate("/search", { replace: true });
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        var errorMessage = error.message;
-
-        console.log(errorCode, errorMessage);
-        setError(errorCode);
-      });
+      // Fetch the user document from Firestore
+      const userDoc = await getDoc(doc(db, "users", user.uid));
+      if (userDoc.exists()) {
+        const userData = userDoc.data();
+        if (userData.isUser) {
+          navigate("/search", { replace: true });
+        } else {
+          navigate("/showSellerBookings", { replace: true });
+        }
+      } else {
+        console.log("No such document!");
+        setError("User data not found");
+      }
+    } catch (error) {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(errorCode, errorMessage);
+      setError(errorMessage);
+    }
   };
 
   return (
-    
-    <div className="min-h-screen bg-cover bg-center bg-no-repeat" style={{ backgroundImage: 'url("https://firebasestorage.googleapis.com/v0/b/network-c70d4.appspot.com/o/login%2Floginpic1.jpg?alt=media&token=596be882-2300-4179-9dff-2426d227c71e")' }}>
+    <div
+      className="min-h-screen bg-cover bg-center bg-no-repeat"
+      style={{
+        backgroundImage:
+          'url("https://firebasestorage.googleapis.com/v0/b/network-c70d4.appspot.com/o/login%2Floginpic1.jpg?alt=media&token=596be882-2300-4179-9dff-2426d227c71e")',
+      }}
+    >
       <Navbar currentPage="signin" />
-    <div className="min-h-90vh  flex items-center justify-center">
-      <div className="max-w-md w-1/3 mt-20 bg-gray-100 p-5 pb-8 rounded-lg drop-shadow-lg">
-        <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Sign In
-          </h2>
-        </div>
+      <div className="min-h-90vh flex items-center justify-center">
+        <div className="w-full max-w-md mt-20 bg-gray-100 p-5 pb-8 rounded-lg drop-shadow-lg mx-4 sm:mx-0">
+          <div>
+            <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+              Sign In
+            </h2>
+          </div>
           <form className="mt-8 space-y-6" onSubmit={onLogin}>
             <input type="hidden" name="remember" defaultValue="true" />
             <div className="rounded-md shadow-sm -space-y-px">
@@ -68,7 +85,7 @@ const SignIn = () => {
                   type="email"
                   autoComplete="email"
                   required
-                  className="appearance-none  relative block w-full px-3 py-2 mb-4 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm font-bold font-jakarta-sans"
+                  className="appearance-none relative block w-full px-3 py-2 mb-4 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm font-bold font-jakarta-sans"
                   placeholder="Email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -84,7 +101,7 @@ const SignIn = () => {
                   type="password"
                   autoComplete="current-password"
                   required
-                  className="appearance-none  relative block w-full px-3 py-2 mb-4 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm font-bold font-jakarta-sans"
+                  className="appearance-none relative block w-full px-3 py-2 mb-4 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm font-bold font-jakarta-sans"
                   placeholder="Password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}

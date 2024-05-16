@@ -268,7 +268,7 @@ const UserProfilePage = () => {
       <Navbar currentPage="userProfilePage" />
       {loading ? (
         <div className="flex justify-center items-center h-screen">
-          <ClipLoader size={150} color="#123abc" />
+          <ClipLoader size={100} color="#123abc" />
         </div>
       ) : (
         <animated.div
