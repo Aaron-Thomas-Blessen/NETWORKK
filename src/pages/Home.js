@@ -63,21 +63,9 @@ const Home = () => {
             Find Skilled Workers and <br />
             Offer Your Services
           </h1>
-          <div className="relative mb-4">
-            <form onSubmit={handleSearch}>
-              <input
-                type="text"
-                value={searchText}
-                onChange={handleSearchChange}
-                placeholder="Search for services"
-                className="w-full px-4 py-2 border rounded-md"
-              />
-              <button type="submit" className="hidden">Search</button>
-            </form>
-          </div>
           <div className="btn flex">
             <button className="px-8 py-4 bg-black text-white rounded-lg mr-4">
-              <a href="/signin">Get Started</a>
+              <a href="/signup">Get Started</a>
             </button>
             <button className="px-8 py-4 bg-white border-2 border-blue-gray-700 text-black rounded-lg hover:bg-gray-200 ml-4">
               Learn more

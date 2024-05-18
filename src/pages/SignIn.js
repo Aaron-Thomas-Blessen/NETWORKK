@@ -65,7 +65,7 @@ const SignIn = () => {
       }}
     >
       <Navbar currentPage="signin" />
-      <div className="min-h-90vh flex items-center justify-center">
+      <div className="mt-16 px-4 md:px-8 min-h-90vh flex items-center justify-center">
         <div className="w-full max-w-md mt-20 bg-gray-100 p-5 pb-8 rounded-lg drop-shadow-lg mx-4 sm:mx-0">
           <div>
             <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">

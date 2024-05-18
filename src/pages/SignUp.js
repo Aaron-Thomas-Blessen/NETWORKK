@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth, db } from '../Firebase/Firebase';
-import { doc, setDoc } from 'firebase/firestore';
+import { doc, setDoc, getDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/nav';
 
@@ -27,9 +27,17 @@ const SignUp = () => {
         isUser: role === 'user',
       });
 
-      console.log('User created and data stored in Firestore!');
-      navigate('/UserProfilePage', { replace: true });
-    } catch (error) {
+      const userDoc = await getDoc(doc(db, "users", user.uid));
+      if (userDoc.exists()) {
+        const userData = userDoc.data();
+        if (userData.isUser) {
+          console.log('User created and data stored in Firestore!');
+          navigate('/UserProfilePage', { replace: true });
+        }else{
+          navigate('/SellerProfilePage', { replace: true });
+        }
+    } 
+  }catch (error) {
       console.error('Error signing up:', error.message);
       setError(error.message);
     }
@@ -44,7 +52,7 @@ const SignUp = () => {
       }}
     >
       <Navbar currentPage="signup" />
-      <div className="min-h-90vh flex items-center justify-center p-4">
+      <div className="mt-16 px-4 md:px-8 min-h-90vh flex items-center justify-center p-4">
         <div className="w-full sm:w-2/3 md:w-1/2 lg:w-1/3 mt-16 bg-gray-100 p-5 pb-8 rounded-lg drop-shadow-lg">
           <div>
             <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Sign Up</h2>

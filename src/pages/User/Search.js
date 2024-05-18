@@ -149,7 +149,7 @@ const GigSearch = () => {
     return (
         <div className="GigSearch">
             <Navbar />
-            <div className="flex flex-col items-center justify-center mt-8 px-4 md:px-8">
+            <div className="mt-24 px-4 md:px-8 flex flex-col items-center justify-center">
                 <animated.div style={formAnimation} className="w-full max-w-lg bg-white shadow-md rounded-lg p-6">
                     <h1 className="text-3xl text-center mb-6 font-semibold text-gray-700">Search for Services</h1>
                     <form onSubmit={(e) => { e.preventDefault(); handleSearch(); }}>

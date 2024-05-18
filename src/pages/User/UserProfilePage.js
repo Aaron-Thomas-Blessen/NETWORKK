@@ -275,7 +275,7 @@ const UserProfilePage = () => {
           style={fadeIn}
           className="container mx-auto mt-8 flex flex-wrap"
         >
-          <div className="w-full md:w-1/2 lg:w-1/2 xl:w-1/2 p-4">
+          <div className="mt-16 px-4 md:px-8 w-full md:w-1/2 lg:w-1/2 xl:w-1/2 p-4">
             <animated.div
               className="bg-white shadow-md container flex justify-center rounded-lg p-4 mb-4 hover:shadow-lg transition-shadow duration-300"
               style={fadeIn}
@@ -459,7 +459,7 @@ const UserProfilePage = () => {
               </div>
             </animated.div>
           </div>
-          <div className="w-full md:w-1/2 lg:w-1/2 xl:w-1/2 p-4">
+          <div className="mt-16 px-4 md:px-8 w-full md:w-1/2 lg:w-1/2 xl:w-1/2 p-4">
             <animated.div
               className="bg-white shadow-md rounded-lg p-4 mb-4 hover:shadow-lg hover:bg-gray-35 transition duration-300"
               style={fadeIn}
