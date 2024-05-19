@@ -49,19 +49,19 @@ const SellerBookingsPage = () => {
               const bookingData = doc.data();
               const userData = await getUserData(bookingData.userId);
               return { id: doc.id, ...bookingData, userData };
-            }));
+            })).then(data => data.sort((a, b) => new Date(b.date) - new Date(a.date)));
 
             const acceptedBookingsData = await Promise.all(acceptedBookingsSnapshot.docs.map(async (doc) => {
               const bookingData = doc.data();
               const userData = await getUserData(bookingData.userId);
               return { id: doc.id, ...bookingData, userData };
-            }));
+            })).then(data => data.sort((a, b) => new Date(b.date) - new Date(a.date)));
 
             const rejectedBookingsData = await Promise.all(rejectedBookingsSnapshot.docs.map(async (doc) => {
               const bookingData = doc.data();
               const userData = await getUserData(bookingData.userId);
               return { id: doc.id, ...bookingData, userData };
-            }));
+            })).then(data => data.sort((a, b) => new Date(b.date) - new Date(a.date)));
 
             setPendingBookings(pendingBookingsData);
             setAcceptedBookings(acceptedBookingsData);

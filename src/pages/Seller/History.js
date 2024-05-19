@@ -1,4 +1,3 @@
-// History.js
 import React, { useEffect, useState } from 'react';
 import { db } from '../../Firebase/Firebase';
 import { collection, query, where, onSnapshot, doc, getDoc } from 'firebase/firestore';
@@ -72,6 +71,7 @@ const History = () => {
         querySnapshot.forEach(doc => {
           bookingsData.push(doc.data());
         });
+        bookingsData.sort((a, b) => new Date(b.date) - new Date(a.date));
         setBookings(bookingsData);
         initializeData(bookingsData);
       });
@@ -113,7 +113,7 @@ const History = () => {
               <p className="mt-16 px-4 md:px-8 text-center text-gray-500">No Completed Bookings</p>
             ) : (
               Object.keys(groupedBookings).map(serviceId => (
-                <div key={serviceId} className="mt-8 px-4 md:px-8p-2 bg-white rounded-2xl mb-4 shadow-lg">
+                <div key={serviceId} className="mt-8 px-4 md:px-8 p-2 bg-white rounded-2xl mb-4 shadow-lg">
                   <Collapsible open header={serviceTitles[serviceId]}>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 px-4 pt-4 pb-2 text-sm text-gray-500">
                       {groupedBookings[serviceId].map(booking => (

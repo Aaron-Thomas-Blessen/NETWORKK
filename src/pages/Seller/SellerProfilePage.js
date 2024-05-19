@@ -11,6 +11,7 @@ import Autocomplete from "react-google-autocomplete";
 import { useSpring, animated, useTransition } from "@react-spring/web";
 import { useGig } from "../../Context/GigContext";
 import Gigscomp from "../../components/Gigscomp";
+import { FaUserEdit, FaEnvelope, FaPhone, FaHome, FaMapMarkerAlt } from "react-icons/fa";
 
 const SellerProfilePage = () => {
   const [loading, setLoading] = useState(true);
@@ -19,6 +20,7 @@ const SellerProfilePage = () => {
   const [editing, setEditing] = useState(false);
   const [profilePicture, setProfilePicture] = useState(null);
   const [gigs, setGigs] = useState([]);
+  const [errors, setErrors] = useState({});
   const auth = getAuth();
   const navigate = useNavigate();
   const { selectGig } = useGig();
@@ -66,7 +68,7 @@ const SellerProfilePage = () => {
           ...doc.data(),
         }));
 
-        console.log("Fetched gigs data: ", gigsData); // Add this line to log fetched gigs
+        console.log("Fetched gigs data: ", gigsData);
         setGigs(gigsData);
       }
     };
@@ -75,24 +77,49 @@ const SellerProfilePage = () => {
     fetchGigs();
   }, [auth]);
 
+  const validateForm = () => {
+    const errors = {};
+    if (!/^[a-zA-Z]+$/.test(formData.firstName)) {
+      errors.firstName = "First name should contain only alphabets";
+    }
+    if (!/^[a-zA-Z]+$/.test(formData.lastName)) {
+      errors.lastName = "Last name should contain only alphabets";
+    }
+    if (!/^\d{10}$/.test(formData.phoneNumber)) {
+      errors.phoneNumber = "Phone number should be a 10 digit number";
+    }
+    if (!/[a-zA-Z]/.test(formData.address)) {
+      errors.address = "Address should contain at least one alphabet";
+    }
+    setErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
   const handleSaveClick = async () => {
-    setLoading(true);
-    try {
-      const userRef = doc(db, "users", auth.currentUser.uid);
-      await updateDoc(userRef, formData);
-      setUserData(formData);
-      setEditing(false);
-      console.log("Profile updated successfully");
-    } catch (error) {
-      console.error("Error updating profile:", error);
-    } finally {
-      setLoading(false);
+    if (validateForm()) {
+      setLoading(true);
+      try {
+        const userRef = doc(db, "users", auth.currentUser.uid);
+        await updateDoc(userRef, formData);
+        setUserData(formData);
+        setEditing(false);
+        console.log("Profile updated successfully");
+      } catch (error) {
+        console.error("Error updating profile:", error);
+      } finally {
+        setLoading(false);
+      }
     }
+  };
+
+  const handleCancelClick = () => {
+    setFormData(userData);
+    setEditing(false);
   };
 
   const handleProfilePictureChange = async (e) => {
@@ -109,11 +136,16 @@ const SellerProfilePage = () => {
       try {
         await uploadBytes(fileReference, file);
         const url = await getDownloadURL(fileReference);
-        setProfilePicture(url);
+
+        // Update Firestore with the new profile picture URL
         await updateDoc(doc(db, "users", currentUser.uid), {
           profilePicture: url,
         });
 
+        // Set the new profile picture URL in the state
+        setProfilePicture(url);
+
+        // Delete the old profile picture from storage if it exists and is not the default picture
         if (
           oldProfilePicture &&
           oldProfilePicture !== "default_profile_picture_url"
@@ -127,6 +159,7 @@ const SellerProfilePage = () => {
           }
         }
 
+        // Update userData state
         setUserData((prevUserData) => ({
           ...prevUserData,
           profilePicture: url,
@@ -163,15 +196,14 @@ const SellerProfilePage = () => {
           <ClipLoader size={100} color="#123abc" />
         </div>
       ) : (
-        <animated.div style={fadeIn} className="container mx-auto mt-8 flex">
-          <div className="w-1/2 pr-4 container">
+        <animated.div style={fadeIn} className="container mx-auto mt-8 flex flex-wrap">
+          <div className="mt-16 px-4 md:px-8 w-full md:w-1/2 lg:w-1/2 xl:w-1/2 p-4">
             <animated.div
-              className="mt-16 px-4 md:px-8 bg-white shadow-md container flex justify-center rounded-lg p-4 mb-4 hover:shadow-lg transition-shadow duration-300"
+              className="bg-white shadow-md container flex justify-center rounded-lg p-4 mb-4 hover:shadow-lg transition-shadow duration-300"
               style={fadeIn}
             >
               <div className="">
                 <div className="flex justify-center container">
-                  <div className="flex justify-center"></div>
                   <label
                     htmlFor="profilePictureInput"
                     className="cursor-pointer mb-4"
@@ -206,7 +238,7 @@ const SellerProfilePage = () => {
                           </label>
                           <Autocomplete
                             apiKey="YOUR_GOOGLE_MAPS_API_KEY"
-                            className="border border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-custom-green focus:border-transparent"
+                            className="border border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                             options={{
                               componentRestrictions: { country: "in" },
                             }}
@@ -228,6 +260,11 @@ const SellerProfilePage = () => {
                             onChange={handleInputChange}
                             className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                           />
+                          {errors.firstName && (
+                            <p className="text-red-500 text-xs italic">
+                              {errors.firstName}
+                            </p>
+                          )}
                         </div>
                         <div className="mb-4 w-full px-2">
                           <label
@@ -244,6 +281,11 @@ const SellerProfilePage = () => {
                             onChange={handleInputChange}
                             className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                           />
+                          {errors.lastName && (
+                            <p className="text-red-500 text-xs italic">
+                              {errors.lastName}
+                            </p>
+                          )}
                         </div>
                         <div className="mb-4 w-full px-2">
                           <label
@@ -276,6 +318,11 @@ const SellerProfilePage = () => {
                             onChange={handleInputChange}
                             className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                           />
+                          {errors.phoneNumber && (
+                            <p className="text-red-500 text-xs italic">
+                              {errors.phoneNumber}
+                            </p>
+                          )}
                         </div>
                         <div className="mb-4 w-full px-2">
                           <label
@@ -292,40 +339,60 @@ const SellerProfilePage = () => {
                             onChange={handleInputChange}
                             className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                           />
+                          {errors.address && (
+                            <p className="text-red-500 text-xs italic">
+                              {errors.address}
+                            </p>
+                          )}
                         </div>
                       </div>
-                      <div className="flex justify-center">
+                      <div className="flex justify-center mt-4">
                         <Button color="blue" onClick={handleSaveClick}>
                           Save
+                        </Button>
+                        <Button
+                          color="red"
+                          onClick={handleCancelClick}
+                          className="ml-2"
+                        >
+                          Cancel
                         </Button>
                       </div>
                     </animated.div>
                   ) : (
                     <animated.div style={style}>
-                      <p className="text-gray-700 text-lg">
+                      <p className="text-gray-700 text-lg flex items-center">
+                        <FaUserEdit className="mr-2" />
                         <span className="font-bold">Username:</span>{" "}
                         {userData.username}
                       </p>
-                      <p className="text-gray-700 text-lg">
-                        <span className="font-bold">Email:</span> {userData.email}
+                      <p className="text-gray-700 text-lg flex items-center">
+                        <FaEnvelope className="mr-2" />
+                        <span className="font-bold">Email:</span>{" "}
+                        {userData.email}
                       </p>
-                      <p className="text-gray-700 text-lg">
+                      <p className="text-gray-700 text-lg flex items-center">
+                        <FaUserEdit className="mr-2" />
                         <span className="font-bold">First Name:</span>{" "}
                         {userData.firstName}
                       </p>
-                      <p className="text-gray-700 text-lg">
+                      <p className="text-gray-700 text-lg flex items-center">
+                        <FaUserEdit className="mr-2" />
                         <span className="font-bold">Last Name:</span>{" "}
                         {userData.lastName}
                       </p>
-                      <p className="text-gray-700 text-lg">
+                      <p className="text-gray-700 text-lg flex items-center">
+                        <FaPhone className="mr-2" />
                         <span className="font-bold">Phone Number:</span>{" "}
                         {userData.phoneNumber}
                       </p>
-                      <p className="text-gray-700 text-lg">
+                      <p className="text-gray-700 text-lg flex items-center">
+                        <FaHome className="mr-2" />
                         <span className="font-bold">Address:</span>{" "}
                         {userData.address}
                       </p>
-                      <p className="text-gray-700 text-lg">
+                      <p className="text-gray-700 text-lg flex items-center">
+                        <FaMapMarkerAlt className="mr-2" />
                         <span className="font-bold">Locality:</span>{" "}
                         {userData.locality}
                       </p>
@@ -338,12 +405,12 @@ const SellerProfilePage = () => {
               </div>
             </animated.div>
           </div>
-          <div className="container w-1/2 pl-4">
+          <div className="mt-16 px-4 md:px-8 w-full md:w-1/2 lg:w-1/2 xl:w-1/2 p-4">
             <animated.div
-              className="mt-16 px-4 md:px-8 bg-white shadow-md rounded-lg p-4 mb-4 hover:shadow-lg hover:bg-gray-100 transition duration-300"
+              className="bg-white shadow-md rounded-lg p-4 mb-4 hover:shadow-lg hover:bg-gray-100 transition duration-300"
               style={fadeIn}
             >
-              <div className="flex justify-end flex justify-center mb-4">
+              <div className="flex justify-center mb-4">
                 <Link
                   to="/Gigcreate"
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
