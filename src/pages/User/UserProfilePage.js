@@ -24,6 +24,7 @@ import { ClipLoader } from "react-spinners";
 import Navbar from "../../components/nav";
 import Autocomplete from "react-google-autocomplete";
 import { useSpring, animated, useTransition } from "@react-spring/web";
+import { FaStar, FaUserEdit, FaSave, FaTimes, FaMapMarkerAlt, FaPhone, FaEnvelope, FaHome } from "react-icons/fa";
 
 const UserProfilePage = () => {
   const [loading, setLoading] = useState(true);
@@ -33,6 +34,7 @@ const UserProfilePage = () => {
   const [profilePicture, setProfilePicture] = useState(null);
   const [completedBookings, setCompletedBookings] = useState([]);
   const [reviewForms, setReviewForms] = useState({});
+  const [errors, setErrors] = useState({});
   const auth = getAuth();
 
   const fadeIn = useSpring({
@@ -94,6 +96,9 @@ const UserProfilePage = () => {
           })
         );
 
+        // Sort bookings by date in descending order
+        bookingsData.sort((a, b) => new Date(b.date) - new Date(a.date));
+
         setCompletedBookings(bookingsData);
         setLoading(false);
       }
@@ -102,23 +107,43 @@ const UserProfilePage = () => {
     fetchUserData();
   }, [auth]);
 
+  const validateForm = () => {
+    const errors = {};
+    if (!/^[a-zA-Z]+$/.test(formData.firstName)) {
+      errors.firstName = "First name should contain only alphabets";
+    }
+    if (!/^[a-zA-Z]+$/.test(formData.lastName)) {
+      errors.lastName = "Last name should contain only alphabets";
+    }
+    if (!/^\d{10}$/.test(formData.phoneNumber)) {
+      errors.phoneNumber = "Phone number should be a 10 digit number";
+    }
+    if (!/[a-zA-Z]/.test(formData.address)) {
+      errors.address = "Address should contain at least one alphabet";
+    }
+    setErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
   const handleSaveClick = async () => {
-    setLoading(true);
-    try {
-      const userRef = doc(db, "users", auth.currentUser.uid);
-      await updateDoc(userRef, formData);
-      setUserData(formData);
-      setEditing(false);
-      console.log("Profile updated successfully");
-    } catch (error) {
-      console.error("Error updating profile:", error);
-    } finally {
-      setLoading(false);
+    if (validateForm()) {
+      setLoading(true);
+      try {
+        const userRef = doc(db, "users", auth.currentUser.uid);
+        await updateDoc(userRef, formData);
+        setUserData(formData);
+        setEditing(false);
+        console.log("Profile updated successfully");
+      } catch (error) {
+        console.error("Error updating profile:", error);
+      } finally {
+        setLoading(false);
+      }
     }
   };
 
@@ -189,6 +214,13 @@ const UserProfilePage = () => {
     });
   };
 
+  const handleStarClick = (bookingId, rating) => {
+    setReviewForms({
+      ...reviewForms,
+      [bookingId]: { ...reviewForms[bookingId], rating },
+    });
+  };
+
   const handleReviewSubmit = async (booking) => {
     const { description, rating } = reviewForms[booking.id] || {};
     if (description && rating) {
@@ -196,7 +228,7 @@ const UserProfilePage = () => {
         // Add the review to the "reviews" collection
         const reviewRef = await addDoc(collection(db, "reviews"), {
           description,
-          rating: Number(rating),
+          rating,
           userId: auth.currentUser.uid,
           serviceId: booking.serviceId,
           createdAt: new Date(),
@@ -212,7 +244,7 @@ const UserProfilePage = () => {
         const serviceRef = doc(db, "services", booking.serviceId);
         await updateDoc(serviceRef, {
           reviews: arrayUnion(reviewRef.id),
-          rating: increment(Number(rating)),
+          rating: increment(rating),
           count: increment(1),
         });
 
@@ -253,6 +285,15 @@ const UserProfilePage = () => {
       } catch (error) {
         console.error("Error submitting review:", error);
       }
+    } else {
+      const errors = {};
+      if (!description) {
+        errors.description = "Description is required";
+      }
+      if (!rating) {
+        errors.rating = "Rating is required";
+      }
+      setErrors(errors);
     }
   };
 
@@ -324,6 +365,11 @@ const UserProfilePage = () => {
                             onChange={handleInputChange}
                             className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                           />
+                          {errors.firstName && (
+                            <p className="text-red-500 text-xs italic">
+                              {errors.firstName}
+                            </p>
+                          )}
                         </div>
                         <div className="mb-4 w-full px-2">
                           <label
@@ -340,6 +386,11 @@ const UserProfilePage = () => {
                             onChange={handleInputChange}
                             className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                           />
+                          {errors.lastName && (
+                            <p className="text-red-500 text-xs italic">
+                              {errors.lastName}
+                            </p>
+                          )}
                         </div>
                         <div className="mb-4 w-full px-2">
                           <label
@@ -372,6 +423,11 @@ const UserProfilePage = () => {
                             onChange={handleInputChange}
                             className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                           />
+                          {errors.phoneNumber && (
+                            <p className="text-red-500 text-xs italic">
+                              {errors.phoneNumber}
+                            </p>
+                          )}
                         </div>
                         <div className="mb-4 w-full px-2">
                           <label
@@ -388,6 +444,11 @@ const UserProfilePage = () => {
                             onChange={handleInputChange}
                             className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                           />
+                          {errors.address && (
+                            <p className="text-red-500 text-xs italic">
+                              {errors.address}
+                            </p>
+                          )}
                         </div>
                         <div className="mb-4 w-full px-2">
                           <label
@@ -398,7 +459,7 @@ const UserProfilePage = () => {
                           </label>
                           <Autocomplete
                             apiKey="AIzaSyDjLpn8fDYOJJ9Yj7PVsJzslIiVfk2iiHg"
-                            className="border border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-custom-green focus:border-transparent"
+                            className="border border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                             options={{
                               componentRestrictions: { country: "in" },
                             }}
@@ -406,7 +467,7 @@ const UserProfilePage = () => {
                           />
                         </div>
                       </div>
-                      <div className="flex justify-center">
+                      <div className="flex justify-center mt-4">
                         <Button color="blue" onClick={handleSaveClick}>
                           Save
                         </Button>
@@ -422,31 +483,38 @@ const UserProfilePage = () => {
                   ) : (
                     <animated.div style={style}>
                       {/* Profile information */}
-                      <p className="text-gray-700 text-lg">
+                      <p className="text-gray-700 text-lg flex items-center">
+                        <FaUserEdit className="mr-2" />
                         <span className="font-bold">Username:</span>{" "}
                         {userData.username}
                       </p>
-                      <p className="text-gray-700 text-lg">
+                      <p className="text-gray-700 text-lg flex items-center">
+                        <FaEnvelope className="mr-2" />
                         <span className="font-bold">Email:</span>{" "}
                         {userData.email}
                       </p>
-                      <p className="text-gray-700 text-lg">
+                      <p className="text-gray-700 text-lg flex items-center">
+                        <FaUserEdit className="mr-2" />
                         <span className="font-bold">First Name:</span>{" "}
                         {userData.firstName}
                       </p>
-                      <p className="text-gray-700 text-lg">
+                      <p className="text-gray-700 text-lg flex items-center">
+                        <FaUserEdit className="mr-2" />
                         <span className="font-bold">Last Name:</span>{" "}
                         {userData.lastName}
                       </p>
-                      <p className="text-gray-700 text-lg">
+                      <p className="text-gray-700 text-lg flex items-center">
+                        <FaPhone className="mr-2" />
                         <span className="font-bold">Phone Number:</span>{" "}
                         {userData.phoneNumber}
                       </p>
-                      <p className="text-gray-700 text-lg">
+                      <p className="text-gray-700 text-lg flex items-center">
+                        <FaHome className="mr-2" />
                         <span className="font-bold">Address:</span>{" "}
                         {userData.address}
                       </p>
-                      <p className="text-gray-700 text-lg">
+                      <p className="text-gray-700 text-lg flex items-center">
+                        <FaMapMarkerAlt className="mr-2" />
                         <span className="font-bold">Locality:</span>{" "}
                         {userData.locality}
                       </p>
@@ -469,65 +537,92 @@ const UserProfilePage = () => {
                 <ul>
                   {completedBookings.map((booking) => (
                     <li key={booking.id} className="mb-4">
-                      <div className="bg-white shadow-md  rounded-lg p-4 mb-4 hover:shadow-lg transition-shadow duration-300">
-                      <p>
-                        <strong>Booking ID:</strong> {booking.id}
-                      </p>
-                      <p>
-                        <strong>Service Name:</strong> {booking.serviceName}
-                      </p>
-                      <p>
-                        <strong>Base Payment:</strong> {booking.basePayment}
-                      </p>
-                      <p>
-                        <strong>Extra Payment:</strong> {booking.extraPayment}
-                      </p>
-                      <p>
-                        <strong>Date:</strong> {booking.date}
-                      </p>
-                      {booking.isReview && booking.review ? (
-                        <div>
-                          <p>
-                            <strong>Review:</strong>{" "}
-                            {booking.review.description}
-                          </p>
-                          <p>
-                            <strong>Rating:</strong> {booking.review.rating}
-                          </p>
-                        </div>
-                      ) : (
-                        <div>
-                          <h3 className="text-lg font-semibold mb-2">
-                            Add Review
-                          </h3>
-                          <textarea
-                            name="description"
-                            value={reviewForms[booking.id]?.description || ""}
-                            onChange={(e) =>
-                              handleReviewInputChange(e, booking.id)
-                            }
-                            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500 mb-2 resize-none"
-                            placeholder="Enter your review..."
-                          ></textarea>
-                          <input
-                            type="number"
-                            name="rating"
-                            value={reviewForms[booking.id]?.rating || ""}
-                            onChange={(e) =>
-                              handleReviewInputChange(e, booking.id)
-                            }
-                            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500 mb-2"
-                            placeholder="Enter rating (1-5)"
-                          />
-                          <Button
-                            color="blue"
-                            size="sm"
-                            onClick={() => handleReviewSubmit(booking)}
-                          >
-                            Submit Review
-                          </Button>
-                        </div>
-                      )}
+                      <div className="bg-white shadow-md rounded-lg p-4 mb-4 hover:shadow-lg transition-shadow duration-300">
+                        <p>
+                          <strong>Booking ID:</strong> {booking.id}
+                        </p>
+                        <p>
+                          <strong>Service Name:</strong> {booking.serviceName}
+                        </p>
+                        <p>
+                          <strong>Base Payment:</strong> {booking.basePayment}
+                        </p>
+                        <p>
+                          <strong>Extra Payment:</strong> {booking.extraPayment}
+                        </p>
+                        <p>
+                          <strong>Date:</strong> {booking.date}
+                        </p>
+                        {booking.isReview && booking.review ? (
+                          <div>
+                            <p>
+                              <strong>Review:</strong>{" "}
+                              {booking.review.description}
+                            </p>
+                            <div className="flex">
+                              {[...Array(5)].map((_, i) => (
+                                <FaStar
+                                  key={i}
+                                  size={24}
+                                  color={
+                                    booking.review.rating > i
+                                      ? "#ffc107"
+                                      : "#e4e5e9"
+                                  }
+                                />
+                              ))}
+                            </div>
+                          </div>
+                        ) : (
+                          <div>
+                            <h3 className="text-lg font-semibold mb-2">
+                              Add Review
+                            </h3>
+                            <textarea
+                              name="description"
+                              value={reviewForms[booking.id]?.description || ""}
+                              onChange={(e) =>
+                                handleReviewInputChange(e, booking.id)
+                              }
+                              className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500 mb-2 resize-none"
+                              placeholder="Enter your review..."
+                            ></textarea>
+                            {errors.description && (
+                              <p className="text-red-500 text-xs italic">
+                                {errors.description}
+                              </p>
+                            )}
+                            <div className="flex mb-2">
+                              {[...Array(5)].map((_, i) => (
+                                <FaStar
+                                  key={i}
+                                  size={24}
+                                  color={
+                                    (reviewForms[booking.id]?.rating || 0) > i
+                                      ? "#ffc107"
+                                      : "#e4e5e9"
+                                  }
+                                  onClick={() =>
+                                    handleStarClick(booking.id, i + 1)
+                                  }
+                                  className="cursor-pointer"
+                                />
+                              ))}
+                            </div>
+                            {errors.rating && (
+                              <p className="text-red-500 text-xs italic">
+                                {errors.rating}
+                              </p>
+                            )}
+                            <Button
+                              color="blue"
+                              size="sm"
+                              onClick={() => handleReviewSubmit(booking)}
+                            >
+                              Submit Review
+                            </Button>
+                          </div>
+                        )}
                       </div>
                     </li>
                   ))}

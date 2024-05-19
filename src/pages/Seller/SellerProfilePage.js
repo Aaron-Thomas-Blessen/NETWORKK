@@ -154,14 +154,14 @@ const SellerProfilePage = () => {
     <div>
       <Navbar currentPage="sellerProfilePage" />
       {loading ? (
-        <div className="flex justify-center items-center h-screen">
+        <div className="mt-16 px-4 md:px-8 flex justify-center items-center h-screen">
           <ClipLoader size={100} color="#123abc" />
         </div>
       ) : (
         <animated.div style={fadeIn} className="container mx-auto mt-8 flex">
           <div className="w-1/2 pr-4 container">
             <animated.div
-              className="bg-white shadow-md container flex justify-center rounded-lg p-4 mb-4 hover:shadow-lg transition-shadow duration-300"
+              className="mt-16 px-4 md:px-8 bg-white shadow-md container flex justify-center rounded-lg p-4 mb-4 hover:shadow-lg transition-shadow duration-300"
               style={fadeIn}
             >
               <div className="">
@@ -335,7 +335,7 @@ const SellerProfilePage = () => {
           </div>
           <div className="container w-1/2 pl-4">
             <animated.div
-              className="bg-white shadow-md rounded-lg p-4 mb-4 hover:shadow-lg hover:bg-gray-100 transition duration-300"
+              className="mt-16 px-4 md:px-8 bg-white shadow-md rounded-lg p-4 mb-4 hover:shadow-lg hover:bg-gray-100 transition duration-300"
               style={fadeIn}
             >
               <div className="flex justify-end flex justify-center mb-4">

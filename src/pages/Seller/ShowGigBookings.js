@@ -129,12 +129,12 @@ const SellerBookingsPage = () => {
     <div>
       <Navbar currentPage="sellerBookingsPage"/>
       {loading ? (
-        <div className="flex justify-center items-center h-screen">
+        <div className="mt-16 px-4 md:px-8 flex justify-center items-center h-screen">
           <ClipLoader size={100} color="#123abc" />
         </div>
       ) : (
       <div className="container mx-auto mt-8">
-        <div className="gap-4">
+        <div className="mt-24 px-4 md:px-8 gap-4">
           {/* Pending Bookings */}
           <Collapsible open header="Pending Bookings">
             <div>

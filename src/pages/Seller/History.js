@@ -104,16 +104,16 @@ const History = () => {
       <Navbar />
       <div className="w-full px-4 pt-16">
         {loading ? (
-          <div className="flex justify-center items-center">
+          <div className="mt-16 px-4 md:px-8 flex justify-center items-center">
             <ClipLoader size={100} color="#3498db" />
           </div>
         ) : (
           <animated.div style={fadeIn}>
             {Object.keys(groupedBookings).length === 0 ? (
-              <p className="text-center text-gray-500">No Completed Bookings</p>
+              <p className="mt-16 px-4 md:px-8 text-center text-gray-500">No Completed Bookings</p>
             ) : (
               Object.keys(groupedBookings).map(serviceId => (
-                <div key={serviceId} className="p-2 bg-white rounded-2xl mb-4 shadow-lg">
+                <div key={serviceId} className="mt-8 px-4 md:px-8p-2 bg-white rounded-2xl mb-4 shadow-lg">
                   <Collapsible open header={serviceTitles[serviceId]}>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 px-4 pt-4 pb-2 text-sm text-gray-500">
                       {groupedBookings[serviceId].map(booking => (

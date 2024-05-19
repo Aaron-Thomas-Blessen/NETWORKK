@@ -39,21 +39,21 @@ const Navbar = () => {
 
   const userLinks = () => (
     <>
-      <li className="px-4 py-2"><Link to="/" className="hover:text-gray-300 transition-colors">Home</Link></li>
-      <li className="px-4 py-2"><Link to="/search" className="hover:text-gray-300 transition-colors">Search</Link></li>
-      <li className="px-4 py-2"><Link to="/showBookings" className="hover:text-gray-300 transition-colors">Bookings</Link></li>
-      <li className="px-4 py-2"><Link to="/userProfilePage" className="hover:text-gray-300 transition-colors">Profile</Link></li>
-      <li className="px-4 py-2 cursor-pointer hover:text-gray-300 transition-colors" onClick={handleLogout}>Logout</li>
+      <li className="px-4 py-2 text-lg"><Link to="/" className="hover:text-gray-300 transition-colors">Home</Link></li>
+      <li className="px-4 py-2 text-lg"><Link to="/search" className="hover:text-gray-300 transition-colors">Search</Link></li>
+      <li className="px-4 py-2 text-lg"><Link to="/showBookings" className="hover:text-gray-300 transition-colors">Bookings</Link></li>
+      <li className="px-4 py-2 text-lg"><Link to="/userProfilePage" className="hover:text-gray-300 transition-colors">Profile</Link></li>
+      <li className="px-4 py-2 text-lg cursor-pointer hover:text-gray-300 transition-colors" onClick={handleLogout}>Logout</li>
     </>
   );
 
   const serviceProviderLinks = () => (
     <>
-      <li className="px-4 py-2"><Link to="/" className="hover:text-gray-300 transition-colors">Home</Link></li>
-      <li className="px-4 py-2"><Link to="/showSellerBookings" className="hover:text-gray-300 transition-colors">Bookings</Link></li>
-      <li className="px-4 py-2"><Link to="/history" className="hover:text-gray-300 transition-colors">History</Link></li>
-      <li className="px-4 py-2"><Link to="/SellerProfilePage" className="hover:text-gray-300 transition-colors">Profile</Link></li>
-      <li className="px-4 py-2 cursor-pointer hover:text-gray-300 transition-colors" onClick={handleLogout}>Logout</li>
+      <li className="px-4 py-2 text-lg"><Link to="/" className="hover:text-gray-300 transition-colors">Home</Link></li>
+      <li className="px-4 py-2 text-lg"><Link to="/showSellerBookings" className="hover:text-gray-300 transition-colors">Bookings</Link></li>
+      <li className="px-4 py-2 text-lg"><Link to="/history" className="hover:text-gray-300 transition-colors">History</Link></li>
+      <li className="px-4 py-2 text-lg"><Link to="/SellerProfilePage" className="hover:text-gray-300 transition-colors">Profile</Link></li>
+      <li className="px-4 py-2 text-lg cursor-pointer hover:text-gray-300 transition-colors" onClick={handleLogout}>Logout</li>
     </>
   );
 
@@ -61,9 +61,9 @@ const Navbar = () => {
     if (!user) {
       return (
         <>
-          <li className="px-4 py-2"><Link to="/" className="hover:text-gray-800 transition-colors">Home</Link></li>
-          <li className="px-4 py-2"><Link to="/signup" className="hover:text-gray-800 transition-colors">SignUp</Link></li>
-          <li className="px-4 py-2"><Link to="/signin" className="hover:text-gray-800 transition-colors">SignIn</Link></li>
+          <li className="px-4 py-2 text-lg"><Link to="/" className="hover:text-gray-800 transition-colors">Home</Link></li>
+          <li className="px-4 py-2 text-lg"><Link to="/signup" className="hover:text-gray-800 transition-colors">SignUp</Link></li>
+          <li className="px-4 py-2 text-lg"><Link to="/signin" className="hover:text-gray-800 transition-colors">SignIn</Link></li>
         </>
       );
     } else {

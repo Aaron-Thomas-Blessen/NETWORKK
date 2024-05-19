@@ -143,12 +143,12 @@ const ProfileDashboard = () => {
     <div>
       <Navbar />
       {loading ? (
-        <div className="flex justify-center items-center h-screen">
+        <div className="mt-16 px-4 md:px-8 flex justify-center items-center h-screen">
           <ClipLoader size={100} color="#123abc" />
         </div>
       ) : (
         <animated.div style={animatedProps} className="min-h-screen bg-gray-100">
-      <div className="container mx-auto p-8">
+      <div className="mt-16 px-4 md:px-8 container mx-auto p-8">
         <div className="flex flex-col md:flex-row gap-8">
           {/* Left Side - 3/5th space */}
           <div className="md:w-3/5">

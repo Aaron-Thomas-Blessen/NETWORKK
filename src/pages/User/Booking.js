@@ -7,6 +7,7 @@ import { useUser } from '../../Context/Context';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useSpring, animated, config } from 'react-spring';
 import ClipLoader from 'react-spinners/ClipLoader';
+import { FaCalendarAlt, FaMapMarkerAlt, FaFileAlt } from 'react-icons/fa';
 
 const Booking = () => {
   const { selectedGig } = useGig();
@@ -18,6 +19,7 @@ const Booking = () => {
   const [basePrice, setBasePrice] = useState('');
   const [address, setAddress] = useState('');
   const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState({});
 
   useEffect(() => {
     if (selectedGig) {
@@ -25,7 +27,23 @@ const Booking = () => {
     }
   }, [selectedGig]);
 
+  const validateFields = () => {
+    const newErrors = {};
+    if (!address.trim()) {
+      newErrors.address = 'Address is required';
+    }
+    if (!description.trim()) {
+      newErrors.description = 'Description is required';
+    }
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handleConfirm = async () => {
+    if (!validateFields()) {
+      return;
+    }
+
     setLoading(true);
     try {
       const basePriceNumber = parseFloat(basePrice);
@@ -64,16 +82,18 @@ const Booking = () => {
   });
 
   return (
-    <div className="Booking min-h-screen bg-gray-100">
+    <div className="Booking min-h-screen">
       <Navbar />
-      <div className="flex flex-col md:flex-row justify-center items-start mt-8 mx-4">
+      <div className="mt-24 px-4 md:px-8 flex flex-col md:flex-row justify-center items-start gap-8">
         <animated.div style={formAnimation} className="w-full max-w-4xl p-4 md:p-8 border rounded-lg shadow-lg bg-white mb-4 md:mb-0">
           <div className="Appointment">
             <div>
               <h1 className="text-3xl font-bold mb-4 md:mb-8 text-center">Book Appointment</h1>
             </div>
             <div className="mb-4">
-              <label htmlFor="date" className="block text-sm font-medium text-gray-700 mb-2">Date</label>
+              <label htmlFor="date" className="block text-sm font-medium text-gray-700 mb-2">
+                <FaCalendarAlt className="inline mr-2" /> Date
+              </label>
               <input 
                 type="date" 
                 id="date"
@@ -83,7 +103,9 @@ const Booking = () => {
               />
             </div>
             <div className="mb-4">
-              <label htmlFor="address" className="block text-sm font-medium text-gray-700 mb-2">Address</label>
+              <label htmlFor="address" className="block text-sm font-medium text-gray-700 mb-2">
+                <FaMapMarkerAlt className="inline mr-2" /> Address
+              </label>
               <input 
                 type="text" 
                 id="address"
@@ -92,9 +114,12 @@ const Booking = () => {
                 placeholder="Input the Exact Address" 
                 className="block w-full p-3 border rounded-lg shadow-sm focus:ring focus:ring-blue-200 focus:border-blue-500"
               />
+              {errors.address && <p className="text-red-500 text-sm mt-1">{errors.address}</p>}
             </div>
             <div className="mb-4">
-              <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-2">Description</label>
+              <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-2">
+                <FaFileAlt className="inline mr-2" /> Description
+              </label>
               <textarea 
                 id="description"
                 value={description} 
@@ -103,10 +128,11 @@ const Booking = () => {
                 className="block w-full p-3 border rounded-lg shadow-sm focus:ring focus:ring-blue-200 focus:border-blue-500"
                 rows="4"
               />
+              {errors.description && <p className="text-red-500 text-sm mt-1">{errors.description}</p>}
             </div>
           </div>
         </animated.div>
-        <div className="w-full max-w-xs p-4 md:p-8 bg-gray-200 rounded-lg shadow-lg">
+        <animated.div style={formAnimation} className="w-full max-w-xs p-4 md:p-8 bg-gray-200 rounded-lg shadow-lg">
           <div className="confirm text-center">
             <h1 className="text-2xl font-bold mb-4 md:mb-8">Amount Details</h1>
             <p className="text-3xl font-semibold text-gray-800 mb-4 md:mb-8">Base Price: Rs.{basePrice}</p>
@@ -120,7 +146,7 @@ const Booking = () => {
               </button>
             </animated.div>
           </div>
-        </div>
+        </animated.div>
       </div>
     </div>
   );

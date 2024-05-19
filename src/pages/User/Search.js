@@ -8,6 +8,8 @@ import { format, isToday, parseISO } from 'date-fns';
 import { useNavigate } from 'react-router-dom';
 import ClipLoader from "react-spinners/ClipLoader";
 import { useSpring, animated, config } from 'react-spring';
+import { FaSearch, FaStar } from 'react-icons/fa';
+import 'tailwindcss/tailwind.css';
 
 const GigSearch = () => {
     const { user } = useUser();
@@ -33,7 +35,6 @@ const GigSearch = () => {
         const gigsData = gigsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
         setGigs(gigsData);
 
-        // Extract unique categories from gigs data
         const uniqueCategories = [...new Set(gigsData.map(gig => gig.category))];
         setCategories(uniqueCategories);
     };
@@ -78,9 +79,6 @@ const GigSearch = () => {
         const searchTextPart = searchParams.searchText.slice(1, 5);
         const searchDate = parseISO(searchParams.date);
 
-        console.log("User Location:", { userLat, userLng });
-        console.log("Search Params:", { searchTextPart, searchDate });
-
         const distances = gigs.map(gig => {
             const gigLat = parseFloat(gig.latitude);
             const gigLng = parseFloat(gig.longitude);
@@ -93,8 +91,6 @@ const GigSearch = () => {
             const distance = haversineDistance(userLat, userLng, gigLat, gigLng);
             return { id: gig.id, distance, gig };
         }).filter(item => item !== null);
-
-        console.log("Distances:", distances);
 
         const filtered = distances.filter(({ distance, gig }) => {
             if (gig.status !== "Accepted") {
@@ -114,8 +110,6 @@ const GigSearch = () => {
             }
             return false;
         });
-
-        console.log("Filtered:", filtered);
 
         const sorted = filtered.sort((a, b) => {
             if (searchParams.sortPrice === 'asc') {
@@ -147,95 +141,108 @@ const GigSearch = () => {
     });
 
     return (
-        <div className="GigSearch">
+        <div className="GigSearch w-full">
             <Navbar />
             <div className="mt-24 px-4 md:px-8 flex flex-col items-center justify-center">
-                <animated.div style={formAnimation} className="w-full max-w-lg bg-white shadow-md rounded-lg p-6">
+                <animated.div style={formAnimation} className="w-full max-w-6xl bg-white shadow-md rounded-lg p-6">
                     <h1 className="text-3xl text-center mb-6 font-semibold text-gray-700">Search for Services</h1>
                     <form onSubmit={(e) => { e.preventDefault(); handleSearch(); }}>
-                        <div className="mb-4">
-                            <label htmlFor="date" className="block text-sm font-medium text-gray-700">Date</label>
-                            <input 
-                                type="date" 
-                                id="date" 
-                                name="date" 
-                                value={searchParams.date} 
-                                onChange={handleChange} 
-                                min={format(new Date(), 'yyyy-MM-dd')}
-                                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                            />
-                        </div>
-                        <div className="mb-4">
-                            <label htmlFor="searchText" className="block text-sm font-medium text-gray-700">Search Text</label>
-                            <input 
-                                type="text" 
-                                id="searchText" 
-                                name="searchText" 
-                                value={searchParams.searchText} 
-                                onChange={handleChange} 
-                                placeholder="Enter search text" 
-                                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                                onFocus={() => setShowDropdown(true)}
-                            />
-                            {showDropdown && (
-                                <ul className="bg-white border border-gray-300 rounded-md shadow-lg mt-1 max-h-40 overflow-auto">
-                                    {categories
-                                        .filter(category => category.toLowerCase().includes(searchParams.searchText.toLowerCase()))
-                                        .map((category, index) => (
-                                            <li 
-                                                key={index} 
-                                                className="cursor-pointer px-4 py-2 hover:bg-gray-100"
-                                                onClick={() => handleCategorySelect(category)}
-                                            >
-                                                {category}
-                                            </li>
-                                        ))
-                                    }
-                                </ul>
-                            )}
-                        </div>
-                        <div className="mb-4">
-                            <label htmlFor="sortPrice" className="block text-sm font-medium text-gray-700">Sort by Price</label>
-                            <select 
-                                id="sortPrice" 
-                                name="sortPrice" 
-                                value={searchParams.sortPrice} 
-                                onChange={handleChange} 
-                                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                            >
-                                <option value="asc">Ascending</option>
-                                <option value="desc">Descending</option>
-                            </select>
+                        <div className="flex flex-wrap gap-4 mb-4 w-full">
+                            <div className="flex flex-col flex-grow">
+                                <label htmlFor="date" className="block text-sm font-medium text-gray-700">Date</label>
+                                <input 
+                                    type="date" 
+                                    id="date" 
+                                    name="date" 
+                                    value={searchParams.date} 
+                                    onChange={handleChange} 
+                                    min={format(new Date(), 'yyyy-MM-dd')}
+                                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                                />
+                            </div>
+                            <div className="flex flex-col flex-grow">
+                                <label htmlFor="searchText" className="block text-sm font-medium text-gray-700">Search Text</label>
+                                <div className="relative">
+                                    <input 
+                                        type="text" 
+                                        id="searchText" 
+                                        name="searchText" 
+                                        value={searchParams.searchText} 
+                                        onChange={handleChange} 
+                                        placeholder="Enter search text" 
+                                        className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                                        onFocus={() => setShowDropdown(true)}
+                                    />
+                                    {showDropdown && (
+                                        <ul className="absolute z-10 bg-white border border-gray-300 rounded-md shadow-lg mt-1 max-h-40 w-full overflow-auto">
+                                            {categories
+                                                .filter(category => category.toLowerCase().includes(searchParams.searchText.toLowerCase()))
+                                                .map((category, index) => (
+                                                    <li 
+                                                        key={index} 
+                                                        className="cursor-pointer px-4 py-2 hover:bg-gray-100"
+                                                        onClick={() => handleCategorySelect(category)}
+                                                    >
+                                                        {category}
+                                                    </li>
+                                                ))
+                                            }
+                                        </ul>
+                                    )}
+                                </div>
+                            </div>
+                            <div className="flex flex-col flex-grow">
+                                <label htmlFor="sortPrice" className="block text-sm font-medium text-gray-700">Sort by Price</label>
+                                <select 
+                                    id="sortPrice" 
+                                    name="sortPrice" 
+                                    value={searchParams.sortPrice} 
+                                    onChange={handleChange} 
+                                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                                >
+                                    <option value="asc">Ascending</option>
+                                    <option value="desc">Descending</option>
+                                </select>
+                            </div>
                         </div>
                         <div className="flex justify-center">
-                            <input 
+                            <button 
                                 type="submit" 
-                                value="Search" 
-                                className="bg-blue-600 text-white px-6 py-2 rounded-md shadow hover:bg-blue-700 cursor-pointer text-lg"
-                            />
+                                className="bg-blue-600 text-white px-6 py-2 rounded-md shadow hover:bg-blue-700 cursor-pointer text-lg flex items-center"
+                            >
+                                <FaSearch className="mr-2" />
+                                Search
+                            </button>
                         </div>
                     </form>
                 </animated.div>
-                <div className="results-container mt-8 w-full max-w-2xl">
+                <div className="results-container mt-8 w-full max-w-6xl">
                     {loading ? (
                         <div className="flex justify-center items-center">
                             <ClipLoader size={50} color={"#123abc"} loading={loading} />
                         </div>
                     ) : filteredGigs.length > 0 ? (
-                        <animated.ul style={resultsAnimation} className="space-y-4">
+                        <animated.ul style={resultsAnimation} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                             {filteredGigs.map(gig => (
                                 <li 
                                     key={gig.id} 
-                                    className="bg-white shadow-md rounded-lg p-6 cursor-pointer hover:bg-gray-100 mb-8 transition" 
+                                    className="bg-white shadow-md rounded-lg overflow-hidden cursor-pointer hover:bg-gray-100 transition" 
                                     onClick={() => handleBookNow(gig)}
                                 >
-                                    <h2 className="text-xl font-bold text-gray-800">{gig.title}</h2>
-                                    <p className="text-gray-600"><strong>Category:</strong> {gig.category}</p>
-                                    <p className="text-gray-600"><strong>Base Price:</strong> Rs {gig.basePrice}</p>
-                                    <p className="text-gray-600"><strong>Description:</strong> {gig.description}</p>
-                                    <p className="text-gray-600"><strong>Email:</strong> {gig.email}</p>
-                                    <p className="text-gray-600"><strong>Phone Number:</strong> {gig.phoneNumber}</p>
-                                    <p className="text-gray-600"><strong>Address:</strong> {gig.address}</p>
+                                    <img src={gig.demoPics[0]} alt={gig.title} className="w-full h-32 object-cover" />
+                                    <div className="flex flex-col w-full">
+                                        <h2 className="text-xl font-bold text-gray-800">{gig.title}</h2>
+                                        <p className="text-gray-600"><strong>Category:</strong> {gig.category}</p>
+                                        <p className="text-gray-600"><strong>Base Price:</strong> Rs {gig.basePrice}</p>
+                                        <p className="text-gray-600"><strong>Description:</strong> {gig.description}</p>
+                                        <p className="text-gray-600"><strong>Email:</strong> {gig.email}</p>
+                                        <p className="text-gray-600"><strong>Phone Number:</strong> {gig.phoneNumber}</p>
+                                        <p className="text-gray-600"><strong>Address:</strong> {gig.address}</p>
+                                        <div className="flex items-center mt-2">
+                                            <FaStar className="text-yellow-500" />
+                                            <span className="ml-1 text-gray-600">{gig.avgRat ? gig.avgRat : '-'} ({gig.count ? gig.count : '-'})</span>
+                                        </div>
+                                    </div>
                                 </li>
                             ))}
                         </animated.ul>

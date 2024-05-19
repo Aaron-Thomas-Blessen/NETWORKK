@@ -54,7 +54,7 @@ const Searches = () => {
                   onClick={() => handleGigClick(gig)}
                 >
                   <img
-                    src={gig.demoPics[0] || 'path/to/default/demoImage.png'} // Ensure to provide a default image path
+                    src={ gig.demoPics[0] } 
                     alt="Gig Demo"
                     className="w-full h-32 object-cover"
                   />

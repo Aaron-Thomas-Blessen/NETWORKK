@@ -17,6 +17,7 @@ const PaymentPage = () => {
   const [additionalPay, setAdditionalPay] = useState("");
   const [basePay, setBasePay] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState({});
 
   useEffect(() => {
     const fetchBasePay = async () => {
@@ -35,16 +36,41 @@ const PaymentPage = () => {
     fetchBasePay();
   }, [serviceId]);
 
+  const validateForm = () => {
+    const newErrors = {};
+    const upiRegex = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+$/;
+
+    if (!upi) {
+      newErrors.upi = "UPI ID is required";
+    } else if (!upiRegex.test(upi)) {
+      newErrors.upi = "Invalid UPI ID format";
+    }
+
+    if (!additionalPay) {
+      newErrors.additionalPay = "Additional payment is required";
+    } else if (isNaN(additionalPay)) {
+      newErrors.additionalPay = "Additional payment must be a number";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handlePayment = async () => {
+    if (!validateForm()) {
+      return;
+    }
+
     setLoading(true);
     try {
+      const additionalPaymentNumber = Number(additionalPay);
       await addDoc(collection(db, "payments"), {
         userId,
         serviceProviderId,
         serviceId,
         bookingId,
         basePay,
-        additionalPay: Number(additionalPay),
+        additionalPay: additionalPaymentNumber,
         upi,
         timestamp: new Date(),
       });
@@ -52,9 +78,9 @@ const PaymentPage = () => {
       await updateDoc(doc(db, "bookings", bookingId), {
         bookingStatus: "Completed",
         paymentStatus: "Completed",
+        extraPayment: additionalPaymentNumber,
       });
 
-      // Show success message
       toast.success("Payment successful!");
 
       setTimeout(() => {
@@ -62,7 +88,6 @@ const PaymentPage = () => {
       }, 3000);
     } catch (error) {
       console.error("Error processing payment:", error);
-      // Show error message
       toast.error("Payment failed. Please try again later.");
     } finally {
       setLoading(false);
@@ -79,13 +104,13 @@ const PaymentPage = () => {
     <div>
       <Navbar />
       {loading ? (
-        <div className="flex justify-center items-center h-screen">
+        <div className="mt-16 px-4 md:px-8 flex justify-center items-center h-screen">
           <ClipLoader size={100} color="#123abc" />
         </div>
       ) : (
         <animated.div
           style={fade}
-          className="PaymentPage container mx-auto px-4 py-8"
+          className="mt-16 px-4 md:px-8 PaymentPage container mx-auto px-4 py-8"
         >
           <animated.div
             style={shadow}
@@ -108,6 +133,7 @@ const PaymentPage = () => {
                 className="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 placeholder="Enter your UPI ID"
               />
+              {errors.upi && <p className="text-red-500 text-sm">{errors.upi}</p>}
             </div>
             <div className="mb-4">
               <label
@@ -127,7 +153,7 @@ const PaymentPage = () => {
               >
                 Additional Payment:
               </label>
-                Rs <input
+              <input
                 id="additionalPay"
                 type="number"
                 value={additionalPay}
@@ -135,6 +161,9 @@ const PaymentPage = () => {
                 className="mt-1 p-2 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 placeholder="Enter additional payment amount"
               />
+              {errors.additionalPay && (
+                <p className="text-red-500 text-sm">{errors.additionalPay}</p>
+              )}
             </div>
             <button
               onClick={handlePayment}

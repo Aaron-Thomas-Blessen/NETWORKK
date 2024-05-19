@@ -7,6 +7,7 @@ import Navbar from '../components/nav';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
+import ClipLoader from "react-spinners/ClipLoader";
 
 // Validation schema using Yup
 const schema = yup.object().shape({
@@ -22,13 +23,14 @@ const schema = yup.object().shape({
 const SignUp = () => {
   const navigate = useNavigate();
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);  // Added loading state
   const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(schema),
   });
 
   const onSubmit = async (data) => {
     setError('');
-
+    setLoading(true);  // Set loading to true when sign-up starts
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, data.email, data.password);
       const user = userCredential.user;
@@ -40,6 +42,7 @@ const SignUp = () => {
       });
 
       const userDoc = await getDoc(doc(db, 'users', user.uid));
+      setLoading(false);  // Set loading to false when sign-up succeeds
       if (userDoc.exists()) {
         const userData = userDoc.data();
         if (userData.isUser) {
@@ -50,6 +53,7 @@ const SignUp = () => {
         }
       }
     } catch (error) {
+      setLoading(false);  // Set loading to false when sign-up fails
       console.error('Error signing up:', error.message);
       setError(error.message);
     }
@@ -89,6 +93,7 @@ const SignUp = () => {
                   id="email-address"
                   name="email"
                   type="email"
+                  autoComplete="email"
                   className="appearance-none relative block w-full px-3 py-2 mb-4 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm font-bold font-jakarta-sans"
                   placeholder="Email"
                   {...register('email')}
@@ -101,7 +106,8 @@ const SignUp = () => {
                   id="password"
                   name="password"
                   type="password"
-                  className="appearance-none relative block w-full px-3 py-2 mb-4 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm.text-sm font-bold font-jakarta-sans"
+                  autoComplete="current-password"
+                  className="appearance-none relative block w-full px-3 py-2 mb-4 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm font-bold font-jakarta-sans"
                   placeholder="Password"
                   {...register('password')}
                 />
@@ -131,13 +137,18 @@ const SignUp = () => {
               <button
                 type="submit"
                 className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                disabled={loading}  // Disable the button when loading
               >
-                Sign Up
+                {loading ? (
+                  <ClipLoader size={20} color={"#ffffff"} />
+                ) : (
+                  "Sign Up"
+                )}
               </button>
             </div>
             {error && (
-              <div className="error-message flex justify-center">
-                <p className="text-red-500">{error}</p>
+              <div className="error-message flex justify-center p-2 bg-red-100 border border-red-400 rounded">
+                <p>{error}</p>
               </div>
             )}
           </form>

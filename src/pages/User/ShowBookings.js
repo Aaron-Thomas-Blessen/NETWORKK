@@ -74,7 +74,7 @@ const BookingsPage = () => {
   return (
     <div className="BookingsPage">
       <Navbar />
-      <div className="mt-20 px-4 md:px-8">
+      <div className="mt-24 px-4 md:px-8">
         {loading ? (
           <div className="flex justify-center items-center h-screen">
             <ClipLoader size={100} color="#123abc" />
