@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { db, storage } from "../../Firebase/Firebase";
-import { doc, collection, getDocs, getDoc, updateDoc } from "firebase/firestore";
+import { doc, collection, getDocs, getDoc, updateDoc, query, where } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { ref as storageRef, uploadBytes, getDownloadURL, deleteObject } from "firebase/storage";
 import { Button } from "@material-tailwind/react";
 import { ClipLoader } from "react-spinners";
 import Navbar from "../../components/nav";
 import { Link, useNavigate } from "react-router-dom";
-import Gigscomp from "../../components/Gigscomp";
 import Autocomplete from "react-google-autocomplete";
 import { useSpring, animated, useTransition } from "@react-spring/web";
+import { useGig } from "../../Context/GigContext";
+import Gigscomp from "../../components/Gigscomp";
 
 const SellerProfilePage = () => {
   const [loading, setLoading] = useState(true);
@@ -20,6 +21,7 @@ const SellerProfilePage = () => {
   const [gigs, setGigs] = useState([]);
   const auth = getAuth();
   const navigate = useNavigate();
+  const { selectGig } = useGig();
 
   const fadeIn = useSpring({
     opacity: loading ? 0 : 1,
@@ -56,13 +58,15 @@ const SellerProfilePage = () => {
     const fetchGigs = async () => {
       const currentUser = auth.currentUser;
       if (currentUser) {
-        // Fetch gigs data here
-        const gigsRef = collection(db, "gigs");
-        const gigsSnap = await getDocs(gigsRef);
+        const gigsRef = collection(db, "services");
+        const q = query(gigsRef, where("serviceProviderId", "==", currentUser.uid));
+        const gigsSnap = await getDocs(q);
         const gigsData = gigsSnap.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
         }));
+
+        console.log("Fetched gigs data: ", gigsData); // Add this line to log fetched gigs
         setGigs(gigsData);
       }
     };
@@ -146,8 +150,9 @@ const SellerProfilePage = () => {
     setFormData({ ...formData, locality: address, latitude, longitude });
   };
 
-  const handleGigClick = (gigId) => {
-    navigate(`/GigDetails/${gigId}`);
+  const handleGigClick = (gig) => {
+    selectGig(gig);
+    navigate("/ProfileDashboard");
   };
 
   return (
@@ -200,7 +205,7 @@ const SellerProfilePage = () => {
                             Locality:
                           </label>
                           <Autocomplete
-                            apiKey="AIzaSyDjLpn8fDYOJJ9Yj7PVsJzslIiVfk2iiHg"
+                            apiKey="YOUR_GOOGLE_MAPS_API_KEY"
                             className="border border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-custom-green focus:border-transparent"
                             options={{
                               componentRestrictions: { country: "in" },
@@ -347,7 +352,11 @@ const SellerProfilePage = () => {
                 </Link>
               </div>
               <div>
-                <Gigscomp gigs={gigs} onGigClick={handleGigClick} />
+                {gigs.length > 0 ? (
+                  <Gigscomp gigs={gigs} onGigClick={handleGigClick} />
+                ) : (
+                  <p>No gigs available.</p>
+                )}
               </div>
             </animated.div>
           </div>

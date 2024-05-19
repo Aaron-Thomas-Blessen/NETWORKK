@@ -68,7 +68,7 @@ const AdminGigs = () => {
     return (
         <div>
             <Navbarsign />
-            <div className="container mx-auto p-4">
+            <div className="mt-20 px-4 md:px-8 container mx-auto p-4">
                 {loading ? (
                     <div className="flex justify-center items-center h-80">
                         <ClipLoader size={50} color={"#123abc"} loading={loading} />

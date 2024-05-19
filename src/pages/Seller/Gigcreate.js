@@ -64,7 +64,6 @@ const Gigcreate = () => {
         const locality = place.formatted_address;
         const latitude = place.geometry.location.lat();
         const longitude = place.geometry.location.lng();
-        console.log("Place selected:", { locality, latitude, longitude });
         setGigData(prevState => ({
             ...prevState,
             locality,
@@ -80,22 +79,62 @@ const Gigcreate = () => {
     };
 
     const validateForm = () => {
-        const { title, category, basePrice, description, email, phoneNumber, address, locality } = gigData;
-        return title && category && basePrice && description && email && phoneNumber && address && locality;
+        const { title, category, basePrice, description, email, phoneNumber, address, locality, demoPics, gigPdf } = gigData;
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const phoneRegex = /^\d{10}$/;
+        const addressRegex = /[a-zA-Z]/;
+        if (!title || !/^[a-zA-Z\s]+$/.test(title)) {
+            setError("Title should only contain alphabets.");
+            return false;
+        }
+        if (!category) {
+            setError("Please select a category.");
+            return false;
+        }
+        if (!basePrice || isNaN(basePrice)) {
+            setError("Enter valid Base Price.");
+            return false;
+        }
+        if (!description) {
+            setError("Please enter a description.");
+            return false;
+        }
+        if (!email || !emailRegex.test(email)) {
+            setError("Please enter a valid email address.");
+            return false;
+        }
+        if (!phoneNumber || !phoneRegex.test(phoneNumber)) {
+            setError("Phone number should be exactly 10 digits.");
+            return false;
+        }
+        if (!address || !addressRegex.test(address)) {
+            setError("Please enter valid address.");
+            return false;
+        }
+        if (!locality) {
+            setError("Please enter a locality.");
+            return false;
+        }
+        if (demoPics.length === 0) {
+            setError("Please upload at least one demo pic.");
+            return false;
+        }
+        if (!gigPdf) {
+            setError("Please upload a PDF.");
+            return false;
+        }
+        return true;
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!validateForm()) {
-            setError("Please fill out all fields before submitting.");
             return;
         }
 
         setLoading(true);
         const db = getFirestore();
         const storage = getStorage();
-
-        console.log("Submitting gig with data:", gigData);
 
         try {
             // Upload demo pics to Cloud Storage
@@ -119,16 +158,19 @@ const Gigcreate = () => {
             await addDoc(collection(db, 'services'), {
                 ...gigData,
                 serviceProviderId: user.uid,
+                username: user.username,
+                firstName: user.firstName,
+                lastName: user.lastName,
                 status: "Pending",
+                basePrice: Number(gigData.basePrice),
                 demoPics: demoPicsUrls,
                 gigPdf: gigPdfUrl,
             });
 
-            console.log('Gig created successfully');
             navigate(-1); // Redirect to home page after gig creation
         } catch (error) {
             console.error('Error creating gig: ', error);
-            // Handle error
+            setError('Error creating gig. Please try again.');
         } finally {
             setLoading(false);
         }
@@ -148,7 +190,7 @@ const Gigcreate = () => {
     return (
         <div className="Gigcreate">
             <Navbar />
-            <div className="flex flex-col items-center justify-center mt-8">
+            <div className="mt-24 px-4 md:px-8 flex flex-col items-center justify-center">
                 <animated.div style={formAnimation} className="gig-container rounded-lg p-8 mb-8 w-96 border border-gray-400 rounded-l-md">
                     <div className="gigcreate">
                         <h1 className="text-3xl text-center mb-4">Create your Service</h1>
@@ -193,7 +235,7 @@ const Gigcreate = () => {
                         <div className="giglocality mb-4">
                             <label htmlFor="locality" className="block">Locality</label>
                             <Autocomplete
-                                apiKey="AIzaSyDjLpn8fDYOJJ9Yj7PVsJzslIiVfk2iiHg"
+                                apiKey="YOUR_GOOGLE_API_KEY"
                                 className="border border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-custom-green focus:border-transparent"
                                 options={{ componentRestrictions: { country: "in" } }}
                                 onPlaceSelected={handlePlaceSelected}

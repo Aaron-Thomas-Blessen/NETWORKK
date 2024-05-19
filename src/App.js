@@ -23,6 +23,7 @@ import ProfileDashboardPage from './pages/Seller/ProfileDashboardPage';
 import SellerBookingsPage from "./pages/Seller/ShowGigBookings";
 import History from "./pages/Seller/History";
 
+import AdminLogin from "./pages/Admin/AdminLog";
 import AdminGigs from "./pages/Admin/AdminGigs";
 import AdminBookings from "./pages/Admin/AdminBookings";
 import AdminPaymentDetails from "./pages/Admin/AdminPayments";
@@ -39,6 +40,7 @@ const App = () => {
           <Route path="/signin" element={<SignIn />}></Route>
           <Route path="/searches" element={<Searches />}></Route>
 
+          <Route path="/Admin" element={ <AdminLogin /> }></Route>
           <Route path="/Admingigs" element={<AdminProtected> <AdminGigs /> </AdminProtected>}></Route>
           <Route path="/Adminbookings" element={<AdminProtected> <AdminBookings /> </AdminProtected>}></Route>
           <Route path="/Adminpayments" element={<AdminProtected> <AdminPaymentDetails /> </AdminProtected>}></Route>

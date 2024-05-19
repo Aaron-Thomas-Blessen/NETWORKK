@@ -68,8 +68,8 @@ const SignIn = () => {
       const errorCode = error.code;
       const errorMessage = error.message;
       console.log(errorCode, errorMessage);
-      if (errorCode === 'auth/wrong-password') {
-        setError('The password entered is incorrect.');
+      if (errorCode === 'auth/invalid-credential') {
+        setError('Wrong Credentials Entered');
       } else {
         setError(errorMessage);  // Ensure the error message is set correctly
       }

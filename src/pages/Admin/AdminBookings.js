@@ -10,14 +10,20 @@ const AdminBookings = () => {
   const [bookings, setBookings] = useState([]);
 
   useEffect(() => {
-    const unsubscribe = onSnapshot(collection(db, 'bookings'), (snapshot) => {
-      const bookingsData = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-      setBookings(bookingsData);
-      setLoading(false);
-    }, (error) => {
-      console.error("Error fetching data: ", error);
-      setLoading(false);
-    });
+    const unsubscribe = onSnapshot(
+      collection(db, 'bookings'),
+      (snapshot) => {
+        const bookingsData = snapshot.docs
+          .map((doc) => ({ id: doc.id, ...doc.data() }))
+          .sort((a, b) => b.date.localeCompare(a.date));
+        setBookings(bookingsData);
+        setLoading(false);
+      },
+      (error) => {
+        console.error('Error fetching data: ', error);
+        setLoading(false);
+      }
+    );
 
     return () => unsubscribe();
   }, []);
@@ -49,34 +55,34 @@ const AdminBookings = () => {
 
   return (
     <div>
-        <Navbarsign />
-    <animated.div style={fadeIn} className="p-5">
-      <h2 className="text-2xl font-bold mb-5">Booking Details</h2>
-      {bookings.map((booking) => (
-        <animated.div
-          key={booking.id}
-          className="p-5 mb-5 bg-white rounded-lg shadow-md hover:shadow-lg transform transition duration-300"
-          style={hoverEffect.initial}
-          onMouseEnter={(e) => (e.currentTarget.style = { ...hoverEffect.hover })}
-          onMouseLeave={(e) => (e.currentTarget.style = { ...hoverEffect.initial })}
-        >
-          <div className="grid grid-cols-2 gap-4">
-            <div><strong>Address:</strong> {booking.address}</div>
-            <div><strong>Base Payment:</strong> {booking.basePayment}</div>
-            <div><strong>Booking Status:</strong> {booking.bookingStatus}</div>
-            <div><strong>Date:</strong> {booking.date}</div>
-            <div><strong>Description:</strong> {booking.description}</div>
-            <div><strong>Extra Payment:</strong> {booking.extraPayment}</div>
-            <div><strong>Is Review:</strong> {booking.isReview ? 'Yes' : 'No'}</div>
-            <div><strong>Payment Status:</strong> {booking.paymentStatus}</div>
-            <div><strong>Review ID:</strong> {booking.reviewId}</div>
-            <div><strong>Service ID:</strong> {booking.serviceId}</div>
-            <div><strong>Service Provider ID:</strong> {booking.serviceProviderId}</div>
-            <div><strong>User ID:</strong> {booking.userId}</div>
-          </div>
-        </animated.div>
-      ))}
-    </animated.div>
+      <Navbarsign />
+      <animated.div style={fadeIn} className="p-5">
+        <h2 className="mt-20 px-4 md:px-8 text-2xl font-bold mb-5">Booking Details</h2>
+        {bookings.map((booking) => (
+          <animated.div
+            key={booking.id}
+            className="p-5 mb-5 bg-white rounded-lg shadow-md hover:shadow-lg transform transition duration-300"
+            style={hoverEffect.initial}
+            onMouseEnter={(e) => (e.currentTarget.style = { ...hoverEffect.hover })}
+            onMouseLeave={(e) => (e.currentTarget.style = { ...hoverEffect.initial })}
+          >
+            <div className="grid grid-cols-2 gap-4">
+              <div><strong>Address:</strong> {booking.address}</div>
+              <div><strong>Base Payment:</strong> {booking.basePayment}</div>
+              <div><strong>Booking Status:</strong> {booking.bookingStatus}</div>
+              <div><strong>Date:</strong> {booking.date}</div>
+              <div><strong>Description:</strong> {booking.description}</div>
+              <div><strong>Extra Payment:</strong> {booking.extraPayment}</div>
+              <div><strong>Is Review:</strong> {booking.isReview ? 'Yes' : 'No'}</div>
+              <div><strong>Payment Status:</strong> {booking.paymentStatus}</div>
+              <div><strong>Review ID:</strong> {booking.reviewId}</div>
+              <div><strong>Service ID:</strong> {booking.serviceId}</div>
+              <div><strong>Service Provider ID:</strong> {booking.serviceProviderId}</div>
+              <div><strong>User ID:</strong> {booking.userId}</div>
+            </div>
+          </animated.div>
+        ))}
+      </animated.div>
     </div>
   );
 };

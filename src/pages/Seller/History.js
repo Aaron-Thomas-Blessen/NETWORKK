@@ -121,8 +121,8 @@ const History = () => {
                           <div>
                             <p><strong>Address:</strong> {booking.address}</p>
                             <p><strong>Date:</strong> {booking.date}</p>
-                            <p><strong>Base Payment:</strong> ${booking.basePayment}</p>
-                            <p><strong>Extra Payment:</strong> ${booking.extraPayment}</p>
+                            <p><strong>Base Payment:</strong> Rs {booking.basePayment}</p>
+                            <p><strong>Extra Payment:</strong> Rs {booking.extraPayment}</p>
                             <p><strong>Payment Status:</strong> {booking.paymentStatus}</p>
                             <p><strong>Service Provider ID:</strong> {booking.serviceProviderId}</p>
                           </div>
