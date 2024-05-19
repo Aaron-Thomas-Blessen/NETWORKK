@@ -33,13 +33,13 @@ const BookingsPage = () => {
           ...doc.data(),
         }));
 
-        const sortByDate = (bookings) => {
-          return bookings.sort((a, b) => new Date(a.date) - new Date(b.date));
+        const sortByDateDescending = (bookings) => {
+          return bookings.sort((a, b) => new Date(b.date) - new Date(a.date));
         };
 
-        const pending = sortByDate(bookingsData.filter((booking) => booking.bookingStatus === 'Pending'));
-        const accepted = sortByDate(bookingsData.filter((booking) => booking.bookingStatus === 'Accepted'));
-        const rejected = sortByDate(bookingsData.filter((booking) => booking.bookingStatus === 'Rejected'));
+        const pending = sortByDateDescending(bookingsData.filter((booking) => booking.bookingStatus === 'Pending'));
+        const accepted = sortByDateDescending(bookingsData.filter((booking) => booking.bookingStatus === 'Accepted'));
+        const rejected = sortByDateDescending(bookingsData.filter((booking) => booking.bookingStatus === 'Rejected'));
 
         setPendingBookings(pending);
         setAcceptedBookings(accepted);
