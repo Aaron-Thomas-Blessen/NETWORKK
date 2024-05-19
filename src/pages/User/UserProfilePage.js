@@ -24,7 +24,7 @@ import { ClipLoader } from "react-spinners";
 import Navbar from "../../components/nav";
 import Autocomplete from "react-google-autocomplete";
 import { useSpring, animated, useTransition } from "@react-spring/web";
-import { FaStar, FaUserEdit, FaSave, FaTimes, FaMapMarkerAlt, FaPhone, FaEnvelope, FaHome } from "react-icons/fa";
+import { FaStar, FaUserEdit, FaMapMarkerAlt, FaPhone, FaEnvelope, FaHome } from "react-icons/fa";
 
 const UserProfilePage = () => {
   const [loading, setLoading] = useState(true);
@@ -301,7 +301,12 @@ const UserProfilePage = () => {
     const address = place.formatted_address;
     const latitude = place.geometry.location.lat();
     const longitude = place.geometry.location.lng();
-    setFormData({ ...formData, locality: address, latitude, longitude });
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      locality: address,
+      latitude,
+      longitude,
+    }));
   };
 
   return (

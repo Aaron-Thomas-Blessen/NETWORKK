@@ -180,7 +180,12 @@ const SellerProfilePage = () => {
     const address = place.formatted_address;
     const latitude = place.geometry.location.lat();
     const longitude = place.geometry.location.lng();
-    setFormData({ ...formData, locality: address, latitude, longitude });
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      locality: address,
+      latitude,
+      longitude,
+    }));
   };
 
   const handleGigClick = (gig) => {
