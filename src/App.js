@@ -15,7 +15,6 @@ import Usergigsviews from "./pages/User/Usergigsviews";
 import SearchBar from "./pages/User/Search";
 import BookingsPage from "./pages/User/ShowBookings";
 import PaymentPage from "./pages/User/Payment";
-import OtherUserProfile from "./pages/User/OtherUserProfile";
 
 import SellerProfilePage from "./pages/Seller/SellerProfilePage";
 import Gigcreate from "./pages/Seller/Gigcreate";
@@ -48,7 +47,6 @@ const App = () => {
           <Route path="/Booking" element={<Protected> <Booking /> </Protected>}></Route>
           <Route path="/showBookings" element={<Protected> <BookingsPage /> </Protected>}></Route>
           <Route path="/UserProfilePage" element={<Protected> <UserProfilePage /> </Protected>}></Route>
-          <Route path="/UserProfilePage/:userId" element={<Protected> <OtherUserProfile /> </Protected>}></Route>
           <Route path="/Usergigsviews" element={<Protected> <Usergigsviews /> </Protected>}></Route>
           <Route path="/search" element={<Protected> <SearchBar /> </Protected>}></Route>
           <Route path="/Payments" element={<Protected> <PaymentPage /> </Protected>}></Route>
