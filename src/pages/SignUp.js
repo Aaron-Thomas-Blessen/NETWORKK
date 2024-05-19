@@ -54,8 +54,14 @@ const SignUp = () => {
       }
     } catch (error) {
       setLoading(false);  // Set loading to false when sign-up fails
-      console.error('Error signing up:', error.message);
-      setError(error.message);
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(errorCode, errorMessage);
+      if (errorCode === 'auth/email-already-in-use') {
+        setError('Account already exists for this email');
+      } else {
+        setError(errorMessage);  // Ensure the error message is set correctly
+      }
     }
   };
 
