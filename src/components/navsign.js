@@ -47,7 +47,7 @@ const Navbarsign = () => {
 
   const renderAdminLinks = () => (
     <>
-      <li className="px-4 py-2 text-lg"><Link to="/admingigs" className="hover:text-gray-300 transition-colors">Gigs</Link></li>
+      <li className="px-4 py-2 text-lg"><Link to="/admingigs" className="hover:text-gray-300 transition-colors">Services</Link></li>
       <li className="px-4 py-2 text-lg"><Link to="/adminbookings" className="hover:text-gray-300 transition-colors">Bookings</Link></li>
       <li className="px-4 py-2 text-lg"><Link to="/adminpayments" className="hover:text-gray-300 transition-colors">Payments</Link></li>
       <li className="px-4 py-2 text-lg cursor-pointer hover:text-gray-300 transition-colors" onClick={handleLogout}>Logout</li>
