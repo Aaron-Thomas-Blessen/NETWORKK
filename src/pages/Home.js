@@ -352,19 +352,19 @@ const Home = () => {
 
           <div className="freqques w-1/2 mr-12">
             <hr className="my-4 border-t-2 border-gray-300" />
-            <FAQToggle question={"How are you"} answer={"All good!"}/>
+            <FAQToggle question={"How does it work ?"} answer={"All good!"}/>
             <hr className="my-4 border-t-2 border-gray-300" />
             
-            <FAQToggle question={"How are you"} answer={"All good!"}/>
+            <FAQToggle question={"Is it safe ?"} answer={"All good!"}/>
             <hr className="my-4 border-t-2 border-gray-300" />
 
-            <FAQToggle question={"How are you"} answer={"All good!"}/>
+            <FAQToggle question={"How do I sign up ?"} answer={"All good!"}/>
             <hr className="my-4 border-t-2 border-gray-300" />
 
-            <FAQToggle question={"How are you"} answer={"All good!"}/>
+            <FAQToggle question={"Can I offer my service ?"} answer={"All good!"}/>
             <hr className="my-4 border-t-2 border-gray-300" />
 
-            <FAQToggle question={"How are you"} answer={"All good!"}/>
+            <FAQToggle question={"How can I get paid ?"} answer={"All good!"}/>
             <hr className="my-4 border-t-2 border-gray-300" />
           </div>
         </div>
