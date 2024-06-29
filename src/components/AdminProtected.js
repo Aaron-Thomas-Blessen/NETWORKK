@@ -1,32 +1,23 @@
-import { useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom"
-import { auth } from "../Firebase/Firebase";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-export const AdminProtected=({children})=>{
-
-    const nav = useNavigate();
-    const [isLogged,setLogged] = useState(null);
+export const AdminProtected = ({ children }) => {
+    const navigate = useNavigate();
+    const [isAdmin, setIsAdmin] = useState(null);
 
     useEffect(() => {
-        const unsubscribe = auth.onAuthStateChanged((user) => {
-          if (user.uid === "qHwgfHx6fEgFxaSVnr21R3JeYDF2") {
-            console.log(user);
-            setLogged(true);
-          } else {
-            setLogged(false);
-          }
-        });
-        return () => unsubscribe();
-      }, []);
-      
-    switch(isLogged){
-        case true:
-            return children
-        case false:
-             nav("/");
-        case null:
-            return
-                
+        const adminState = localStorage.getItem('isAdmin');
+        if (adminState === 'true') {
+            setIsAdmin(true);
+        } else {
+            setIsAdmin(false);
+            navigate("/");
+        }
+    }, [navigate]);
+
+    if (isAdmin === null) {
+        return <div>Loading...</div>; // Optionally, return a loading indicator
     }
 
-}
+    return children;
+};

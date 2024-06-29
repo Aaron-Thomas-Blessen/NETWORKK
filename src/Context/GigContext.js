@@ -1,5 +1,4 @@
 // GigContext.js
-
 import { createContext, useContext, useState } from 'react';
 
 const GigContext = createContext();

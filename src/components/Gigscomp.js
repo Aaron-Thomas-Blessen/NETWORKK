@@ -1,43 +1,58 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { collection, query, where, getDocs } from 'firebase/firestore';
-import { useUser } from '../Context/Context';
-import { db } from '../Firebase/Firebase';
-import { useGig } from '../Context/GigContext';
+import React from 'react';
 
-const Gigcomp = () => {
-  const { user } = useUser();
-  const [userGigs, setUserGigs] = useState([]);
-  const { selectGig } = useGig(); // Use the useGig hook to select gig
-
-  useEffect(() => {
-    const fetchUserGigs = async () => {
-      try {
-          const q = query(collection(db, 'services'), where('serviceProviderId', '==', user.uid));
-          const querySnapshot = await getDocs(q);
-          const gigsData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-          setUserGigs(gigsData);
-      } catch (error) {
-        console.error('Error fetching user gigs: ', error);
-      }
-    };
-
-    if (user) {
-      fetchUserGigs();
+const Gigscomp = ({ gigs, onGigClick }) => {
+  const getStatusStyle = (status) => {
+    switch (status) {
+      case 'Accepted':
+        return 'text-green-700';
+      case 'Rejected':
+        return 'text-red-700';
+      case 'Pending':
+        return 'text-yellow-700';
+      case true:
+        return 'text-green-700';
+      case false:
+        return 'text-red-700';
+      default:
+        return 'text-gray-700';
     }
-  }, [user]);
+  };
+
+  const getStatusText = (status) => {
+    switch (status) {
+      case true:
+        return 'Open';
+      case false:
+        return 'Closed';
+      default:
+        return status;
+    }
+  };
+
+  const sortedGigs = gigs.sort((a, b) => {
+    const statusOrder = { 'Accepted': 1, 'Pending': 2, 'Rejected': 3 };
+    return (statusOrder[a.status] || 4) - (statusOrder[b.status] || 4);
+  });
 
   return (
     <div>
-      <div className="container mx-auto mt-8">
-        
+      <div className="container mx-auto mt-8"> 
         <div className="grid grid-cols-3 gap-4">
-          {userGigs.map(gig => (
-            <div key={gig.id} className="bg-white p-4 shadow-md rounded-md">
+          {sortedGigs.map(gig => (
+            <div
+              key={gig.id}
+              onClick={() => onGigClick(gig)}
+              className="p-4 border border-gray-300 rounded-lg mb-4 hover:shadow-lg hover:bg-gray-100 transition duration-300 cursor-pointer"
+            >
               <h2 className="text-xl font-semibold">{gig.title}</h2>
-              <Link to={`/ProfileDashboard`} onClick={() => selectGig(gig)} className="text-blue-500 hover:underline mt-2 block">
-                View Details
-              </Link>
+              <p>
+                <span className="text-black">Shop Status: </span>
+                <span className={getStatusStyle(gig.isOpen)}>{getStatusText(gig.isOpen)}</span>
+              </p>
+              <p>
+                <span className="text-black">Gig Status: </span>
+                <span className={getStatusStyle(gig.status)}>{gig.status}</span>
+              </p>
             </div>
           ))}
         </div>
@@ -46,5 +61,4 @@ const Gigcomp = () => {
   );
 };
 
-export default Gigcomp;
-
+export default Gigscomp;
