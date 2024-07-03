@@ -45,7 +45,7 @@ Role-based Access Control: Differentiates access for users, service providers, a
 3. Service Management Module
 Service Listings: Allows service providers to create and manage service listings.
 Service Search: Enables users to search for services based on various parameters such as type, location, and ratings.
-Booking Management: Facilitates booking of services by users and allows service providers to manage bookings.
+Booking Management: Facilitates booking of services by users and allows service providers to manage bookings. 
 
 4. Review and Rating Module
 User Reviews: Enables users to provide feedback on service providers.
