@@ -1,17 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { db, storage } from "../../Firebase/Firebase";
-import {
-  doc,
-  getDoc,
-  updateDoc,
-  collection,
-  query,
-  where,
-  getDocs,
-  addDoc,
-  arrayUnion,
-  increment,
-} from "firebase/firestore";
+import { doc, getDoc, updateDoc, collection, query, where, getDocs, addDoc, arrayUnion, increment } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import {
   ref as storageRef,

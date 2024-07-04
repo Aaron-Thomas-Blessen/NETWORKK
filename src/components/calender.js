@@ -15,11 +15,6 @@ const MyCalendar = () => {
       initialView: 'dayGridMonth',
       initialDate: '2024-05-01', // Set the initial date to April 1st, 2024
       fixedWeekCount: true,
-      // events: [
-      //   { title: 'Event 1', date: '2024-04-01' },
-      //   { title: 'Event 2', date: '2024-04-05' },
-      //   { title: 'Event 3', date: '2024-04-10' },
-      // ],
     });
 
     calendar.render();

@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Protected } from "./components/Protected";
+import { UserProtected } from "./components/UserProtected";
+import { ServiceProviderProtected } from "./components/ServiceProviderProtected";
 import { AdminProtected } from "./components/AdminProtected";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -44,18 +45,18 @@ const App = () => {
           <Route path="/Adminbookings" element={<AdminProtected> <AdminBookings /> </AdminProtected>}></Route>
           <Route path="/Adminpayments" element={<AdminProtected> <AdminPaymentDetails /> </AdminProtected>}></Route>
 
-          <Route path="/Booking" element={<Protected> <Booking /> </Protected>}></Route>
-          <Route path="/showBookings" element={<Protected> <BookingsPage /> </Protected>}></Route>
-          <Route path="/UserProfilePage" element={<Protected> <UserProfilePage /> </Protected>}></Route>
-          <Route path="/Usergigsviews" element={<Protected> <Usergigsviews /> </Protected>}></Route>
-          <Route path="/search" element={<Protected> <SearchBar /> </Protected>}></Route>
-          <Route path="/Payments" element={<Protected> <PaymentPage /> </Protected>}></Route>
+          <Route path="/Booking" element={<UserProtected> <Booking /> </UserProtected>}></Route>
+          <Route path="/showBookings" element={<UserProtected> <BookingsPage /> </UserProtected>}></Route>
+          <Route path="/UserProfilePage" element={<UserProtected> <UserProfilePage /> </UserProtected>}></Route>
+          <Route path="/Usergigsviews" element={<UserProtected> <Usergigsviews /> </UserProtected>}></Route>
+          <Route path="/search" element={<UserProtected> <SearchBar /> </UserProtected>}></Route>
+          <Route path="/Payments" element={<UserProtected> <PaymentPage /> </UserProtected>}></Route>
 
-          <Route path="/History" element={<Protected> <History /> </Protected>}></Route>
-          <Route path="/showSellerBookings" element={<Protected> <SellerBookingsPage /> </Protected>}></Route>
-          <Route path="/SellerProfilePage" element={<Protected> <SellerProfilePage /> </Protected>}></Route>
-          <Route path="/Gigcreate" element={<Protected> <Gigcreate /> </Protected>}></Route>
-          <Route path="/ProfileDashboard" element={<Protected> <ProfileDashboardPage /> </Protected>}></Route>
+          <Route path="/History" element={<ServiceProviderProtected> <History /> </ServiceProviderProtected>}></Route>
+          <Route path="/showSellerBookings" element={<ServiceProviderProtected> <SellerBookingsPage /> </ServiceProviderProtected>}></Route>
+          <Route path="/SellerProfilePage" element={<ServiceProviderProtected> <SellerProfilePage /> </ServiceProviderProtected>}></Route>
+          <Route path="/Gigcreate" element={<ServiceProviderProtected> <Gigcreate /> </ServiceProviderProtected>}></Route>
+          <Route path="/ProfileDashboard" element={<ServiceProviderProtected> <ProfileDashboardPage /> </ServiceProviderProtected>}></Route>
         </Routes>
     </BrowserRouter>
   );
