@@ -110,7 +110,7 @@ const PaymentPage = () => {
       ) : (
         <animated.div
           style={fade}
-          className="mt-16 px-4 md:px-8 PaymentPage container mx-auto px-4 py-8"
+          className="mt-16 px-4 md:px-8 PaymentPage container mx-auto  py-8"
         >
           <animated.div
             style={shadow}
