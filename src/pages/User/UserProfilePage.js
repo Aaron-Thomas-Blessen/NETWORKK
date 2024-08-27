@@ -452,7 +452,7 @@ const UserProfilePage = () => {
                             Locality:
                           </label>
                           <Autocomplete
-                            apiKey="AIzaSyDjLpn8fDYOJJ9Yj7PVsJzslIiVfk2iiHg"
+                            apiKey=""
                             className="border border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                             options={{
                               componentRestrictions: { country: "in" },
